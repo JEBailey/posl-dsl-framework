@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>POSL Grammar</title>
+<!-- First, we load the supporting JS library. -->
+<script src="./railroad.js"></script>
+<style>
+.terminal { border: 1px solid black; border-radius: 6px; padding: 2px; background: #efe; display: inline-block; text-align: center }
+.nonterminal { border: 1px solid black; padding: 2px; background: #efe; display: inline-block }
+</style>
+</head>
+<body>
+<p>A block is a series of statements.</p>
+<div id="block-railroad"></div>
+
+<p>An list is an ordered collection of values.</p>
+<div id="list-railroad"></div>
+
+<p>A bracketed-statement is given priority evaluation</p>
+<div id="bracketed-statement-railroad"></div>
+
+<p>A statement is one or more values, where the first value is assumed to be executable and if not is returned</p>
+<div id="statement-railroad"></div>
+
+<p>A value can be a string in double quotes, a number, a keyword, a block, a list, or a bracketed-statement</p>
+<div id="value-railroad"></div>
+
+<p>A keyword is a series of UTF-16 characters of type Alphabet</p>
+<div id="keyword-railroad"></div>
+
+
+
+<p>A string is a sequence of zero or more UTF-16 Unicode code units.
+<div id="string-railroad"></div>
+
+<p>A number is very much like a C or Java number, except that the octal and hexadecimal formats are not used, and there is no letter suffix to specify size or signedness.
+<div id="number-railroad"></div>
+
+<script>
+(function () {
+// Import the grammar definition functions from railroad.js
+var any = railroad.any,      // Like * in EBNF (0 or more repetitions)
+    each = railroad.each,    // each(a, b, c)  produces (A -> B -> C)
+    many = railroad.many,    // Like + in EBNF (1 or more repetitions)
+    maybe = railroad.maybe,  // Like ? in EBNF (0 or 1 occurences)
+    or = railroad.or;        // Like | in EBNF (choose 1 of)
+
+// Define some helper functions that format things the way we like.
+/** Plain text to HTML. */
+function html(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/\u0022/g, '&quot;').replace(/\u0027/g, '&#39;');
+}
+
+/** Produces HTML for a literal sequence of characters. */
+function terminal(str) {
+  return '<span class=terminal>`<kbd>' + html(str) + '<\/kbd>`<\/span>';
+}
+
+function term(str) {
+	  return '<span class=terminal>'+str+'<\/span>';
+	}
+
+/** Generate a reference to another production, possibly linking to it. */
+function nonTerminal(name) {
+  if (document.getElementById(name + '-railroad')) {
+    return '<span class=nonterminal><a href="#' + html(name) + '-railroad">' + html(name) + '<\/a><\/span>';
+  } else {
+    return '<span class=nonterminal>' + html(name) + '<\/span>';
+  }
+}
+
+/** Fills in one of the <div id=*-railroad> above. */
+function grammar(name, root) {
+  var stats = {};
+  var railroadContainer = document.getElementById(name + '-railroad');
+  railroad.appendToDOM(root, railroadContainer, stats);
+  railroadContainer.style.width = stats.width + 'px';
+  railroadContainer.style.height = stats.height + 'px';
+}
+
+
+// Use a declarative syntax to define the grammar.
+grammar('block',
+    each(
+        terminal('{'),
+        any(nonTerminal('statement')),
+        terminal('}')));
+        
+grammar('statement',
+	each(
+		many(nonTerminal('value')),
+		terminal('EOL')));
+
+grammar('list',
+    each(
+        terminal('('),
+        any(nonTerminal('value')),
+        terminal(')')));
+        
+grammar('keyword',
+	    each(
+	    	'<span class=terminal><i>Any&nbsp;UNICODE&nbsp;character<br>of&nbsp;type&nbsp;ALPHABET</i></span>',
+	        any( or( term('<i>Any&nbsp;UNICODE&nbsp;character<br>of&nbsp;type&nbsp;ALPHABET</i>'),
+	        		 terminal('_'))
+	        )
+	        ));
+
+grammar('value',
+    or(
+        nonTerminal('string'),
+        nonTerminal('number'),
+        nonTerminal('keyword'),
+        nonTerminal('block'),
+        nonTerminal('list'),
+        nonTerminal('bracketed-statement')));
+        
+grammar('bracketed-statement',
+		each(
+	        terminal('['),
+	        maybe(nonTerminal('statement')),
+	        terminal(']')));
+
+grammar('string',
+    each(
+        terminal('\u0022'),
+        any(
+            or(
+                '<span class=terminal><i>Any&nbsp;UNICODE&nbsp;code&nbsp;unit&nbsp;except<br>`<kbd>&quot;</kbd>`,&nbsp;<kbd>`\\`</kbd>,&nbsp;or&nbsp;a&nbsp;control&nbsp;character</i></span>',
+                each(
+                    terminal('\\'),
+                    or(
+                         terminal('\u0022', 'quotation mark'),
+                         terminal('\\', 'reverse solidus'),
+                         terminal('/', 'solidus'),
+                         terminal('b', 'backspace'),
+                         terminal('f', 'backspace'),
+                         terminal('n', 'backspace'),
+                         terminal('r', 'backspace'),
+                         terminal('t', 'backspace'),
+                         each(terminal('u'), '<span class=terminal>4&nbsp;hexadecimal<br>digits<\/span>'))))),
+        terminal('\u0022')));
+
+var digit = '<span class=terminal>digit</span>';
+grammar('number',
+    each(
+        maybe(terminal('-')),
+        many(digit),
+        maybe(
+            each(terminal('.'), any(digit))),
+        maybe(
+            each(
+                or(terminal('e'), terminal('E')),
+                maybe(or(terminal('+'), terminal('-'))),
+                many(digit)))));
+   })();   
+</script>
+</body>
+</html>
