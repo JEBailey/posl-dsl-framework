@@ -5,8 +5,8 @@ Posl is a framework to provide a custom dsl(domain specific language)for develop
 
 POSL-ENGINE
 -----------
-engine is the basic building block of the posl framework. The engine is what facillitates the other addons.
+engine is the basic building block of the posl framework. The engine is what facilitates the other addons.
 
 POSL-MATH
 -----------
-Math capabilities. The abilities to perform basic math functionsand compairisons
+Math capabilities. The abilities to perform basic math function and comparisons
