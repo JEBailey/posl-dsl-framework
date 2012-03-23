@@ -14,7 +14,7 @@ public class MathImpl implements PoslImpl {
 
 	@Override
 	public String getName() {
-		return "posl:lang:math";
+		return "posl.lang.math";
 	}
 
 	@Override
