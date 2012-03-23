@@ -13,7 +13,7 @@ public class FunctionImpl implements PoslImpl {
 
 	@Override
 	public String getName() {
-		return "posl:lang:function";
+		return "posl.lang.function";
 	}
 
 	@Override
