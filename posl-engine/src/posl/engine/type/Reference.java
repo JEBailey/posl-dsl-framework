@@ -39,7 +39,7 @@ public class Reference {
 		this.scope.put(key.toString(), value);
 	}
 	
-	public Object updateValue(Object value){
+	public Object updateValue(Object value) {
 		return this.scope.update(key.toString(), value);
 	}
 	

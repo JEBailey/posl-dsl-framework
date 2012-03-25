@@ -74,7 +74,7 @@ public class Scope {
 		return this;
 	}
 
-	public Object update(Atom key, Object value) {
+	public Object update(Atom key, Object value) throws Exception {
 		return update(key.toString(), value);
 	}
 
@@ -191,14 +191,15 @@ public class Scope {
 		return null;
 	}
 	
-	public Object update(String key,Object value) {
+	public Object update(String key,Object value)  {
 		if (content.containsKey(key)){
 			put(key,value);
 		} else {
 			if (enclosingScope != null){
 				enclosingScope.update(key, value);				
 			} else {
-				//todo
+				//TODO:
+				throw new RuntimeException("unable to update value that's not defined");
 			}
 		}
 		return value;
