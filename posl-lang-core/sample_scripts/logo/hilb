@@ -1,0 +1,32 @@
+pencolor blue
+
+function hilb (n a h) {
+  if [> n 0] {
+      right a 
+      hilb [- n 1] [- 0 a] h 
+      forward h 
+      left a
+      hilb [- n 1] a h 
+      forward h
+      hilb [- n 1] a h 
+      left a 
+      forward h
+      hilb [- n 1] [- 0 a] h
+      right a
+  }
+  paint
+}
+
+
+function moveit(angle) {
+	set count 0
+	repeat angle {
+		++ count
+		center_height
+		center_width
+		clear
+		hilb 5 count 6
+		pause 100
+	}
+}
+moveit 90

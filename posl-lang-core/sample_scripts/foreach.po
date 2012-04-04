@@ -1,0 +1,10 @@
+import "/po/library/standard"
+
+println "\n** FOREACH TEST - import functionality from standard lib**"
+foreach [ .. 1 12] {
+    println "hi! number " item
+}
+
+foreach (1 2 3 (2 3) 5) {
+    println "hi! number " item
+}

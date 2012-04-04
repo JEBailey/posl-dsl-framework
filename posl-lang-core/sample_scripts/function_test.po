@@ -1,0 +1,39 @@
+import "/po/library/standard"
+
+
+// interesting example, we're going to declare a block of code
+// and associate it with a variable
+// then call a function which will execute said block
+
+
+println "##EVAL TEST"
+println "following test prints \"hello world my name is jason\" "
+
+set hello {
+	//note that at this point name is undefined
+	println "hello world my name is " name
+}
+
+function saysomething (codeblock name) {
+	eval codeblock
+}
+
+saysomething hello "jason"
+
+
+//Euclidean
+
+function euclidAlgorithmRecursive (u v) {
+    if [= v 0] {
+    	u
+    } {
+        euclidAlgorithmRecursive v [mod u v]
+    }
+}
+
+println "EUCLIDEAN GCD RECURSIVE"
+println "GCD of 40902 and 24140 is " [euclidAlgorithmRecursive 40902 24140]
+println "GCD of 12 and 8 is " [euclidAlgorithmRecursive 12 8]
+println "GCD of 8 and 12 is " [euclidAlgorithmRecursive 8 12]
+println "GCD of 3 and 7 is " [euclidAlgorithmRecursive 3 7]
+

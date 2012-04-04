@@ -1,0 +1,23 @@
+function axiom (n a h) {
+	function one (n a h) {
+		if [> n 0] {
+			forward h
+			one [- n 1] a h
+		}
+	}
+	function zero (n a h) {
+		if [> n 0] {
+			one [ - n 1] a h
+			left a
+			zero [- n 1] a h
+			right [* 2 a]
+			zero [- n 1] a h
+			left a
+		}
+	}
+	zero n a h
+}
+clear
+center_width
+center_height
+axiom 7 45 10

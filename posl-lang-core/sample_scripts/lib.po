@@ -1,0 +1,85 @@
+
+function ^ (x y) {
+	if [< y 2] x [* x [^ x [-- y]]]
+}
+
+/*
+* ternary operator
+*/
+function ? (predicate result1 result2) {
+	//return the result without evaluating
+	if predicate result1 result2
+}
+
+//Logic related functions
+
+function <= (value1 value2) {
+	if [< value1 value2] true [= value1 value2]
+}
+
+function >= (value1 value2) {
+	if [> value1 value2] { true } {
+		= value1 value2
+	}
+}
+
+
+
+set	E 	2.718281828459045
+set	PI 	3.141592653589793
+
+function swap (list) {
+	if [empty? list] {
+            ()
+	} {
+	    append [swap [rest list]] [head list]
+	}
+}
+
+function incr(x) {
+	+ x 1
+}
+
+function decr(x) {
+	- x 1
+}
+
+/*
+* inclusive range
+*/
+function .. (begin end) {
+	set func [? [<= begin end] incr decr ]
+	if [= begin end] {
+		append () begin
+	} {
+		push [.. [func begin] end] begin
+	}
+}
+
+
+
+/**
+ *  iterates through a list and executes 
+ *  the passed in block
+ */
+
+function foreach(list block) {
+    if [not [empty? list]] {
+        set item [head list]
+	eval block
+        foreach [rest list] block
+    }
+}
+
+/*
+ * Applies a function identified by func to every item in
+ * the list - uhmmm currently broken
+ */
+
+function map (func list) {
+	until [empty? list] {
+	    func [pop list]
+	}
+}
+
+println [.. 1 12]

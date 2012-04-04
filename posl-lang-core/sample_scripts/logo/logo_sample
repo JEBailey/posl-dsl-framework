@@ -1,0 +1,19 @@
+set minimum 4
+set angle 27
+set step 4
+
+function tree (distance) {
+   if [> distance  minimum] {
+       forward distance
+       right angle
+       tree [- distance step]
+       left [* angle 2]
+       tree [- distance step]
+       right angle
+       back distance
+   }
+}
+home
+clear
+center_width
+tree 50

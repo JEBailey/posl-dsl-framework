@@ -1,0 +1,56 @@
+import "/po/library/standard"
+
+importJava javax.swing.JFrame
+importJava javax.swing.JButton
+importJava javax.swing.JTextField
+importJava java.lang.StringBuilder
+importJava javax.swing.JPanel
+importJava java.awt.GridLayout
+
+function button(content) {
+	set b [java JButton]
+	b setText content
+	b
+}
+set frame [java JFrame]
+
+set textField [java JTextField]
+textField setColumns [int 10]
+textField setHorizontalAlignment [textField RIGHT]
+set text [java StringBuilder]
+
+function create_listener(n){
+	proxy ("java.awt.event.MouseListener") {
+		function mouseClicked (event) {
+			println "mouse clicked " n 
+			println [str text]
+			text append [str n]
+			textField setText [text toString]
+		}
+		
+		function mouseEntered (event) {
+			println "mouse entered " n
+		}
+	}
+}
+
+frame setSize [int 400] [int 400]
+
+set pane [frame getContentPane]
+set panel [java JPanel]
+set layout [java GridLayout]
+panel setLayout layout
+layout setRows [int 4]
+layout setColumns [int 2]
+pane add panel
+panel add textField
+foreach [ .. 1 9 ] {
+	set b [button [str item]]
+	panel add b
+	b addMouseListener [create_listener item]
+}
+
+frame setVisible true
+frame setDefaultCloseOperation [int 2] //DISPOSE ON CLOSE
+
+
