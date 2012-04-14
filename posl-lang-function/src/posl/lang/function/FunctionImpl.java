@@ -2,7 +2,6 @@ package posl.lang.function;
 
 import posl.engine.core.Context;
 import posl.engine.spi.PoslImpl;
-import posl.lang.CoreFunction;
 
 public class FunctionImpl implements PoslImpl {
 
@@ -18,7 +17,7 @@ public class FunctionImpl implements PoslImpl {
 
 	@Override
 	public void visit(Context context) {
-		context.load(CoreFunction.class);
+		
 	}
 
 }
