@@ -44,8 +44,7 @@ public class Reference {
 	}
 	
 	public Object put(Object value){
-		scope.put(key.toString(), value);
-		return value;
+		return scope.put(key.toString(), value);
 	}
 	
 	public void createChildScope(){
