@@ -9,7 +9,6 @@ public class CoreImpl implements PoslImpl {
 	public String[] getRequires() {
 		return new String[]{
 				"posl.lang.math",
-				"posl.lang.java",
 				"posl.lang.function"
 		};
 	}
@@ -24,6 +23,7 @@ public class CoreImpl implements PoslImpl {
 		context.load(Core.class);
 		context.load(CoreList.class);
 		context.load(Types.class);
+		context.load(Var.class);
 	}
 
 }

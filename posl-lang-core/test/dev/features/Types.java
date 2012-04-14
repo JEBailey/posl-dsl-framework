@@ -17,7 +17,7 @@ public class Types {
 
     @Before
     public void setUp() throws PoslException {
-		context = PoslProvider.getContext("posl:lang:core");
+		context = PoslProvider.getContext("posl.lang.core");
     }
 
 	@Test

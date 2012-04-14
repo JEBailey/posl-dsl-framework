@@ -21,7 +21,7 @@ public class Newton {
 	
 	@Before
 	public void setUp() throws Exception {
-		context = PoslProvider.getContext("posl:lang:core");
+		context = PoslProvider.getContext("posl.lang.core");
 	}
 
 	@Test
