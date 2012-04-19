@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.Shape;
 import java.util.List;
 
 import javax.swing.text.BadLocationException;
@@ -13,7 +12,6 @@ import javax.swing.text.Element;
 import javax.swing.text.PlainView;
 import javax.swing.text.Segment;
 import javax.swing.text.Utilities;
-import javax.swing.text.ViewFactory;
 
 import posl.engine.token.Token;
 
@@ -87,14 +85,6 @@ class PoslView extends PlainView {
 		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		return super.drawSelectedText(g2, x, y, p0, p1);
-	}
-
-	@Override
-	protected void updateDamage(javax.swing.event.DocumentEvent changes,
-			Shape a, ViewFactory f) {
-		super.updateDamage(changes, a, f);
-		java.awt.Component host = getContainer();
-		host.repaint();
 	}
 
 	/**
