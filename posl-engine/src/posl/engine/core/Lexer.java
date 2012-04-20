@@ -60,6 +60,9 @@ public class Lexer implements ILexer {
 			} else
 			// numbers
 			if (isDigit(val()) || (val() == '-' && isDigit(LA(1)))) {
+				if (val()=='0' && LA(1) == 'x'){
+					processHexCode();
+				}
 				processNumber();
 			} else
 			// atom/id
@@ -82,6 +85,18 @@ public class Lexer implements ILexer {
 
 		}
 		tokens.add(Token.EOL(pos()));
+	}
+//TODO
+	private void processHexCode() {
+		StringBuffer sb = new StringBuffer();
+		startOfToken = pos();
+		sb.append(pop());
+		sb.append(pop());
+		while (isDigit(val()) || isHex(val())) {
+			sb.append(pop());
+		}
+		tokens.add(Token.NUMBER(sb.toString(),startOfToken));
+		
 	}
 
 	private void processEolComment() {
@@ -219,7 +234,11 @@ public class Lexer implements ILexer {
 	}
 
 	private boolean isDigit(int value) {
-		return ((value >= '0') && (value <= '9'));
+		return value >= '0' && value <= '9';
+	}
+	
+	private boolean isHex(int value) {
+		return (value >= 'a' && value <= 'f') || (value >= 'A' && value <= 'F');
 	}
 
 	private boolean isAlpha(int value) {
