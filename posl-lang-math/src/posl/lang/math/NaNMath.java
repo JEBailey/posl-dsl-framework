@@ -1,6 +1,6 @@
 package posl.lang.math;
 
-import posl.engine.util.NaN;
+import posl.math.util.NaN;
 
 /**
  * 

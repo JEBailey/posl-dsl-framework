@@ -18,7 +18,7 @@ package posl.lang.math;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import posl.engine.util.NaN;
+import posl.math.util.NaN;
 
 
 /**
