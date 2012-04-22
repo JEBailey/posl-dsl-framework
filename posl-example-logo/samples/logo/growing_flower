@@ -1,0 +1,29 @@
+center_width
+center_height
+
+
+
+function demo () {
+	set length 9
+	set stemlength 60
+	repeat 15 {
+		clear
+		pencolor green
+		back stemlength
+		let stemlength [+ stemlength 5]
+		forward stemlength
+		pencolor red
+		repeat 18 {
+			repeat 6 {
+				forward length
+				left 60
+			}
+			left 20
+		}
+		let length [+ length 2]
+		paint
+		pause 100
+	}
+}
+
+demo

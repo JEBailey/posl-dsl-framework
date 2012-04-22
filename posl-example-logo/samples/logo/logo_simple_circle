@@ -1,0 +1,18 @@
+center_width
+center_height
+
+clear
+pencolor red
+
+function circle() {
+	repeat 360 {
+		forward 1
+		right 1
+	}
+}
+
+repeat 72 {
+	circle
+	pause 10
+	right 5
+}

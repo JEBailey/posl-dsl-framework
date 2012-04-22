@@ -1,0 +1,12 @@
+center_width
+center_height
+
+pencolor black
+clear
+repeat 12 {
+	repeat 360 {
+		forward 100 
+		right 100
+	}
+	right 60 //60
+}

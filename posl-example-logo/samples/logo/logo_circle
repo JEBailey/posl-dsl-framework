@@ -1,0 +1,12 @@
+center_width
+center_height
+
+clear
+
+repeat 72 {
+	repeat 360 {
+		forward 1
+		right 1
+	}
+	right 5
+}
