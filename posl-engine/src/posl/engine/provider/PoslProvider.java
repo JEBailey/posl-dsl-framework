@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
+import java.util.logging.Logger;
 
 import posl.engine.core.Context;
 import posl.engine.spi.PoslImpl;
@@ -13,13 +15,19 @@ import posl.engine.spi.PoslImpl;
 
  */
 public final class PoslProvider {
-
+	
 	@SuppressWarnings("serial")
 	private static Map<String, PoslImpl> impls = new HashMap<String, PoslImpl>() {
 		{
-			for (PoslImpl p : ServiceLoader
-					.load(PoslImpl.class)) {
-				put(p.getName(), p);
+			Logger log = Logger.getLogger(PoslProvider.class.getName());
+			
+			try {
+				for (PoslImpl p : ServiceLoader.load(PoslImpl.class)) {
+					put(p.getName(), p);
+				}
+			} catch (ServiceConfigurationError sce) {
+				//not enough to warrant killing the process
+				log.warning(sce.getLocalizedMessage());
 			}
 		}
 	};
@@ -36,7 +44,6 @@ public final class PoslProvider {
 		PoslImpl start = impls.get(language);
 		List<PoslImpl> list = new ArrayList<PoslImpl>();
 		populateImpls(language, list);
-		
 		Graph<PoslImpl> graph = new Graph<PoslImpl>();
 		for (PoslImpl source : list) {
 			for (String implName : source.getRequires()) {
@@ -44,13 +51,13 @@ public final class PoslProvider {
 				graph.addEdge(target, source);
 			}
 		}
-		
+
 		Context context = new Context();
-		
-		for (PoslImpl impl:graph.getList(start)){
+
+		for (PoslImpl impl : graph.getList(start)) {
 			impl.visit(context);
 		}
-		
+
 		return context;
 	}
 
@@ -62,8 +69,7 @@ public final class PoslProvider {
 	 * @param currentNode
 	 * @param visited
 	 */
-	private static void populateImpls(String currentNode,
-			List<PoslImpl> visited) {
+	private static void populateImpls(String currentNode, List<PoslImpl> visited) {
 		PoslImpl poslImpl = impls.get(currentNode);
 		if (poslImpl == null) {
 			throw new RuntimeException("missing language implementation "

@@ -283,6 +283,4 @@ public class Lexer implements ILexer {
 		return wrapper.pos();
 	}
 
-
-
 }

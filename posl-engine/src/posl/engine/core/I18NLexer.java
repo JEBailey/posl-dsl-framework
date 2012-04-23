@@ -8,7 +8,7 @@ import java.util.List;
 import posl.engine.api.ILexer;
 import posl.engine.token.Token;
 
-public class InternationalLexer implements ILexer {
+public class I18NLexer implements ILexer {
 
 	// list of tokens to be returned
 	protected List<Token> tokens;
