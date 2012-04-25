@@ -37,7 +37,7 @@ import javax.swing.event.DocumentListener;
 import posl.editorkit.DocumentImpl;
 import posl.editorkit.PoslEditorKit;
 import posl.engine.error.PoslException;
-import posl.logo.LogoWindow;
+import posl.logo.ui.LogoWindow;
 
 public class Editor {
 

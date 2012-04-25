@@ -20,7 +20,7 @@ import posl.engine.core.Context;
 import posl.engine.error.PoslException;
 import posl.engine.provider.PoslProvider;
 import posl.engine.type.Reference;
-import posl.logo.impl.Turtle;
+import posl.logo.lib.Turtle;
 
 public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 

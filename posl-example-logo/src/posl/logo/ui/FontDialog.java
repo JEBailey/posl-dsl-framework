@@ -1,4 +1,4 @@
-package posl.logo;
+package posl.logo.ui;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;

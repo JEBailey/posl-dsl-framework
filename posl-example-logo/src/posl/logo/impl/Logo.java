@@ -1,10 +1,10 @@
-package posl.logo;
+package posl.logo.impl;
 
 import posl.engine.core.Context;
 import posl.engine.spi.PoslImpl;
-import posl.logo.impl.Colors;
+import posl.logo.lib.Colors;
 
-public class LogoImpl implements PoslImpl {
+public class Logo implements PoslImpl {
 
 	@Override
 	public String[] getRequires() {

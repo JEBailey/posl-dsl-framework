@@ -1,8 +1,6 @@
 center_width
 center_height
 
-
-
 function demo () {
 	set length 9
 	set stemlength 60

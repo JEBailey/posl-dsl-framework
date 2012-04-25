@@ -1,4 +1,4 @@
-package posl.logo.impl;
+package posl.logo.lib;
 
 import java.awt.Color;
 
