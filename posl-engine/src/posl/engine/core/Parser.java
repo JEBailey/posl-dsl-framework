@@ -114,24 +114,7 @@ public class Parser implements IParser {
 	 * This is where most of the magic happens, the posl grammar follows a simple
 	 * syntax that consists of a series of statements. A statement consists of a
 	 * command and then a list of arguments.
-	 * 
-	 * The natural assumption from this syntax is that the first token we
-	 * receive will be either an Atom(a word token representing a keyword or
-	 * procedure), or a priority which itself contains a statement.
-	 * 
-	 * 
-	 * i.e. [<= [++ x] 4000] will translate to is the increment of x equal to
-	 * or less than 4000
-	 * 
-	 * '[' statement ']' represents a priority. This means that the statement
-	 * inside the square brackets is evaluated first before the rest of the
-	 * statement
-	 * 
-	 * [* [/ 6 3] [+ 2 2]] would equal 8
-	 * 
-	 * '{' statements '}' represents a block of code. This block can holds an
-	 * unevaluated series of tokens which can be called at any time.
-	 * 
+	 *  
 	 */
 	private void retrieveLine() throws PoslException {
 		while (lexer.hasMore()) {

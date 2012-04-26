@@ -23,16 +23,14 @@ public class Lexer implements ILexer {
 	 */
 	public void tokenize(InputStream is) {
 		wrapper = new StreamWrapper(is);
-		tokens =  new ArrayList<Token>();
+		tokens = new ArrayList<Token>();
 		tokenize();
-		// we no longer need and the system won't garbage collect
-		// while object is active.
 		wrapper = null;
 	}
-	
+
 	public void tokenize(Reader reader) {
 		wrapper = new StreamWrapper(reader);
-		tokens =  new ArrayList<Token>();
+		tokens = new ArrayList<Token>();
 		tokenize();
 		wrapper = null;
 	}
@@ -60,7 +58,7 @@ public class Lexer implements ILexer {
 			} else
 			// numbers
 			if (isDigit(val()) || (val() == '-' && isDigit(LA(1)))) {
-				if (val()=='0' && LA(1) == 'x'){
+				if (val() == '0' && LA(1) == 'x') {
 					processHexCode();
 				}
 				processNumber();
@@ -76,17 +74,17 @@ public class Lexer implements ILexer {
 			// string
 			if (val() == '"') {
 				processQuote();
-			} else 
-			{
+			} else {
 				if (val() > 0) {
-					tokens.add(Token.GRAMMAR(pop(),pos() -1));
+					tokens.add(Token.GRAMMAR(pop(), pos() - 1));
 				}
 			}
 
 		}
 		tokens.add(Token.EOL(pos()));
 	}
-//TODO
+
+	// TODO
 	private void processHexCode() {
 		StringBuffer sb = new StringBuffer();
 		startOfToken = pos();
@@ -95,8 +93,8 @@ public class Lexer implements ILexer {
 		while (isDigit(val()) || isHex(val())) {
 			sb.append(pop());
 		}
-		tokens.add(Token.NUMBER(sb.toString(),startOfToken));
-		
+		tokens.add(Token.NUMBER(sb.toString(), startOfToken));
+
 	}
 
 	private void processEolComment() {
@@ -164,11 +162,11 @@ public class Lexer implements ILexer {
 		}// end while
 		if (val() == '"') {
 			pop();
-			tokens.add(Token.STRING(sb.toString(),startOfToken));
+			tokens.add(Token.STRING(sb.toString(), startOfToken));
 		} else {
 			wrapper.reset();
 			pop();
-			tokens.add(Token.WORD("\"",startOfToken));
+			tokens.add(Token.WORD("\"", startOfToken));
 		}
 
 	}
@@ -190,13 +188,14 @@ public class Lexer implements ILexer {
 					sb.append(pop());
 					consumeDigits(sb);
 				} else {
-					tokens.add(Token.NUMBER(sb.substring(0, wrapper.getMark()),startOfToken));
+					tokens.add(Token.NUMBER(sb.substring(0, wrapper.getMark()),
+							startOfToken));
 					wrapper.reset();
 				}
 			}
 		}
-		
-		tokens.add(Token.NUMBER(sb.toString(),startOfToken));
+
+		tokens.add(Token.NUMBER(sb.toString(), startOfToken));
 	}
 
 	private void consumeDigits(StringBuffer sb) {
@@ -213,7 +212,7 @@ public class Lexer implements ILexer {
 				|| val() == '_') {
 			sb.append(pop());
 		}
-		tokens.add(Token.WORD(sb.toString(),startOfToken));
+		tokens.add(Token.WORD(sb.toString(), startOfToken));
 	}
 
 	private void processSpecial() {
@@ -223,7 +222,7 @@ public class Lexer implements ILexer {
 		while (isSpecial(val())) {
 			sb.append(pop());
 		}
-		tokens.add(Token.WORD(sb.toString(),startOfToken));
+		tokens.add(Token.WORD(sb.toString(), startOfToken));
 	}
 
 	private boolean isSpecial(int value) {
@@ -236,7 +235,7 @@ public class Lexer implements ILexer {
 	private boolean isDigit(int value) {
 		return value >= '0' && value <= '9';
 	}
-	
+
 	private boolean isHex(int value) {
 		return (value >= 'a' && value <= 'f') || (value >= 'A' && value <= 'F');
 	}
@@ -262,8 +261,8 @@ public class Lexer implements ILexer {
 		}
 		return null;
 	}
-	
-	public List<Token> getTokens(){
+
+	public List<Token> getTokens() {
 		return tokens;
 	}
 
@@ -276,7 +275,7 @@ public class Lexer implements ILexer {
 	}
 
 	public char pop() {
-		return (char)wrapper.pop();
+		return (char) wrapper.pop();
 	}
 
 	private int pos() {

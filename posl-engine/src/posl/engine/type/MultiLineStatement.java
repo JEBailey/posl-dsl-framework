@@ -7,15 +7,21 @@ import posl.engine.api.IStatement;
 
 public class MultiLineStatement implements IStatement, Iterable<Statement> {
 	
-	private LinkedList<Statement> statements = new LinkedList<Statement>();
+	private LinkedList<Statement> content = new LinkedList<Statement>();
 	
 	private Statement statement;
 	public int lineNumber = -1;
+
+	private boolean isMultiLine;
 	
 	public MultiLineStatement(int lineNumber){
-		super();
-		statement = new Statement(lineNumber+1);
-		this.lineNumber = lineNumber + 1;
+		this(lineNumber,true);
+	}
+	
+	public MultiLineStatement(int lineNumber,boolean isMultiLine){
+		statement = new Statement(lineNumber, false);
+		this.lineNumber = lineNumber;
+		this.isMultiLine = isMultiLine;
 	}
 
 	public boolean addObject(Object object, int lnumber){
@@ -23,7 +29,7 @@ public class MultiLineStatement implements IStatement, Iterable<Statement> {
 			return statement.add(object);
 		}
 		if (statement.notEmpty()){
-			statements.add(statement);
+			content.add(statement);
 			this.statement = new Statement(lnumber);
 		}
 		return true;
@@ -36,23 +42,27 @@ public class MultiLineStatement implements IStatement, Iterable<Statement> {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		sb.append("{\n");
-		for (Statement statement:statements){
-			sb.append(statement.toString());
+		if (isMultiLine){
+			sb.append("{\n");
+		}
+		for (Object object:content){
+			sb.append(object.toString());
 			sb.append('\n');
 		}
-		sb.append('}');
+		if (isMultiLine){
+			sb.append('}');
+		}
 		return sb.toString();
 	}
 
 	@Override
 	public Iterator<Statement> iterator() {
-		return statements.iterator();
+		return content.iterator();
 	}
 
 	@Override
 	public boolean isMultiLine() {
-		return true;
+		return isMultiLine;
 	}
 	
 	
