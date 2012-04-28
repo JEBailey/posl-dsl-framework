@@ -1,5 +1,6 @@
 package posl.engine.type;
 
+import java.util.Collection;
 import java.util.LinkedList;
 
 import posl.engine.api.IStatement;
@@ -9,16 +10,13 @@ public class Statement implements IStatement {
 	private int lineNumber = -1;
 	
 	private LinkedList<Object> content = new LinkedList<Object>();
-
-	private boolean isMultiLine;
 	
 	public Statement(int lineNumber){
-		this(lineNumber,false);
+		this.lineNumber = lineNumber;
 	}
 	
-	public Statement(int lineNumber, boolean isMultiLine){
-		this.lineNumber = lineNumber;
-		this.isMultiLine = isMultiLine;
+	public Statement(Collection<? extends Object> list) {
+		content = new LinkedList<Object>(list);
 	}
 	
 	public boolean addObject(Object object, int lineNumber){
@@ -28,20 +26,23 @@ public class Statement implements IStatement {
 	public boolean notEmpty(){
 		return !content.isEmpty();
 	}
+
+	public Statement subList(int arg0, int arg1){
+		return new Statement(content.subList(arg0, arg1));
+	}
+	
+	public String errorString() {
+		return "at line "+ lineNumber + ":" + toString();
+	}
 	
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		if (isMultiLine){
-			sb.append("{\n");
-		}
 		for (Object object:content){
+			sb.append(' ');
 			sb.append(object.toString());
-			sb.append('\n');
 		}
-		if (isMultiLine){
-			sb.append('}');
-		}
+		sb.append(' ');
 		return sb.toString();
 	}
 	
@@ -51,7 +52,7 @@ public class Statement implements IStatement {
 
 	@Override
 	public boolean isMultiLine() {
-		return isMultiLine;
+		return false;
 	}
 
 	public boolean add(Object object) {
