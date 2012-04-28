@@ -1,6 +1,7 @@
 package posl.lang;
 
 import posl.engine.annotation.Command;
+import posl.engine.annotation.Primitive;
 import posl.engine.error.PoslException;
 import posl.engine.type.Reference;
 import posl.lang.math.NumberMath;
@@ -53,6 +54,16 @@ public class CoreMath {
 	@Command("sin")
 	public static Number sin(Number number) {
 		return Math.sin(number.doubleValue());
+	}
+	
+	@Primitive("PI")
+	public static Number PI() {
+		return Math.PI;
+	}
+	
+	@Primitive("E")
+	public static Number E() {
+		return Math.E;
 	}
 
 }
