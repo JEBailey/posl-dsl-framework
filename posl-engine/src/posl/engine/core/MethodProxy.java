@@ -18,19 +18,7 @@ public class MethodProxy implements IExecutable {
 
 	private Object object;
 	
-	private IArgumentHandler resolver;
-	
-	public MethodProxy(Method method) {
-		this(method, null);
-	}
-	
-	
-	
-	public MethodProxy(Method method, Object object, IArgumentHandler resolver) {
-		
-	}
-	
-	
+	private IArgumentHandler resolver;	
 
 	public MethodProxy(Method method, Object object) {
 		this.method = method;

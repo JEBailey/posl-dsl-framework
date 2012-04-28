@@ -2,6 +2,7 @@ package posl.engine.core;
 
 import java.io.OutputStream;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.logging.Logger;
 
 import posl.engine.annotation.Command;
@@ -64,9 +65,14 @@ public class Context {
 	}
 	
 	private void loadMethods(Object object, Method[] methods) {
+		
 		for (Method method : methods) {
 			boolean isCommand = method.isAnnotationPresent(Command.class);
 			boolean isPrimitive = method.isAnnotationPresent(Primitive.class);
+			if (!Modifier.isStatic(method.getModifiers()) && object == null){
+				log.severe("Attempting to add a non static command without an assoicated object");
+				break;
+			}
 			if (isCommand || isPrimitive) {
 				String id = null;
 				Object prior = null;
