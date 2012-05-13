@@ -23,12 +23,12 @@ public class Relational {
 	
 	@Command(">=")
 	public static Object gte(Number left, Number right) throws Exception {
-		return NumberMath.compareTo(left,right) >= 0;
+		return left.doubleValue() >= right.doubleValue();
 	}
 	
 	@Command("<=")
 	public static Object lte(Number left, Number right) throws Exception {
-		return NumberMath.compareTo(left, right) <= 0;
+		return left.doubleValue() <= right.doubleValue();
 	}
 	
 	
