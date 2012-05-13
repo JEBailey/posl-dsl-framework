@@ -11,22 +11,6 @@ function ? (predicate result1 result2) {
 	if predicate [! result1] [! result2]
 }
 
-//Logic related functions
-
-function <= (value1 value2) {
-	if [< value1 value2] true [= value1 value2]
-}
-
-function >= (value1 value2) {
-	if [> value1 value2] { true } {
-		= value1 value2
-	}
-}
-
-
-
-set	E 	2.718281828459045
-set	PI 	3.141592653589793
 
 function swap (list) {
 	if [empty? list] {
