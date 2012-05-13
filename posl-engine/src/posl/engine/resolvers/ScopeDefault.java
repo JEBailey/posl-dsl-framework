@@ -26,8 +26,8 @@ public class ScopeDefault extends IArgumentHandler {
 
 	private int requiredParameters() {
 		int required = 0;
-		for(int i =0 ; i < annotations.length; i++){
-			if(!isOptional(annotations[i])){
+		for(Annotation[] annotation: annotations){
+			if(!isOptional(annotation)){
 				required++;
 			}
 		}
