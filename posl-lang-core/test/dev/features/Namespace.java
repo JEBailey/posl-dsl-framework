@@ -55,7 +55,7 @@ public class Namespace {
                     "}",
                 "}");
         eval("set bar [new Foo]");
-        assertEquals(new Long(10), eval("bar compute 5"));
+        assertEquals(10D, eval("bar compute 5"));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class Namespace {
                 "}");
         eval("set bar [new Foo]");
         eval("bar mutate 10");                                  
-        assertEquals(30L, eval("bar x"));
+        assertEquals(30D, eval("bar x"));
     }
     
     @Test
@@ -84,7 +84,7 @@ public class Namespace {
                     "}",
                 "}");
         eval("set bar [new אבא]");
-        eval("bar mutate 10");                                  
+        eval("bar mutate 10");
         assertEquals(30L, eval("bar x"));
     }
 

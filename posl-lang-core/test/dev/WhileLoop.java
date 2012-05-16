@@ -22,7 +22,7 @@ public class WhileLoop {
 
 	@Test
 	public void testWhileLoop() throws PoslException {
-		assertEquals(12000L,evalMulti( "set x 0", "while [< x 12000] { ++ x }"));
+		assertEquals(12000D,evalMulti( "set x 0", "while [< x 12000] { ++ x }"));
 	}
 	
     private Object eval(String expression) throws PoslException {

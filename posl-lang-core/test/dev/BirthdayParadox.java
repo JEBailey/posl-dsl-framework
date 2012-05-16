@@ -27,7 +27,7 @@ public class BirthdayParadox {
 	@Test
 	public void test() throws PoslException {
 		try {
-			assertEquals(23l, Interpreter.process(context, new File(filename)));
+			assertEquals(23D, Interpreter.process(context, new File(filename)));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -5,7 +5,6 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/posl-engine"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/posl-lang-math"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/posl-lang-java"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
