@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.util.List;
 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Element;
@@ -49,27 +48,24 @@ class PoslView extends PlainView {
 	protected int drawUnselectedText(Graphics g, int x, int y, int start,
 			int end) throws BadLocationException {
 		DocumentImpl doc = (DocumentImpl) getDocument();
-		List<Token> tokens = doc.getTokensInRange(start, end);
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_OFF);
 		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		int mark = start;
-		for (Token token : tokens) {
+		Segment text = new Segment();
+		for (Token token : doc.getTokensInRange(start, end)) {
 			int endPosition = Math.min(token.getEndOffset(), end);
 			g2.setFont(this.getFont(token, g2.getFont()));
 			g2.setColor(getForeground(token));
-			Segment text = new Segment();
 			doc.getText(mark, endPosition - mark, text);
 			x = Utilities.drawTabbedText(text, x, y, g, this, mark);
-			// x = super.drawUnselectedText(g, x, y,mark , endPosition);
 			mark = endPosition;
 		}
 		//tokens may not reach to the end of the area we want rendered
 		//so this will make up the remaining space
 		if (end != mark) {
-			Segment text = new Segment();
 			doc.getText(mark, end - mark, text);
 			x = Utilities.drawTabbedText(text, x, y, g, this, mark);
 		}
