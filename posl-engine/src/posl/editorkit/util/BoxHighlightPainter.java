@@ -2,15 +2,14 @@ package posl.editorkit.util;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.Position;
 import javax.swing.text.View;
-import javax.swing.text.DefaultHighlighter.DefaultHighlightPainter;
 
 /**
  * Creates a square box around the matching token
@@ -35,10 +34,10 @@ public class BoxHighlightPainter extends DefaultHighlightPainter {
 			alloc = (Rectangle) view.modelToView(offs0,
 					Position.Bias.Forward, offs1,
 					Position.Bias.Backward, bounds);
+			g.drawRect(alloc.x, alloc.y, alloc.width - 1,alloc.height - 1);
 		} catch (BadLocationException e) {
 			return null;
 		}
-		g.drawRect(alloc.x, alloc.y, alloc.width - 1,alloc.height - 1);
 		return alloc;
 	}
 
