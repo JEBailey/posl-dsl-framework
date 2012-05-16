@@ -15,8 +15,8 @@ import posl.engine.type.Atom;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.PList;
 import posl.engine.type.Statement;
-import posl.lang.java.Java;
-import posl.lang.java.JavaInvocationHandler;
+import posl.java.Java;
+import posl.java.JavaInvocationHandler;
 
 public class JavaCommands {
 

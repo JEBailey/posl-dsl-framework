@@ -1,4 +1,4 @@
-package posl.lang.java;
+package posl.java;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

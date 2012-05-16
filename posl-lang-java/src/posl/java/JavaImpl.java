@@ -1,4 +1,4 @@
-package posl.lang.java;
+package posl.java;
 
 import posl.engine.core.Context;
 import posl.engine.spi.PoslImpl;

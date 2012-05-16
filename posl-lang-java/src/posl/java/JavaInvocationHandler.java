@@ -1,4 +1,4 @@
-package posl.lang.java;
+package posl.java;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -25,7 +25,6 @@ public class JavaInvocationHandler implements InvocationHandler {
 	 * The second is as an IExecutable which essentially
 	 * mimics the NameSpace functionality but does so in a closure
 	 * type way
-	 * 
 	 * 
 	 */
 	@Override
