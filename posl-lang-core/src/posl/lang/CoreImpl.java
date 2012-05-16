@@ -7,9 +7,7 @@ public class CoreImpl implements PoslImpl {
 
 	@Override
 	public String[] getRequires() {
-		return new String[]{
-				"posl.lang.math",
-		};
+		return new String[]{};
 	}
 
 	@Override
@@ -24,6 +22,8 @@ public class CoreImpl implements PoslImpl {
 		context.load(Types.class);
 		context.load(Var.class);
 		context.load(CoreFunction.class);
+		context.load(CoreMath.class);
+		context.load(Relational.class);
 	}
 
 }
