@@ -7,7 +7,7 @@ The engine provides structural support to the language:
 
 a basic line consists of a keyword, representing a command, followed by a number of arguments.
 a priority of execution is defined by square brackets [ ].
-a series of arguments can be emcompassed in curly braces { }.
+a series of arguments can be encompassed in curly braces { }.
 
  
 
