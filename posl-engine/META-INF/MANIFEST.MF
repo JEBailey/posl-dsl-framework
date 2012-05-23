@@ -5,6 +5,6 @@ Bundle-SymbolicName: posl.engine
 Bundle-Version: 1.0
 Export-Package: posl.editorkit,
  posl.editorkit.util,
- posl.engine.annotation,
+ posl.engine.annotation;version="1.0",
  posl.engine.api;version="1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
