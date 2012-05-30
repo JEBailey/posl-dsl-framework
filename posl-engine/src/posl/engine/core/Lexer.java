@@ -14,8 +14,7 @@ public class Lexer implements ILexer {
 	protected List<Token> tokens;
 
 	private StreamWrapper wrapper;
-
-	private int startOfToken;
+	
 
 	/**
 	 * 
@@ -87,28 +86,28 @@ public class Lexer implements ILexer {
 	// TODO
 	private void processHexCode() {
 		StringBuffer sb = new StringBuffer();
-		startOfToken = pos();
+		mark();
 		sb.append(pop());
 		sb.append(pop());
 		while (isDigit(val()) || isHex(val())) {
 			sb.append(pop());
 		}
-		tokens.add(Token.NUMBER(sb.toString(), startOfToken));
+		tokens.add(Token.NUMBER(sb.toString(), getMark()));
 
 	}
 
 	private void processEolComment() {
 		StringBuffer sb = new StringBuffer();
-		startOfToken = pos();
+		mark();
 		while (wrapper.hasMore() && val() != '\n') {
 			sb.append(pop());
 		}
-		tokens.add(Token.COMMENT(sb.toString(), startOfToken));
+		tokens.add(Token.COMMENT(sb.toString(), getMark()));
 	}
 
 	private void processMultiLineComment() {
 		StringBuffer sb = new StringBuffer();
-		startOfToken = pos();
+		mark();
 		while (wrapper.hasMore()) {
 			if (val() == '*' && LA(1) == '/') {
 				sb.append(pop());
@@ -118,13 +117,13 @@ public class Lexer implements ILexer {
 			sb.append(pop());
 		}
 
-		tokens.add(Token.COMMENT(sb.toString(), startOfToken));
+		tokens.add(Token.COMMENT(sb.toString(), getMark()));
 	}
 
 	private void processQuote() {
 		StringBuffer sb = new StringBuffer();
-		startOfToken = pos();
-		wrapper.mark();
+		mark();
+		wrapper.doMark();
 		pop();
 		while (wrapper.hasMore() && val() != '"') {
 			if (val() == '\\') {
@@ -162,18 +161,18 @@ public class Lexer implements ILexer {
 		}// end while
 		if (val() == '"') {
 			pop();
-			tokens.add(Token.STRING(sb.toString(), startOfToken));
+			tokens.add(Token.STRING(sb.toString(), getMark()));
 		} else {
 			wrapper.reset();
 			pop();
-			tokens.add(Token.WORD("\"", startOfToken));
+			tokens.add(Token.WORD("\"", getMark()));
 		}
 
 	}
 
 	private void processNumber() {
 		StringBuffer sb = new StringBuffer();
-		startOfToken = pos();
+		mark();
 		sb.append(pop());
 		consumeDigits(sb);
 		// at this point we have defined all positive whole numbers
@@ -181,7 +180,7 @@ public class Lexer implements ILexer {
 		if (val() == '.') {
 			sb.append(pop());
 			consumeDigits(sb);
-			wrapper.mark();
+			wrapper.doMark();
 			if (val() == 'e' || val() == 'E') {
 				sb.append(pop());
 				if (isDigit(val()) || (val() == '-' || val() == '+')) {
@@ -189,13 +188,13 @@ public class Lexer implements ILexer {
 					consumeDigits(sb);
 				} else {
 					tokens.add(Token.NUMBER(sb.substring(0, wrapper.getMark()),
-							startOfToken));
+							getMark()));
 					wrapper.reset();
 				}
 			}
 		}
 
-		tokens.add(Token.NUMBER(sb.toString(), startOfToken));
+		tokens.add(Token.NUMBER(sb.toString(), getMark()));
 	}
 
 	private void consumeDigits(StringBuffer sb) {
@@ -206,23 +205,23 @@ public class Lexer implements ILexer {
 
 	private void processWord() {
 		StringBuffer sb = new StringBuffer();
-		startOfToken = pos();
+		mark();
 		sb.append(pop());
 		while (isAlpha(val()) || isSpecial(val()) || isDigit(val())
 				|| val() == '_') {
 			sb.append(pop());
 		}
-		tokens.add(Token.WORD(sb.toString(), startOfToken));
+		tokens.add(Token.WORD(sb.toString(), getMark()));
 	}
 
 	private void processSpecial() {
 		StringBuffer sb = new StringBuffer();
-		startOfToken = pos();
+		mark();
 		sb.append(pop());
 		while (isSpecial(val())) {
 			sb.append(pop());
 		}
-		tokens.add(Token.WORD(sb.toString(), startOfToken));
+		tokens.add(Token.WORD(sb.toString(), getMark()));
 	}
 
 	private boolean isSpecial(int value) {
@@ -280,6 +279,14 @@ public class Lexer implements ILexer {
 
 	private int pos() {
 		return wrapper.pos();
+	}
+	
+	private void mark(){
+		wrapper.doMark();
+	}
+	
+	private int getMark(){
+		return wrapper.getMark();
 	}
 
 }
