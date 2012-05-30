@@ -62,7 +62,7 @@ public class Arithmetic {
 
     @Test
     public void testNestedArithmetic() throws PoslException {
-        assertEquals(144, eval("* [+ 6 6] [+ 24 -12]"));
+        assertEquals(144D, eval("* [+ 6 6] [+ 24 -12]"));
     }
     
     private Object eval(String expression) throws PoslException{
