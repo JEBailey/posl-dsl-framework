@@ -10,8 +10,6 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,15 +34,14 @@ import posl.engine.type.Statement;
 public class Parser implements IParser {
 
 	private ILexer lexer;
+	
 	static Logger log = Logger.getLogger(Parser.class.getName());
 
 	boolean eof = false;
 
-	private List<Statement> statements = new LinkedList<Statement>();
+	private Stack<IStatement> statements = new Stack<IStatement>();
 
 	private IStatement statement;
-	
-	private Stack<IStatement> statementStack = new Stack<IStatement>();
 	
 	private Stack<Character> charStack = new Stack<Character>();
 
@@ -79,7 +76,7 @@ public class Parser implements IParser {
 	 */
 	@Override
 	public Statement getStatement() {
-		return statements.remove(0);
+		return (Statement)statements.remove(0);
 	}
 
 	/* (non-Javadoc)
@@ -95,7 +92,7 @@ public class Parser implements IParser {
 	 */
 	@Override
 	public boolean complete() {
-		return statementStack.isEmpty();
+		return charStack.isEmpty();
 	}
 
 	/*
@@ -129,23 +126,23 @@ public class Parser implements IParser {
 				switch (token.getCharValue()) {
 				case '[':
 					charStack.push(']');
-					statementStack.add(statement);
+					statements.push(statement);
 					statement = new Statement(lineNumber);
 					break;
 				case '(':
 					charStack.push(')');
-					statementStack.add(statement);
+					statements.push(statement);
 					statement = new PList();
 					break;
 				case '{':
 					charStack.push('}');
-					statementStack.push(statement);
+					statements.push(statement);
 					statement = new MultiLineStatement(lineNumber);
 					break;
 				case ')':
 					if (!charStack.empty() && charStack.pop() == token.getCharValue()){
 						Object temp = statement;
-						statement = statementStack.pop();
+						statement = statements.pop();
 						statement.addObject(temp, lineNumber);
 					} else {
 						throw new PoslException(lineNumber,"could not match parenthesis");
@@ -154,7 +151,7 @@ public class Parser implements IParser {
 				case ']':
 					if (!charStack.empty() && charStack.pop() == token.getCharValue()){
 						Object temp = statement;
-						statement = statementStack.pop();
+						statement = statements.pop();
 						statement.addObject(temp, lineNumber);
 					} else {
 						throw new PoslException(lineNumber,"could not match square bracket");
@@ -166,7 +163,7 @@ public class Parser implements IParser {
 							statement.addObject(new EOL(), lineNumber);
 						}
 						Object temp = statement;
-						statement = statementStack.pop();
+						statement = statements.pop();
 						statement.addObject(temp, lineNumber);
 					} else {
 						throw new PoslException(lineNumber,"could not match brace");
