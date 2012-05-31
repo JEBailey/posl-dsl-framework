@@ -68,7 +68,7 @@ public class StreamWrapper {
 		return index;
 	}
 	
-	public void mark(){
+	public void doMark(){
 		this.mark = index;
 	}
 	

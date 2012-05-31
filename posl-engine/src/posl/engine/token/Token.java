@@ -6,14 +6,18 @@
 
 package posl.engine.token;
 
+import java.util.Stack;
 import java.util.logging.Logger;
+
+import posl.engine.api.IStatement;
+import posl.engine.api.IToken;
 
 
 /**
  * 
  * @author jason bailey
  */
-public class Token {
+public class Token implements IToken {
 	
 	private String string;
 	public TokenType type;
@@ -112,6 +116,13 @@ public class Token {
 	
 	public enum TokenType {
 		EOL, NUMBER, ATOM, STRING, GRAMMAR, COMMENT
+	}
+
+	@Override
+	public boolean consume(IStatement statement, Stack<IStatement> statements,
+			Stack<Character> charStack) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

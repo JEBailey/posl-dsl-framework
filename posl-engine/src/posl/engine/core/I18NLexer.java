@@ -109,7 +109,7 @@ public class I18NLexer implements ILexer {
 	private void processQuote() {
 		StringBuilder sb = new StringBuilder();
 		startOfToken = pos();
-		wrapper.mark();
+		wrapper.doMark();
 		pop();
 		while (wrapper.hasMore() && val() != '"') {
 			if (val() == '\\') {
@@ -166,7 +166,7 @@ public class I18NLexer implements ILexer {
 		if (val() == '.') {
 			sb.appendCodePoint(pop());
 			consumeDigits(sb);
-			wrapper.mark();
+			wrapper.doMark();
 			if (val() == 'e' || val() == 'E') {
 				sb.appendCodePoint(pop());
 				if (Character.isDigit(val()) || (val() == '-' || val() == '+')) {
