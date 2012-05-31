@@ -66,7 +66,7 @@ public class Arithmetic {
     }
     
     private Object eval(String expression) throws PoslException{
-        return (Double)Interpreter.process(context, expression);
+        return (Number)Interpreter.process(context, expression);
     }
     
 }
