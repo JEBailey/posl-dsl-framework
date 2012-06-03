@@ -2,10 +2,11 @@ package posl.engine.api;
 
 import java.util.List;
 
-import posl.engine.core.StreamWrapper;
+import posl.engine.core.PoslStream;
+import posl.engine.token.Token;
 
 public interface ILexeme {
 	
-	boolean consume(int index, List<IToken>tokens, StreamWrapper wrapper);
+	boolean consume(List<Token>tokens, PoslStream ps);
 
 }

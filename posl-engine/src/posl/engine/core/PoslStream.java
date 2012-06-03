@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Arrays;
 
-public class StreamWrapper {
+public class PoslStream {
 
 	private int[] data;
 	
@@ -14,7 +14,7 @@ public class StreamWrapper {
 	
 	private int mark;
 
-	public StreamWrapper(InputStream in) {
+	public PoslStream(InputStream in) {
 		this(new InputStreamReader(in));
 	}
 	
@@ -28,7 +28,7 @@ public class StreamWrapper {
 		return Arrays.copyOfRange(reply, 0, i);
 	}
 
-	public StreamWrapper(Reader reader) {
+	public PoslStream(Reader reader) {
 		StringBuilder out = new StringBuilder();
 	    char[] b = new char[4096];
 	    try {
@@ -68,7 +68,7 @@ public class StreamWrapper {
 		return index;
 	}
 	
-	public void doMark(){
+	public void mark(){
 		this.mark = index;
 	}
 	
@@ -79,6 +79,14 @@ public class StreamWrapper {
 	
 	public int getMark(){
 		return mark;
+	}
+	
+	public String getSubString(){
+		StringBuilder sb = new StringBuilder();
+		for (int i = mark;i <index;i++){
+			sb.appendCodePoint(data[i]);
+		}
+		return sb.toString();
 	}
 
 }

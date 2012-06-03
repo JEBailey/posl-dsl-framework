@@ -1,0 +1,76 @@
+package posl.engine.lexeme;
+
+import java.util.List;
+
+import posl.engine.api.ILexeme;
+import posl.engine.core.PoslStream;
+import posl.engine.token.Token;
+
+public class Numbers implements ILexeme {
+
+	@Override
+	public boolean consume(List<Token> tokens, PoslStream ps) {
+		// numbers
+		if (isDigit(ps.val())
+				|| (ps.val() == '-' && isDigit(ps.LA(1)))) {
+			if (ps.val() == '0' && ps.LA(1) == 'x') {
+				return processHexCode(tokens,ps);
+			}
+			return processNumber(tokens,ps);
+		}
+		return false;
+	}
+
+	private static boolean processNumber(List<Token> tokens, PoslStream ps) {
+		ps.mark();
+		ps.pop();
+		consumeDigits(ps);
+		// at this point we have defined all positive whole numbers
+		// check for float
+		if (ps.val() == '.') {
+			ps.pop();
+			consumeDigits(ps);
+			if (ps.val() == 'e' || ps.val() == 'E') {
+				ps.mark();
+				ps.pop();
+				if (isDigit(ps.val()) || (ps.val() == '-' || ps.val() == '+')) {
+					ps.pop();
+					consumeDigits(ps);
+				} else {
+					tokens.add(Token.NUMBER(ps.getSubString(),ps.getMark()));
+					ps.reset();
+				}
+			}
+		}
+		tokens.add(Token.NUMBER(ps.getSubString(), ps.getMark()));
+		return true;
+	}
+
+	// TODO
+	private static boolean processHexCode(List<Token> tokens, PoslStream ps) {
+		ps.mark();
+		// skip the first 0x
+		ps.pop();
+		ps.pop();
+		while (isDigit(ps.val()) || isHex(ps.val())) {
+			ps.pop();
+		}
+		tokens.add(Token.NUMBER(ps.getSubString(), ps.getMark()));
+		return true;
+	}
+
+	private static boolean isDigit(int value) {
+		return value >= '0' && value <= '9';
+	}
+	
+	private static boolean isHex(int value) {
+		return (value >= 'a' && value <= 'f') || (value >= 'A' && value <= 'F');
+	}
+
+	private static void consumeDigits(PoslStream ps) {
+		while (isDigit(ps.val())) {
+			ps.pop();
+		}
+	}
+
+}

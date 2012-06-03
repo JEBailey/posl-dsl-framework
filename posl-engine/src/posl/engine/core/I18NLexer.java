@@ -13,7 +13,7 @@ public class I18NLexer implements ILexer {
 	// list of tokens to be returned
 	protected List<Token> tokens;
 
-	private StreamWrapper wrapper;
+	private PoslStream wrapper;
 
 	private int startOfToken;
 
@@ -22,14 +22,14 @@ public class I18NLexer implements ILexer {
 	 * 
 	 */
 	public void tokenize(InputStream is) {
-		wrapper = new StreamWrapper(is);
+		wrapper = new PoslStream(is);
 		tokens =  new ArrayList<Token>();
 		tokenize();
 		wrapper = null;
 	}
 	
 	public void tokenize(Reader reader) {
-		wrapper = new StreamWrapper(reader);
+		wrapper = new PoslStream(reader);
 		tokens =  new ArrayList<Token>();
 		tokenize();
 		wrapper = null;
@@ -109,7 +109,7 @@ public class I18NLexer implements ILexer {
 	private void processQuote() {
 		StringBuilder sb = new StringBuilder();
 		startOfToken = pos();
-		wrapper.doMark();
+		wrapper.mark();
 		pop();
 		while (wrapper.hasMore() && val() != '"') {
 			if (val() == '\\') {
@@ -166,7 +166,7 @@ public class I18NLexer implements ILexer {
 		if (val() == '.') {
 			sb.appendCodePoint(pop());
 			consumeDigits(sb);
-			wrapper.doMark();
+			wrapper.mark();
 			if (val() == 'e' || val() == 'E') {
 				sb.appendCodePoint(pop());
 				if (Character.isDigit(val()) || (val() == '-' || val() == '+')) {
