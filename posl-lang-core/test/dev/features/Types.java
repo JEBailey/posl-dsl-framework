@@ -50,7 +50,10 @@ public class Types {
 		assertEquals(MultiLineStatement.class,eval("set x { }").getClass());
 	}
 	
-	
+	@Test
+	public void testHexadecimalType() throws PoslException {
+		assertEquals(255L,eval("0xff"));
+	}
 	
 	
 	private Object eval(String expression) throws PoslException {

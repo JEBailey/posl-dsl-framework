@@ -32,7 +32,7 @@ public class Arithmetic {
 
     @Test
     public void testSubtraction_LessThanZero() throws PoslException {
-        assertEquals(-1, eval("- 1 2"));
+        assertEquals(-1D, eval("- 1 2"));
     }
 
     @Test

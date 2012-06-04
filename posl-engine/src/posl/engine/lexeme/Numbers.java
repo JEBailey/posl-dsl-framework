@@ -48,14 +48,15 @@ public class Numbers implements ILexeme {
 
 	// TODO
 	private static boolean processHexCode(List<Token> tokens, PoslStream ps) {
-		ps.mark();
 		// skip the first 0x
 		ps.pop();
 		ps.pop();
+		ps.mark();
 		while (isDigit(ps.val()) || isHex(ps.val())) {
 			ps.pop();
 		}
-		tokens.add(Token.NUMBER(ps.getSubString(), ps.getMark()));
+		
+		tokens.add(Token.NUMBER(String.valueOf(Integer.parseInt(ps.getSubString(), 16)), ps.getMark()));
 		return true;
 	}
 
