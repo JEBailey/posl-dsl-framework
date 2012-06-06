@@ -3,12 +3,12 @@ package posl.engine.resolvers;
 import java.lang.annotation.Annotation;
 
 import posl.engine.annotation.Optional;
-import posl.engine.api.IArgumentHandler;
+import posl.engine.api.AArgumentHandler;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Statement;
 
-public class ScopeDefault extends IArgumentHandler {
+public class ScopeDefault extends AArgumentHandler {
 
 	@Override
 	public Object[] render(Scope scope, Statement tokens) throws PoslException {

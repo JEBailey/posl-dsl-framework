@@ -3,12 +3,12 @@ package posl.engine.resolvers;
 import java.lang.annotation.Annotation;
 
 import posl.engine.annotation.Optional;
-import posl.engine.api.IArgumentHandler;
+import posl.engine.api.AArgumentHandler;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Statement;
 
-public class Default extends IArgumentHandler {
+public class Default extends AArgumentHandler {
 
 	public Object[] render(Scope scope, Statement tokens) throws PoslException {
 		Object[] arguments = new Object[params.length];// subtract one to remove leading
