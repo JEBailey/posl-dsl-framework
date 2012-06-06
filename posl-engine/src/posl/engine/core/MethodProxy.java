@@ -23,11 +23,11 @@ public class MethodProxy implements IExecutable {
 		this.object = object;
 		try {
 			if (method.isAnnotationPresent(ArgumentResolver.class)) {
-				this.resolver = method.getAnnotation(ArgumentResolver.class).value().newInstance();
+				resolver = method.getAnnotation(ArgumentResolver.class).value().newInstance();
 			} else {
-				this.resolver = new Default();
+				resolver = new Default();
 			}
-
+			resolver.populate(method);
 		} catch (Exception e) {
 			assert false : e;
 		}
