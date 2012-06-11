@@ -38,6 +38,16 @@ public class ParameterInfo {
 	public boolean incr() {
 		return increment;
 	}
+
+	public boolean isOptional() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public Object render(Scope scope, Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

@@ -4,28 +4,42 @@ import java.lang.annotation.Annotation;
 
 import posl.engine.annotation.Optional;
 import posl.engine.api.AArgumentHandler;
+import posl.engine.core.ParameterInfo;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Statement;
 
 public class NewDefault extends AArgumentHandler {
 
+	/*
+	 * So the key here is that we have a number of 
+	 * 
+	 * (non-Javadoc)
+	 * @see posl.engine.api.AArgumentHandler#render(posl.engine.core.Scope, posl.engine.type.Statement)
+	 */
 	@Override
 	public Object[] render(Scope scope, Statement tokens) throws PoslException {
+		//This is the argument array that will be passed in the method call
 		Object[] arguments = new Object[info.length];
+		// we're going to loop through the  parameter information
+		// i is the index for the parameter informtation
+		// t is the index for the passed in tokens. 
+		int t = 1;
+		int length = tokens.size() - 1;
 		for (int i = 0; i < info.length;){
-			try {
-				arguments[i] = scope.get(params[i],tokens.get(i+1));
-			} catch (IndexOutOfBoundsException ioobe){
-				loop : {
-					for (Annotation annotation:annotations[i]){
-						if (annotation instanceof Optional){
-						    break loop;	
-						}
-					}
+			ParameterInfo param = info[0];
+			// first check to see if we've ran out of arguments
+			if ( t > length) {
+				if (param.isOptional()){
+					arguments[i]= null;
+				} else {
 					throw new PoslException(tokens.getLineNumber(),"incorrect number of arguments");
 				}
 			}
+			// we have enough arguments. do we need them?
+			arguments[i] = param.render(scope,tokens.get(i));
+			// do we increment?
+			t += param.incr() ? 1 : 0;
 		}
 		return arguments;
 	}
