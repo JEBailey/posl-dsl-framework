@@ -1,8 +1,5 @@
 package posl.engine.resolvers;
 
-import java.lang.annotation.Annotation;
-
-import posl.engine.annotation.Optional;
 import posl.engine.api.AArgumentHandler;
 import posl.engine.core.ParameterInfo;
 import posl.engine.core.Scope;
@@ -39,7 +36,7 @@ public class NewDefault extends AArgumentHandler {
 			// we have enough arguments. do we need them?
 			arguments[i] = param.render(scope,tokens.get(i));
 			// do we increment?
-			t += param.incr() ? 1 : 0;
+			t += param.incr();
 		}
 		return arguments;
 	}

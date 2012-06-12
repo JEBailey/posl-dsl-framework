@@ -3,45 +3,45 @@ package posl.engine.core;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
+import posl.engine.annotation.ContextProperty;
 import posl.engine.annotation.Optional;
 
 public class ParameterInfo {
 
-	public static int OPTIONAL = 0x1;
-	public static int PARAMETER = 0x1 << 1;
+	public enum State { NORMAL,OPTIONAL, CONTEXT_PROPERTY};
 	
 	private Type type;
 	
-	private int state;
+	private State state = State.NORMAL;
 	
-	private boolean increment = true;
+	//represents whether the command line index increases
+	private int increment = 1;
 	
-	private Annotation parameter;
+	private String parameter;
 	
 	public ParameterInfo(Type param,Annotation[] annotations) {
 		this.type = param;
 		for (Annotation annotation:annotations){
 			if (annotation instanceof Optional){
-				state = state & OPTIONAL;
+				state = State.OPTIONAL;
 			} else
-			if (annotation instanceof ParameterInfo){
-				increment = false;
-				state = state & PARAMETER;
-				this.parameter = annotation;
+			if (annotation instanceof ContextProperty){
+				increment = 0;
+				state = State.CONTEXT_PROPERTY;
+				this.parameter = ((ContextProperty) annotation).value();
 			}
 		}
 		if (type instanceof Context){
-			increment = false;
+			increment = 0;
 		}
 	}
 	
-	public boolean incr() {
+	public int incr() {
 		return increment;
 	}
 
 	public boolean isOptional() {
-		// TODO Auto-generated method stub
-		return false;
+		return state == State.OPTIONAL;
 	}
 
 	public Object render(Scope scope, Object object) {
