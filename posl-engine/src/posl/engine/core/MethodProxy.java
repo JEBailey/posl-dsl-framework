@@ -8,6 +8,7 @@ import posl.engine.api.AArgumentHandler;
 import posl.engine.api.IExecutable;
 import posl.engine.error.PoslException;
 import posl.engine.resolvers.Default;
+import posl.engine.resolvers.NewDefault;
 import posl.engine.type.Statement;
 
 public class MethodProxy implements IExecutable {
@@ -25,7 +26,7 @@ public class MethodProxy implements IExecutable {
 			if (method.isAnnotationPresent(ArgumentResolver.class)) {
 				resolver = method.getAnnotation(ArgumentResolver.class).value().newInstance();
 			} else {
-				resolver = new Default();
+				resolver = new NewDefault();
 			}
 			resolver.populate(method);
 		} catch (Exception e) {

@@ -5,10 +5,12 @@ import java.lang.reflect.Type;
 
 import posl.engine.annotation.ContextProperty;
 import posl.engine.annotation.Optional;
+import posl.engine.error.PoslException;
+import posl.engine.type.Statement;
 
 public class ParameterInfo {
 
-	public enum State { NORMAL,OPTIONAL, CONTEXT_PROPERTY};
+	public enum State { NORMAL, OPTIONAL, CONTEXT_PROPERTY, SCOPE};
 	
 	private Type type;
 	
@@ -31,7 +33,8 @@ public class ParameterInfo {
 				this.parameter = ((ContextProperty) annotation).value();
 			}
 		}
-		if (type instanceof Context){
+		if (param instanceof Scope){
+			state = State.SCOPE;
 			increment = 0;
 		}
 	}
@@ -44,8 +47,16 @@ public class ParameterInfo {
 		return state == State.OPTIONAL;
 	}
 
-	public Object render(Scope scope, Object object) {
-		// TODO Auto-generated method stub
+	public Object render(Scope scope, Statement statement, int tokenIndex) throws PoslException {
+		switch (state){
+		case NORMAL:
+		case OPTIONAL:
+			return scope.get(type, statement.get(tokenIndex));
+		case CONTEXT_PROPERTY:
+			return scope.get(parameter);
+		case SCOPE:
+			return scope;
+		}
 		return null;
 	}
 	

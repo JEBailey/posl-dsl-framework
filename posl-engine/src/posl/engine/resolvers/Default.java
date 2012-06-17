@@ -1,6 +1,7 @@
 package posl.engine.resolvers;
 
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
 
 import posl.engine.annotation.Optional;
 import posl.engine.api.AArgumentHandler;
@@ -26,6 +27,7 @@ public class Default extends AArgumentHandler {
 				}
 			}
 		}
+		System.out.println(Arrays.toString(arguments));
 		return arguments;
 	}
 
