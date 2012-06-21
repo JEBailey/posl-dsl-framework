@@ -16,7 +16,7 @@ public class ParameterInfo {
 	
 	private State state = State.NORMAL;
 	
-	//represents whether the command line index increases
+	//represents the amount that we should update the command line index
 	private int increment = 1;
 	
 	private String parameter;
@@ -33,7 +33,7 @@ public class ParameterInfo {
 				this.parameter = ((ContextProperty) annotation).value();
 			}
 		}
-		if (param instanceof Scope){
+		if (param == Scope.class){
 			state = State.SCOPE;
 			increment = 0;
 		}
