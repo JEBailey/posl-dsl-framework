@@ -15,7 +15,6 @@ import posl.engine.core.Context;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.resolvers.Classic;
-import posl.engine.resolvers.ScopeDefault;
 import posl.engine.type.Atom;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.Reference;
@@ -26,7 +25,6 @@ public class Core {
 
 	// name space commands
 	@Command("new")
-	@ArgumentResolver(ScopeDefault.class)
 	public static Object newX(Scope scope,MultiLineStatement statementBlock)
 			throws PoslException {
 		return new NamespaceExec(scope.getRootScope(),statementBlock);

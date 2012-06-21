@@ -2,12 +2,10 @@ package posl.lang;
 
 import java.util.List;
 
-import posl.engine.annotation.ArgumentResolver;
 import posl.engine.annotation.Command;
-import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
-import posl.engine.resolvers.ScopeDefault;
 import posl.engine.type.PList;
+import posl.engine.type.Reference;
 
 
 public class CoreList {
@@ -55,10 +53,9 @@ public class CoreList {
 	}
 	
 	@Command("cat")
-	@ArgumentResolver(ScopeDefault.class)
-	public static Object cat(Scope scope, PList list, Object key) throws PoslException {
+	public static Object cat(PList list, Reference key) throws PoslException {
 		list = new PList(list);
-		list.push(scope.get(Object.class,key));
+		list.push(key);
 		return list;
 	}
 	
