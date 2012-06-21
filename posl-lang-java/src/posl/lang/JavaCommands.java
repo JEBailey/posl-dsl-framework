@@ -3,6 +3,7 @@ package posl.lang;
 
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
+import java.util.List;
 
 import posl.engine.Interpreter;
 import posl.engine.annotation.ArgumentResolver;
@@ -10,10 +11,8 @@ import posl.engine.annotation.Command;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.resolvers.Classic;
-import posl.engine.resolvers.ScopeDefault;
 import posl.engine.type.Atom;
 import posl.engine.type.MultiLineStatement;
-import posl.engine.type.PList;
 import posl.engine.type.Statement;
 import posl.java.Java;
 import posl.java.JavaInvocationHandler;
@@ -44,12 +43,10 @@ public class JavaCommands {
 	}
 	
 	@Command("proxy")
-	@ArgumentResolver(ScopeDefault.class)
-	public static Object proxy(final Scope scope, PList klassNames, MultiLineStatement statement)
+	public static Object proxy(final Scope scope, List klassNames, MultiLineStatement statement)
 			throws Exception, PoslException {
 		Scope child = scope.createChildScope();
 		Interpreter.processList(child, statement);
-		Object proxy = null;
 		Class<?>[] klasses = new Class[klassNames.size()];
 		int index = 0;
 		for (Object object : klassNames) {
@@ -59,9 +56,8 @@ public class JavaCommands {
 			}
 			klasses[index++] = Class.forName((String)object);
 		}
-		proxy = Proxy.newProxyInstance(JavaCommands.class.getClassLoader(),
+		return Proxy.newProxyInstance(JavaCommands.class.getClassLoader(),
 				klasses,new JavaInvocationHandler(child));
-		return proxy;
 	}
 
 }
