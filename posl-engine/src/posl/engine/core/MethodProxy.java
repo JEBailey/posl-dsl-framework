@@ -7,7 +7,6 @@ import posl.engine.annotation.ArgumentResolver;
 import posl.engine.api.AArgumentHandler;
 import posl.engine.api.IExecutable;
 import posl.engine.error.PoslException;
-import posl.engine.resolvers.Default;
 import posl.engine.resolvers.NewDefault;
 import posl.engine.type.Statement;
 
