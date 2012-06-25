@@ -43,7 +43,7 @@ public class JavaCommands {
 	}
 	
 	@Command("proxy")
-	public static Object proxy(final Scope scope, List klassNames, MultiLineStatement statement)
+	public static Object proxy(final Scope scope, List<?> klassNames, MultiLineStatement statement)
 			throws Exception, PoslException {
 		Scope child = scope.createChildScope();
 		Interpreter.processList(child, statement);
