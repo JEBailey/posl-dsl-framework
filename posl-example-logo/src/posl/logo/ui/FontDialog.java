@@ -56,8 +56,8 @@ public class FontDialog extends JDialog {
 		scrollPane.setBounds(10, 11, 207, 151);
 		contentPanel.add(scrollPane);
 		
-		JList<String> list = new JList<String>();
-		list.setModel(new AbstractListModel<String>() {
+		JList list = new JList();
+		list.setModel(new AbstractListModel() {
 				String[] values = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				        .getAvailableFontFamilyNames();
 				

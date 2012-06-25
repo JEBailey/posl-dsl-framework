@@ -61,7 +61,7 @@ public class I18NLexer implements ILexer {
 				processNumber();
 			} else
 			// atom/id
-			if (Character.isAlphabetic(val())) {
+			if (Character.isLetter( val())) {
 				processWord();
 			} else
 			// string
