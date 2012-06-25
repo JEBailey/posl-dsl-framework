@@ -1,7 +1,5 @@
 package posl.engine.resolvers;
 
-import java.util.Arrays;
-
 import posl.engine.api.AArgumentHandler;
 import posl.engine.core.ParameterInfo;
 import posl.engine.core.Scope;
