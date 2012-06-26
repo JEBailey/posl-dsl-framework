@@ -8,7 +8,6 @@ import java.io.OutputStream;
 import java.util.List;
 
 import posl.engine.Interpreter;
-import posl.engine.annotation.ArgumentResolver;
 import posl.engine.annotation.Collection;
 import posl.engine.annotation.Command;
 import posl.engine.annotation.ContextProperty;
@@ -17,11 +16,8 @@ import posl.engine.annotation.Primitive;
 import posl.engine.core.Context;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
-import posl.engine.resolvers.Classic;
-import posl.engine.type.Atom;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.Reference;
-import posl.engine.type.Statement;
 import posl.lang.executable.NamespaceExec;
 
 public class Core {
@@ -109,7 +105,6 @@ public class Core {
 	}
 	
 	@Command("print")
-	@ArgumentResolver(Classic.class)
 	public static Object print(@ContextProperty("__outputstream") OutputStream out, @Collection List<String> args) throws PoslException, IOException {
 		StringBuffer sb = new StringBuffer();
 		for (String string:args) {
@@ -152,9 +147,7 @@ public class Core {
 
 	// core
 	@Command("import")
-	@ArgumentResolver(Classic.class)
-	public static Object importC(Scope scope, Statement args) throws PoslException {
-		String file = scope.getString(args.get(1));
+	public static Object importC(Scope scope, String file) throws PoslException {
 		InputStream is = ClassLoader.getSystemClassLoader().getClass()
 				.getResourceAsStream(file + ".po");
 		return Interpreter.process(new Context(scope),is);

@@ -10,7 +10,6 @@ import posl.engine.annotation.ArgumentResolver;
 import posl.engine.annotation.Command;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
-import posl.engine.resolvers.Classic;
 import posl.engine.type.Atom;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.Statement;
@@ -21,7 +20,7 @@ public class JavaCommands {
 
 	
 	@Command("java")
-	@ArgumentResolver(Classic.class)
+	//TODO - fix
 	public static Object ceateJava(Scope scope, Statement statement)
 			throws PoslException, ClassNotFoundException {
 		if(scope.containsKey(statement.get(1).toString())){
@@ -35,7 +34,7 @@ public class JavaCommands {
 	}
 	
 	@Command("importJava")
-	@ArgumentResolver(Classic.class)
+	//TODO - fix this with the new @Collection object
 	public static void alias(Scope scope, Statement args) throws Exception {
 		String []pathElements = args.get(1).toString().split("[.]");
 		String className = pathElements[pathElements.length - 1];
