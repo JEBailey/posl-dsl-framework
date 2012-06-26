@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.List;
 
 import posl.engine.Interpreter;
 import posl.engine.annotation.ArgumentResolver;
+import posl.engine.annotation.Collection;
 import posl.engine.annotation.Command;
+import posl.engine.annotation.ContextProperty;
 import posl.engine.annotation.Optional;
 import posl.engine.annotation.Primitive;
 import posl.engine.core.Context;
@@ -94,27 +97,26 @@ public class Core {
 	}
 
 	@Command("println")
-	@ArgumentResolver(Classic.class)
-	public static Object println(Scope scope, Statement args) throws PoslException, IOException {
+	public static Object println(@ContextProperty("__outputstream") OutputStream out, @Collection List<String> args) throws PoslException, IOException {
 		StringBuffer sb = new StringBuffer();
-		for (int i = 1; i < args.size(); ++i) {
-			sb.append(scope.getString(args.get(i)));
+		for (String string:args) {
+			sb.append(string);
+			out.write(string.getBytes());
 		}
 		sb.append('\n');
-		String response = sb.toString();
-		((OutputStream)scope.getValue(new Atom("__outputstream"))).write(response.getBytes());
-		return response;
+		out.write('\n');
+		return sb.toString();
 	}
 	
 	@Command("print")
 	@ArgumentResolver(Classic.class)
-	public static Object print(Scope scope, Statement args) throws PoslException, IOException {
+	public static Object print(@ContextProperty("__outputstream") OutputStream out, @Collection List<String> args) throws PoslException, IOException {
 		StringBuffer sb = new StringBuffer();
-		for (int i = 1; i < args.size(); ++i) {
-			sb.append(scope.getString(args.get(i)));
+		for (String string:args) {
+			sb.append(string);
 		}
 		String response = sb.toString();
-		((OutputStream)scope.getValue("__outputstream")).write(response.getBytes());
+		out.write(response.getBytes());
 		return response;
 	}
 	
@@ -168,9 +170,8 @@ public class Core {
 	}
 
 	@Command("str")
-	@ArgumentResolver(Classic.class)
-	public static String str(Scope scope, Statement args) throws PoslException {
-		return scope.getValue(args.get(1)).toString();
+	public static String str(Reference string) throws PoslException {
+		return string.getValue(String.class);
 	}
 
 
