@@ -33,6 +33,10 @@ public class Reference {
 		return (R)scope.get(klass, key);
 	}
 	
+	public Object getValue() {
+		return scope.get(key.toString());
+	}
+	
 	
 	
 	public void setValue(Object value){
