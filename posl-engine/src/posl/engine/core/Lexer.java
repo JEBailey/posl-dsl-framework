@@ -15,7 +15,6 @@ import posl.engine.lexeme.Grammar;
 import posl.engine.lexeme.Identifier;
 import posl.engine.lexeme.MultiLineComments;
 import posl.engine.lexeme.Numbers;
-import posl.engine.lexeme.Operator;
 import posl.engine.lexeme.QuoteString;
 import posl.engine.lexeme.WhiteSpace;
 import posl.engine.token.Token;
@@ -34,7 +33,6 @@ public class Lexer implements ILexer {
 		put("multiLineComments",new MultiLineComments());
 		put("numbers",new Numbers());
 		put("identifier",new Identifier());
-		put("operator",new Operator());
 		put("quotes",new QuoteString());
 		put("grammar",new Grammar());
 	}};
