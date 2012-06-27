@@ -18,7 +18,7 @@ public class MultiLineStatement implements IStatement, Iterable<Statement> {
 		this.lineNumber = lineNumber + 1;
 	}
 
-	public boolean addObject(Object object, int lnumber){
+	public boolean addObject(Object object){
 		return statement.add(object);
 	}
 	

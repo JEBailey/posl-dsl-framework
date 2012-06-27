@@ -142,7 +142,7 @@ public class Parser implements IParser {
 					if (!charStack.empty() && charStack.pop() == token.getCharValue()){
 						Object temp = statement;
 						statement = statements.pop();
-						statement.addObject(temp, lineNumber);
+						statement.addObject(temp);
 					} else {
 						throw new PoslException(lineNumber,"could not match parenthesis");
 					}
@@ -151,19 +151,17 @@ public class Parser implements IParser {
 					if (!charStack.empty() && charStack.pop() == token.getCharValue()){
 						Object temp = statement;
 						statement = statements.pop();
-						statement.addObject(temp, lineNumber);
+						statement.addObject(temp);
 					} else {
 						throw new PoslException(lineNumber,"could not match square bracket");
 					}
 					break;
 				case '}':
 					if (!charStack.empty() && charStack.pop() == token.getCharValue()){
-						if (statement.notEmpty()){
-							statement.addEol(lineNumber);
-						}
+						statement.addEol(lineNumber);
 						Object temp = statement;
 						statement = statements.pop();
-						statement.addObject(temp, lineNumber);
+						statement.addObject(temp);
 					} else {
 						throw new PoslException(lineNumber,"could not match brace");
 					}
@@ -175,28 +173,26 @@ public class Parser implements IParser {
 				if (!statement.isMultiLine()){
 					if (statement.notEmpty()){
 						statements.add((Statement)statement);
-						statement = new Statement(lineNumber);
 					}
+					statement = new Statement(lineNumber);
 				} else {
-					if (statement.notEmpty()){
-						statement.addEol(lineNumber);
-					}
+					statement.addEol(lineNumber);
 				}
 				break;
 			case NUMBER:
 				try {
-					statement.addObject(NumberFormat.getInstance().parse(token.getScanValue()), lineNumber);
+					statement.addObject(NumberFormat.getInstance().parse(token.getScanValue()));
 				} catch (ParseException e) {
-					statement.addObject(new Error("bad number format"), lineNumber);
+					statement.addObject(new Error("bad number format"));
 				}
 				break;
 			case COMMENT:
 				break;
 			case ATOM:
-				statement.addObject(new Atom(token.getScanValue()), lineNumber);
+				statement.addObject(new Atom(token.getScanValue()));
 				break;
 			default:
-				statement.addObject(token.getString(), lineNumber);
+				statement.addObject(token.getString());
 				break;
 			}
 		}

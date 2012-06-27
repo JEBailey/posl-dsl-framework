@@ -23,7 +23,7 @@ public class PList extends LinkedList<Object> implements List<Object>, IStatemen
 		// TODO Auto-generated constructor stub
 	}
 	
-	public boolean addObject(Object object, int lineNumber){
+	public boolean addObject(Object object){
 		return super.add(object);
 	}
 	

@@ -3,7 +3,7 @@ package posl.engine.api;
 
 public interface IStatement {
 	
-	boolean addObject(Object token, int lineNumber);
+	boolean addObject(Object token);
 	
 	boolean notEmpty();
 	

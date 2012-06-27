@@ -19,7 +19,7 @@ public class Statement implements IStatement {
 		content = new LinkedList<Object>(list);
 	}
 	
-	public boolean addObject(Object object, int lineNumber){
+	public boolean addObject(Object object){
 		return content.add(object);
 	}
 	
