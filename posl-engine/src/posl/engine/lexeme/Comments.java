@@ -6,10 +6,19 @@ import posl.engine.api.ALexeme;
 import posl.engine.core.PoslStream;
 import posl.engine.token.Token;
 
-public class MultiLineComments extends ALexeme {
+public class Comments extends ALexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, PoslStream ps) {
+		// end of line comments
+		if (ps.val() == '/' && ps.LA(1) == '/') {
+			ps.mark();
+			while (ps.hasMore() && ps.val() != '\n') {
+				ps.pop();
+			}
+			tokens.add(Token.COMMENT(ps.getSubString(), ps.getMark()));
+			return true;
+		} else 
 		if (ps.val() == '/' && ps.LA(1)== '*') {
 			ps.mark();
 			while (ps.hasMore()) {
@@ -20,7 +29,6 @@ public class MultiLineComments extends ALexeme {
 				}
 				ps.pop();
 			}
-
 			tokens.add(Token.COMMENT(ps.getSubString(), ps.getMark()));
 			return true;
 		} 

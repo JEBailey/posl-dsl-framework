@@ -10,10 +10,9 @@ import java.util.Map;
 
 import posl.engine.api.ALexeme;
 import posl.engine.api.ILexer;
-import posl.engine.lexeme.EOLComments;
+import posl.engine.lexeme.Comments;
 import posl.engine.lexeme.Grammar;
 import posl.engine.lexeme.Identifier;
-import posl.engine.lexeme.MultiLineComments;
 import posl.engine.lexeme.Numbers;
 import posl.engine.lexeme.QuoteString;
 import posl.engine.lexeme.WhiteSpace;
@@ -29,8 +28,7 @@ public class Lexer implements ILexer {
 	@SuppressWarnings("serial")
 	private Map<String, ALexeme> lexemes = new LinkedHashMap<String, ALexeme>(){{
 		put("whitespace",new WhiteSpace());
-		put("eolComments",new EOLComments());
-		put("multiLineComments",new MultiLineComments());
+		put("comments",new Comments());
 		put("numbers",new Numbers());
 		put("identifier",new Identifier());
 		put("quotes",new QuoteString());
