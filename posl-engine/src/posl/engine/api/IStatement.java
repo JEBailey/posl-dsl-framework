@@ -9,4 +9,6 @@ public interface IStatement {
 	
 	boolean isMultiLine();
 
+	void addEol(int lnumber);
+
 }

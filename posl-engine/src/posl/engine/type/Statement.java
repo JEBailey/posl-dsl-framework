@@ -70,6 +70,12 @@ public class Statement implements IStatement {
 	public void push(Atom atom) {
 		content.push(atom);
 	}
+
+	@Override
+	public void addEol(int lnumber) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

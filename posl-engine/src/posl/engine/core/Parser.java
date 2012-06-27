@@ -20,7 +20,6 @@ import posl.engine.api.IStatement;
 import posl.engine.error.PoslException;
 import posl.engine.token.Token;
 import posl.engine.type.Atom;
-import posl.engine.type.EOL;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.PList;
 import posl.engine.type.Statement;
@@ -160,7 +159,7 @@ public class Parser implements IParser {
 				case '}':
 					if (!charStack.empty() && charStack.pop() == token.getCharValue()){
 						if (statement.notEmpty()){
-							statement.addObject(new EOL(), lineNumber);
+							statement.addEol(lineNumber);
 						}
 						Object temp = statement;
 						statement = statements.pop();
@@ -180,7 +179,7 @@ public class Parser implements IParser {
 					}
 				} else {
 					if (statement.notEmpty()){
-						statement.addObject(new EOL(), lineNumber);
+						statement.addEol(lineNumber);
 					}
 				}
 				break;

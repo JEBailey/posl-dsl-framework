@@ -54,4 +54,10 @@ public class PList extends LinkedList<Object> implements List<Object>, IStatemen
 		return false;
 	}
 
+	@Override
+	public void addEol(int lnumber) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

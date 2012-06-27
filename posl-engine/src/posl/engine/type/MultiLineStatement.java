@@ -19,14 +19,7 @@ public class MultiLineStatement implements IStatement, Iterable<Statement> {
 	}
 
 	public boolean addObject(Object object, int lnumber){
-		if (!(object instanceof EOL)){
-			return statement.add(object);
-		}
-		if (statement.notEmpty()){
-			statements.add(statement);
-			this.statement = new Statement(lnumber);
-		}
-		return true;
+		return statement.add(object);
 	}
 	
 	public boolean notEmpty(){
@@ -53,6 +46,14 @@ public class MultiLineStatement implements IStatement, Iterable<Statement> {
 	@Override
 	public boolean isMultiLine() {
 		return true;
+	}
+
+	@Override
+	public void addEol(int lnumber) {
+		if (statement.notEmpty()){
+			statements.add(statement);
+			this.statement = new Statement(lnumber);
+		}
 	}
 	
 	
