@@ -1,12 +1,32 @@
 package posl.engine.resolvers;
 
-import posl.engine.api.AArgumentHandler;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+
 import posl.engine.core.ParameterInfo;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Statement;
 
-public class NewDefault extends AArgumentHandler {
+public class NewDefault  {
+	
+protected Type[] params;
+	
+	protected Annotation[][] annotations;
+	
+	protected ParameterInfo[] info;
+	
+	
+	public void populate(Method method){
+		this.params = method.getGenericParameterTypes();
+		this.annotations = method.getParameterAnnotations();
+		info = new ParameterInfo[params.length];
+		for (int i = 0;i < params.length ; i++){
+			info[i] = new ParameterInfo(params[i], annotations[i]);
+		}
+	}
+	
 
 	/*
 	 * So the key here is that we have a number of
@@ -16,7 +36,6 @@ public class NewDefault extends AArgumentHandler {
 	 * @see posl.engine.api.AArgumentHandler#render(posl.engine.core.Scope,
 	 * posl.engine.type.Statement)
 	 */
-	@Override
 	public Object[] render(Scope scope, Statement tokens) throws PoslException {
 		// This is the argument array that will be passed in the method call
 		Object[] arguments = new Object[info.length];

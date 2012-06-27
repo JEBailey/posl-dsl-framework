@@ -6,7 +6,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-import posl.engine.annotation.ContextProperty;
+import posl.engine.annotation.Property;
 import posl.engine.annotation.Optional;
 import posl.engine.error.PoslException;
 import posl.engine.type.Statement;
@@ -31,10 +31,10 @@ public class ParameterInfo {
 		for (Annotation annotation : annotations) {
 			if (annotation instanceof Optional) {
 				state = State.OPTIONAL;
-			} else if (annotation instanceof ContextProperty) {
+			} else if (annotation instanceof Property) {
 				increment = 0;
 				state = State.CONTEXT_PROPERTY;
-				this.parameter = ((ContextProperty) annotation).value();
+				this.parameter = ((Property) annotation).value();
 			}
 		}
 		if (param == Scope.class) {
