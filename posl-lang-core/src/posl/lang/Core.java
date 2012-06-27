@@ -10,7 +10,7 @@ import java.util.List;
 import posl.engine.Interpreter;
 import posl.engine.annotation.Collection;
 import posl.engine.annotation.Command;
-import posl.engine.annotation.ContextProperty;
+import posl.engine.annotation.Property;
 import posl.engine.annotation.Optional;
 import posl.engine.annotation.Primitive;
 import posl.engine.core.Context;
@@ -93,7 +93,7 @@ public class Core {
 	}
 
 	@Command("println")
-	public static Object println(@ContextProperty("__outputstream") OutputStream out, @Collection List<String> args) throws PoslException, IOException {
+	public static Object println(@Property("__outputstream") OutputStream out, @Collection List<String> args) throws PoslException, IOException {
 		StringBuffer sb = new StringBuffer();
 		for (String string:args) {
 			sb.append(string);
@@ -105,7 +105,7 @@ public class Core {
 	}
 	
 	@Command("print")
-	public static Object print(@ContextProperty("__outputstream") OutputStream out, @Collection List<String> args) throws PoslException, IOException {
+	public static Object print(@Property("__outputstream") OutputStream out, @Collection List<String> args) throws PoslException, IOException {
 		StringBuffer sb = new StringBuffer();
 		for (String string:args) {
 			sb.append(string);

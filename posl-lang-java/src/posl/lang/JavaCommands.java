@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import posl.engine.Interpreter;
-import posl.engine.annotation.ArgumentResolver;
 import posl.engine.annotation.Command;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
