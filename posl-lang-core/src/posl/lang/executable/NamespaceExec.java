@@ -36,12 +36,14 @@ public class NamespaceExec implements IExecutable {
 	@Override
 	public Object execute(Scope callingScope, Statement tokens) throws PoslException {
 		try {
-			Object token = runtimeScope.getValue(tokens.get(1));
+			/*Object token = runtimeScope.getValue(tokens.get(1));
 			Statement subList = tokens.subList(1,tokens.size());
 			if (token instanceof IExecutable) {
 				token = ((IExecutable)token).execute(callingScope, subList);
 			}
-			return token;
+			return token;*/
+			Statement subList = tokens.subList(1,tokens.size());
+			return Interpreter.process(runtimeScope, subList);
 		} catch (PoslException e) {
 			throw e.push(tokens.getLineNumber(), "in namespace "+tokens.get(0).toString());
 		}
