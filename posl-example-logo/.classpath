@@ -4,5 +4,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/posl-engine"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/posl-lang-core"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/posl-editorkit"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
