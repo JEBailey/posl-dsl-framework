@@ -2,11 +2,11 @@ package posl.engine.lexeme;
 
 import java.util.List;
 
-import posl.engine.api.ILexeme;
+import posl.engine.api.ALexeme;
 import posl.engine.core.PoslStream;
 import posl.engine.token.Token;
 
-public class Grammar implements ILexeme {
+public class Grammar extends ALexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, PoslStream ps) {

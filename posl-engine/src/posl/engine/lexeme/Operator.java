@@ -2,11 +2,11 @@ package posl.engine.lexeme;
 
 import java.util.List;
 
-import posl.engine.api.ILexeme;
+import posl.engine.api.ALexeme;
 import posl.engine.core.PoslStream;
 import posl.engine.token.Token;
 
-public class Operator implements ILexeme {
+public class Operator extends ALexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, PoslStream stream) {
@@ -25,13 +25,6 @@ public class Operator implements ILexeme {
 		}
 		tokens.add(Token.WORD(ps.getSubString(), ps.getMark()));
 		return true;
-	}
-
-	private static boolean isSpecial(int value) {
-		return ((value >= '#') && (value <= '\''))
-				|| ((value >= '*') && (value <= '/'))
-				|| ((value >= ':') && (value <= '@')) || value == '\\'
-				|| value == '^' || value == '!';
 	}
 
 }

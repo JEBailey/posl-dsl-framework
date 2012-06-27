@@ -2,11 +2,11 @@ package posl.engine.lexeme;
 
 import java.util.List;
 
-import posl.engine.api.ILexeme;
+import posl.engine.api.ALexeme;
 import posl.engine.core.PoslStream;
 import posl.engine.token.Token;
 
-public class Numbers implements ILexeme {
+public class Numbers extends ALexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, PoslStream ps) {
@@ -60,18 +60,5 @@ public class Numbers implements ILexeme {
 		return true;
 	}
 
-	private static boolean isDigit(int value) {
-		return value >= '0' && value <= '9';
-	}
-	
-	private static boolean isHex(int value) {
-		return (value >= 'a' && value <= 'f') || (value >= 'A' && value <= 'F');
-	}
-
-	private static void consumeDigits(PoslStream ps) {
-		while (isDigit(ps.val())) {
-			ps.pop();
-		}
-	}
 
 }

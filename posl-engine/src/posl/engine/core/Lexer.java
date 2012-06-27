@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import posl.engine.api.ILexeme;
+import posl.engine.api.ALexeme;
 import posl.engine.api.ILexer;
 import posl.engine.lexeme.EOLComments;
 import posl.engine.lexeme.Grammar;
@@ -28,7 +28,7 @@ public class Lexer implements ILexer {
 	private PoslStream wrapper;
 	
 	@SuppressWarnings("serial")
-	private Map<String, ILexeme> lexemes = new LinkedHashMap<String, ILexeme>(){{
+	private Map<String, ALexeme> lexemes = new LinkedHashMap<String, ALexeme>(){{
 		put("whitespace",new WhiteSpace());
 		put("eolComments",new EOLComments());
 		put("multiLineComments",new MultiLineComments());
@@ -63,10 +63,10 @@ public class Lexer implements ILexer {
 	 * 
 	 */
 	public void tokenize() {
-		Collection<ILexeme> entries = lexemes.values();
+		Collection<ALexeme> entries = lexemes.values();
 		boolean consumed = false;
 		while (wrapper.hasMore()) {
-			for (ILexeme lexeme:entries){
+			for (ALexeme lexeme:entries){
 				consumed = lexeme.consume(tokens, wrapper) | consumed;
 			}
 			if (!consumed){
