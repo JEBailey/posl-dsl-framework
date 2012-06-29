@@ -45,7 +45,7 @@ public class NamespaceExec implements IExecutable {
 			Statement subList = tokens.subList(1,tokens.size());
 			return Interpreter.process(runtimeScope, subList);
 		} catch (PoslException e) {
-			throw e.push(tokens.getLineNumber(), "in namespace "+tokens.get(0).toString());
+			throw e.push(tokens.startLineNumber(), "in namespace "+tokens.get(0).toString());
 		}
 	}
 

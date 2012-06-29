@@ -48,7 +48,7 @@ public class Function implements IExecutable {
 		Scope runtimeScope = scope.createChildScope();
 		if (callingArgs != null) {
 			if ((callingArgs.size() - 1) != this.arguments.size()) {
-				throw new PoslException(callingArgs.getLineNumber(),"incorrect number of arguments "+callingArgs.get(0).toString());
+				throw new PoslException(callingArgs.startLineNumber(),"incorrect number of arguments "+callingArgs.get(0).toString());
 			}
 			for (int i = 0; i < arguments.size(); ++i) {
 				String key = arguments.get(i).toString();

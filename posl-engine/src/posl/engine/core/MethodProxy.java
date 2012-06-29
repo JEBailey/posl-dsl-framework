@@ -29,12 +29,12 @@ public class MethodProxy implements IExecutable {
 			Object[] arguments = resolver.render(argumentScope, tokens);
 			return method.invoke(object, arguments);
 		} catch (PoslException e1) {
-			e1.push(tokens.getLineNumber(), "in method "+tokens.get(0).toString());
+			e1.push(tokens.startLineNumber(), "in method "+tokens.get(0).toString());
 			throw e1;
 		} catch (IllegalAccessException e) {
-			throw new PoslException(tokens.getLineNumber(),e.toString());
+			throw new PoslException(tokens.startLineNumber(),e.toString());
 		} catch (IllegalArgumentException e) {
-			throw new PoslException(tokens.getLineNumber(),e.toString());
+			throw new PoslException(tokens.startLineNumber(),e.toString());
 		} catch (InvocationTargetException ite) {
 			// Any exception which occurs in the proxied method
 			// will result in an InvocationTargetException
@@ -42,9 +42,9 @@ public class MethodProxy implements IExecutable {
 			try {
 				exception = (PoslException)ite.getTargetException();
 			} catch (Exception e){
-				exception = new PoslException(tokens.getLineNumber(),ite.getCause().toString());
+				exception = new PoslException(tokens.startLineNumber(),ite.getCause().toString());
 			}
-			exception.push(tokens.getLineNumber(),  "in command '"+tokens.get(0)+"'");
+			exception.push(tokens.startLineNumber(),  "in command '"+tokens.get(0)+"'");
 			throw exception;
 		}
 	}

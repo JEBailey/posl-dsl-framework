@@ -76,7 +76,7 @@ public class ParameterInfo {
 					add.invoke(list, scope.get(generic, statement.get(index)));
 				}
 			} catch (Exception e) {
-				throw new PoslException(statement.getLineNumber(),
+				throw new PoslException(statement.startLineNumber(),
 						"failed to get COLLECTION");
 			}
 

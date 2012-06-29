@@ -158,7 +158,7 @@ public class Parser implements IParser {
 					break;
 				case '}':
 					if (!charStack.empty() && charStack.pop() == token.getCharValue()){
-						statement.addEol(lineNumber);
+						statement.addEol();
 						Object temp = statement;
 						statement = statements.pop();
 						statement.addObject(temp);
@@ -176,7 +176,7 @@ public class Parser implements IParser {
 					}
 					statement = new Statement(lineNumber);
 				} else {
-					statement.addEol(lineNumber);
+					statement.addEol();
 				}
 				break;
 			case NUMBER:

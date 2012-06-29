@@ -7,12 +7,13 @@ import posl.engine.api.IStatement;
 
 public class Statement implements IStatement {
 
-	private int lineNumber = -1;
+	private int startLineNumber;
+	private int endLineNumber;
 	
 	private LinkedList<Object> content = new LinkedList<Object>();
 	
 	public Statement(int lineNumber){
-		this.lineNumber = lineNumber;
+		this.startLineNumber = lineNumber;
 	}
 	
 	public Statement(Collection<? extends Object> list) {
@@ -32,7 +33,7 @@ public class Statement implements IStatement {
 	}
 	
 	public String errorString() {
-		return "at line "+ lineNumber + ":" + toString();
+		return "at line "+ startLineNumber + ":" + toString();
 	}
 	
 	@Override
@@ -44,10 +45,6 @@ public class Statement implements IStatement {
 		}
 		sb.append(' ');
 		return sb.toString();
-	}
-	
-	public int getLineNumber(){
-		return lineNumber;
 	}
 
 	@Override
@@ -72,9 +69,24 @@ public class Statement implements IStatement {
 	}
 
 	@Override
-	public void addEol(int lnumber) {
+	public void addEol() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int startLineNumber() {
+		return startLineNumber;
+	}
+
+	@Override
+	public int endLineNumber() {
+		return endLineNumber;
+	}
+
+	@Override
+	public int incrLineNumber() {
+		return ++endLineNumber;
 	}
 	
 

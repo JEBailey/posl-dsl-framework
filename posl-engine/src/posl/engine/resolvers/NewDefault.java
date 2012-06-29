@@ -49,7 +49,7 @@ protected Type[] params;
 			// first check to see if we've ran out of arguments
 			if (tokenIndex > length) {
 				if (!param.isOptional()) {
-					throw new PoslException(tokens.getLineNumber(),
+					throw new PoslException(tokens.startLineNumber(),
 							"incorrect number of arguments");
 				}
 			} else {

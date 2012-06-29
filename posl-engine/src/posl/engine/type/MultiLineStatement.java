@@ -6,23 +6,24 @@ import java.util.LinkedList;
 import posl.engine.api.IStatement;
 
 public class MultiLineStatement implements IStatement, Iterable<Statement> {
-	
+
 	private LinkedList<Statement> statements = new LinkedList<Statement>();
-	
+
 	private Statement statement;
-	public int lineNumber = -1;
-	
-	public MultiLineStatement(int lineNumber){
+	public int startLineNumber;
+	public int endLineNumber;
+
+	public MultiLineStatement(int lineNumber) {
 		super();
-		statement = new Statement(lineNumber+1);
-		this.lineNumber = lineNumber + 1;
+		statement = new Statement(lineNumber);
+		this.startLineNumber = lineNumber;
 	}
 
-	public boolean addObject(Object object){
+	public boolean addObject(Object object) {
 		return statement.add(object);
 	}
-	
-	public boolean notEmpty(){
+
+	public boolean notEmpty() {
 		return statement.notEmpty();
 	}
 
@@ -30,7 +31,7 @@ public class MultiLineStatement implements IStatement, Iterable<Statement> {
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("{\n");
-		for (Statement statement:statements){
+		for (Statement statement : statements) {
 			sb.append(statement.toString());
 			sb.append('\n');
 		}
@@ -49,13 +50,26 @@ public class MultiLineStatement implements IStatement, Iterable<Statement> {
 	}
 
 	@Override
-	public void addEol(int lnumber) {
-		if (statement.notEmpty()){
+	public void addEol() {
+		if (statement.notEmpty()) {
 			statements.add(statement);
-			this.statement = new Statement(lnumber);
+			this.statement = new Statement(incrLineNumber());
 		}
 	}
-	
-	
+
+	@Override
+	public int startLineNumber() {
+		return startLineNumber;
+	}
+
+	@Override
+	public int endLineNumber() {
+		return endLineNumber;
+	}
+
+	@Override
+	public int incrLineNumber() {
+		return ++endLineNumber;
+	}
 
 }
