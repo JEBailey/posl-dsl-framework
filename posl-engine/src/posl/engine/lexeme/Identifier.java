@@ -1,10 +1,13 @@
 package posl.engine.lexeme;
 
 import java.util.List;
+import java.util.Stack;
 
 import posl.engine.api.ALexeme;
+import posl.engine.api.IStatement;
 import posl.engine.api.IToken;
 import posl.engine.core.PoslStream;
+import posl.engine.type.Atom;
 
 public class Identifier extends ALexeme {
 
@@ -18,27 +21,41 @@ public class Identifier extends ALexeme {
 		return false;
 	}
 
-	private static boolean processWord(List<IToken> tokens, PoslStream ps) {
+	private boolean processWord(List<IToken> tokens, PoslStream ps) {
 		ps.mark();
 		ps.pop();
 		while (isAlpha(ps.val()) || isSpecial(ps.val()) || isDigit(ps.val())
 				|| ps.val() == '_') {
 			ps.pop();
 		}
-		tokens.add(new posl.engine.token.Identifier(ps.getSubString()));//, ps.getMark()));
-		return true;
+		return tokens.add(new Inner(ps.getSubString()));//, ps.getMark()));
 	}
 
 
 
-	private static boolean processSpecial(List<IToken> tokens, PoslStream ps) {
+	private boolean processSpecial(List<IToken> tokens, PoslStream ps) {
 		ps.mark();
 		ps.pop();
 		while (isSpecial(ps.val())) {
 			ps.pop();
 		}
-		tokens.add(new posl.engine.token.Identifier(ps.getSubString()));//, ps.getMark()));
+		tokens.add(new Inner(ps.getSubString()));//, ps.getMark()));
 		return true;
+	}
+	
+	private class Inner implements IToken {
+		private String value;
+
+		public Inner(String value) {
+			this.value = value;
+		}
+		
+		@Override
+		public IStatement consume(IStatement statement, Stack<IStatement> statements,
+				Stack<Character> charStack) {
+			statement.addObject(new Atom(value));
+			return statement;
+		}
 	}
 
 

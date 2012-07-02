@@ -47,7 +47,7 @@ public class Numbers extends ALexeme {
 				}
 			}
 		}
-		tokens.add(new posl.engine.token.Number(ps.getSubString()));
+		tokens.add(new Inner(ps.getSubString()));
 		return true;
 	}
 

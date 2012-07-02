@@ -7,8 +7,6 @@ import posl.engine.api.ALexeme;
 import posl.engine.api.IStatement;
 import posl.engine.api.IToken;
 import posl.engine.core.PoslStream;
-import posl.engine.token.Identifier;
-import posl.engine.token.QuotedString;
 
 public class QuoteString extends ALexeme {
 
