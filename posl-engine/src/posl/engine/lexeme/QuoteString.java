@@ -1,15 +1,19 @@
 package posl.engine.lexeme;
 
 import java.util.List;
+import java.util.Stack;
 
 import posl.engine.api.ALexeme;
+import posl.engine.api.IStatement;
+import posl.engine.api.IToken;
 import posl.engine.core.PoslStream;
-import posl.engine.token.Token;
+import posl.engine.token.Identifier;
+import posl.engine.token.QuotedString;
 
 public class QuoteString extends ALexeme {
 
 	@Override
-	public boolean consume(List<Token> tokens, PoslStream ps) {
+	public boolean consume(List<IToken> tokens, PoslStream ps) {
 		// string
 		if (ps.val() == '"') {
 			return processQuote(tokens,ps);
@@ -17,7 +21,7 @@ public class QuoteString extends ALexeme {
 		return false;
 	}
 	
-	private boolean processQuote(List<Token> tokens, PoslStream ps) {
+	private boolean processQuote(List<IToken> tokens, PoslStream ps) {
 		StringBuilder sb = new StringBuilder();
 		ps.pop();
 		ps.mark();
@@ -57,14 +61,28 @@ public class QuoteString extends ALexeme {
 		}// end while
 		if (ps.val() == '"') {
 			ps.pop();
-			tokens.add(Token.STRING(sb.toString(), ps.getMark()));;
+			tokens.add(new Inner(sb.toString()));//, ps.getMark()));;
 		} else {
 			ps.reset();
-			ps.pop();
-			tokens.add(Token.WORD("\"", ps.getMark()));
+			return false;
 		}
 		return true;
 
+	}
+	
+	private class Inner implements IToken {
+		private String value;
+
+		public Inner(String value) {
+			this.value = value;
+		}
+
+		@Override
+		public IStatement consume(IStatement statement, Stack<IStatement> statements,
+				Stack<Character> charStack) {
+			statement.addObject(value);
+			return statement;
+		}
 	}
 
 }

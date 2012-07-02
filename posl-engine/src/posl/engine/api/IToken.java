@@ -4,6 +4,7 @@ import java.util.Stack;
 
 public interface IToken {
 	
-	boolean consume(IStatement statement, Stack<IStatement> statements ,Stack<Character> charStack);
+	
+	public abstract IStatement  consume(IStatement statement, Stack<IStatement> statements ,Stack<Character> charStack);
 
 }

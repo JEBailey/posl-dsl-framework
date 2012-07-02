@@ -1,15 +1,19 @@
 package posl.engine.lexeme;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.List;
+import java.util.Stack;
 
 import posl.engine.api.ALexeme;
+import posl.engine.api.IStatement;
+import posl.engine.api.IToken;
 import posl.engine.core.PoslStream;
-import posl.engine.token.Token;
 
 public class Numbers extends ALexeme {
 
 	@Override
-	public boolean consume(List<Token> tokens, PoslStream ps) {
+	public boolean consume(List<IToken> tokens, PoslStream ps) {
 		// numbers
 		if (isDigit(ps.val())
 				|| (ps.val() == '-' && isDigit(ps.LA(1)))) {
@@ -21,7 +25,7 @@ public class Numbers extends ALexeme {
 		return false;
 	}
 
-	private static boolean processNumber(List<Token> tokens, PoslStream ps) {
+	private  boolean processNumber(List<IToken> tokens, PoslStream ps) {
 		ps.mark();
 		ps.pop();
 		consumeDigits(ps);
@@ -37,17 +41,18 @@ public class Numbers extends ALexeme {
 					ps.pop();
 					consumeDigits(ps);
 				} else {
-					tokens.add(Token.NUMBER(ps.getSubString(),ps.getMark()));
+					tokens.add(new Inner(ps.getSubString()));//, ps.getMark()));
+					//tokens.add(Token.NUMBER(ps.getSubString(),ps.getMark()));
 					ps.reset();
 				}
 			}
 		}
-		tokens.add(Token.NUMBER(ps.getSubString(), ps.getMark()));
+		tokens.add(new posl.engine.token.Number(ps.getSubString()));
 		return true;
 	}
 
 	// TODO
-	private static boolean processHexCode(List<Token> tokens, PoslStream ps) {
+	private boolean processHexCode(List<IToken> tokens, PoslStream ps) {
 		// skip the first 0x
 		ps.pop();
 		ps.pop();
@@ -55,9 +60,32 @@ public class Numbers extends ALexeme {
 		while (isDigit(ps.val()) || isHex(ps.val())) {
 			ps.pop();
 		}
-		
-		tokens.add(Token.NUMBER(String.valueOf(Integer.parseInt(ps.getSubString(), 16)), ps.getMark()));
+		tokens.add(new Inner(String.valueOf(Integer.parseInt(ps.getSubString(), 16))));//, ps.getMark()));
+		//tokens.add(Token.NUMBER(String.valueOf(Integer.parseInt(ps.getSubString(), 16)), ps.getMark()));
 		return true;
+	}
+	
+	private class Inner implements IToken {
+
+		private String value;
+
+
+		public Inner(String value) {
+			this.value = value;
+		}
+		
+		
+		@Override
+		public IStatement consume(IStatement statement, Stack<IStatement> statements,
+				Stack<Character> charStack) {
+			try {
+				statement.addObject(NumberFormat.getInstance().parse(value));
+			} catch (ParseException e) {
+				statement.addObject(new Error("bad number format"));
+			}
+			return statement;
+		}
+		
 	}
 
 

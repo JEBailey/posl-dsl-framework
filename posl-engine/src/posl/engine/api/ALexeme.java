@@ -3,11 +3,10 @@ package posl.engine.api;
 import java.util.List;
 
 import posl.engine.core.PoslStream;
-import posl.engine.token.Token;
 
 public abstract class ALexeme {
 	
-	public abstract boolean  consume(List<Token>tokens, PoslStream ps);
+	public abstract boolean  consume(List<IToken>tokens, PoslStream ps);
 	
 	
 	public static boolean isDigit(int value) {

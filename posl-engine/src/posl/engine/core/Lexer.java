@@ -10,18 +10,18 @@ import java.util.Map;
 
 import posl.engine.api.ALexeme;
 import posl.engine.api.ILexer;
+import posl.engine.api.IToken;
 import posl.engine.lexeme.Comments;
 import posl.engine.lexeme.Grammar;
 import posl.engine.lexeme.Identifier;
 import posl.engine.lexeme.Numbers;
 import posl.engine.lexeme.QuoteString;
 import posl.engine.lexeme.WhiteSpace;
-import posl.engine.token.Token;
 
 public class Lexer implements ILexer {
 
 	// list of tokens to be returned
-	protected List<Token> tokens;
+	protected List<IToken> tokens;
 
 	private PoslStream wrapper;
 	
@@ -42,14 +42,14 @@ public class Lexer implements ILexer {
 	 */
 	public void tokenize(InputStream is) {
 		wrapper = new PoslStream(is);
-		tokens = new ArrayList<Token>();
+		tokens = new ArrayList<IToken>();
 		tokenize();
 		wrapper = null;
 	}
 
 	public void tokenize(Reader reader) {
 		wrapper = new PoslStream(reader);
-		tokens = new ArrayList<Token>();
+		tokens = new ArrayList<IToken>();
 		tokenize();
 		wrapper = null;
 	}
@@ -70,7 +70,6 @@ public class Lexer implements ILexer {
 			}
 			consumed = false;
 		}
-		tokens.add(Token.EOL(wrapper.pos()));
 	}
 
 	/*
@@ -83,14 +82,14 @@ public class Lexer implements ILexer {
 	}
 
 	@Override
-	public Token next() {
+	public IToken next() {
 		if (!tokens.isEmpty()) {
-			return (Token) tokens.remove(0);
+			return (IToken) tokens.remove(0);
 		}
 		return null;
 	}
 
-	public List<Token> getTokens() {
+	public List<IToken> getTokens() {
 		return tokens;
 	}
 

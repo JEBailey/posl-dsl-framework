@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import posl.engine.api.ILexer;
-import posl.engine.token.Token;
+import posl.engine.api.IToken;
 
 public class I18NLexer implements ILexer {
 
 	// list of tokens to be returned
-	protected List<Token> tokens;
+	protected List<IToken> tokens;
 
 	private PoslStream wrapper;
 
@@ -23,14 +23,14 @@ public class I18NLexer implements ILexer {
 	 */
 	public void tokenize(InputStream is) {
 		wrapper = new PoslStream(is);
-		tokens =  new ArrayList<Token>();
+		tokens =  new ArrayList<IToken>();
 		tokenize();
 		wrapper = null;
 	}
 	
 	public void tokenize(Reader reader) {
 		wrapper = new PoslStream(reader);
-		tokens =  new ArrayList<Token>();
+		tokens =  new ArrayList<IToken>();
 		tokenize();
 		wrapper = null;
 	}
@@ -230,7 +230,7 @@ public class I18NLexer implements ILexer {
 		return null;
 	}
 	
-	public List<Token> getTokens(){
+	public List<IToken> getTokens(){
 		return tokens;
 	}
 
