@@ -13,7 +13,12 @@ public class Eol extends ALexeme {
 
 	@Override
 	public boolean consume(List<IToken> tokens, PoslStream ps) {
-		if (ps.val() == '\n' && ps.val() == -1){
+		if (ps.val() == -1){
+			tokens.add(new Inner());
+			return false;
+		}
+		while (ps.val() == '\n'){
+			ps.pop();
 			return tokens.add(new Inner());
 		}
 		return false;

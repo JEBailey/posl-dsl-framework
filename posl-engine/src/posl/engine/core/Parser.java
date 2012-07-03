@@ -109,6 +109,5 @@ public class Parser implements IParser {
 		while (lexer.hasMore()) {			
 			statement = lexer.next().consume(statement, statements, charStack);
 		}
-		statements.add(statement);
 	}
 }

@@ -12,6 +12,7 @@ import posl.engine.api.ALexeme;
 import posl.engine.api.ILexer;
 import posl.engine.api.IToken;
 import posl.engine.lexeme.Comments;
+import posl.engine.lexeme.Eol;
 import posl.engine.lexeme.Grammar;
 import posl.engine.lexeme.Identifier;
 import posl.engine.lexeme.Numbers;
@@ -33,6 +34,7 @@ public class Lexer implements ILexer {
 		put("identifier",new Identifier());
 		put("quotes",new QuoteString());
 		put("grammar",new Grammar());
+		put("eol",new Eol());
 	}};
 	
 	
