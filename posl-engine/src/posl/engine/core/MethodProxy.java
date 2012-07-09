@@ -25,9 +25,7 @@ public class MethodProxy implements IExecutable {
 	@Override
 	public Object execute(Scope argumentScope, Statement tokens) throws PoslException {
 		try {
-			//Define the argument array that we will be passing to the method executor
-			Object[] arguments = resolver.render(argumentScope, tokens);
-			return method.invoke(object, arguments);
+			return method.invoke(object, resolver.render(argumentScope, tokens));
 		} catch (PoslException e1) {
 			e1.push(tokens.startLineNumber(), "in method "+tokens.get(0).toString());
 			throw e1;
