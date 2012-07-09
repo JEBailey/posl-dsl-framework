@@ -27,9 +27,7 @@ public class Parser implements IParser {
 
 	private ILexer lexer;
 	
-	static Logger log = Logger.getLogger(Parser.class.getName());
-
-	boolean eof = false;
+	private static Logger log = Logger.getLogger(Parser.class.getName());
 
 	private Stack<IStatement> statements = new Stack<IStatement>();
 

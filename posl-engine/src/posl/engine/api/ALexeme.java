@@ -10,7 +10,7 @@ public abstract class ALexeme {
 	
 	
 	public static boolean isDigit(int value) {
-		return value >= '0' && value <= '9';
+		return Character.isDigit(value);
 	}
 	
 	public static boolean isHex(int value) {
@@ -31,8 +31,7 @@ public abstract class ALexeme {
 	}
 
 	public static boolean isAlpha(int value) {
-		return ((value >= 'a') && (value <= 'z'))
-				|| ((value >= 'A') && (value <= 'Z'));
+		return Character.isJavaIdentifierPart(value);
 	}
 
 }

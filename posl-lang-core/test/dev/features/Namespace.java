@@ -85,7 +85,7 @@ public class Namespace {
                 "}");
         eval("set bar [new אבא]");
         eval("bar mutate 10");
-        assertEquals(30L, eval("bar x"));
+        assertEquals(30D, eval("bar x"));
     }
 
     @Test
