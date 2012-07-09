@@ -29,10 +29,6 @@ public class MethodProxy implements IExecutable {
 		} catch (PoslException e1) {
 			e1.push(tokens.startLineNumber(), "in method "+tokens.get(0).toString());
 			throw e1;
-		} catch (IllegalAccessException e) {
-			throw new PoslException(tokens.startLineNumber(),e.toString());
-		} catch (IllegalArgumentException e) {
-			throw new PoslException(tokens.startLineNumber(),e.toString());
 		} catch (InvocationTargetException ite) {
 			// Any exception which occurs in the proxied method
 			// will result in an InvocationTargetException
@@ -44,7 +40,9 @@ public class MethodProxy implements IExecutable {
 			}
 			exception.push(tokens.startLineNumber(),  "in command '"+tokens.get(0)+"'");
 			throw exception;
-		}
+		} catch (IllegalAccessException e) {
+			throw new PoslException(tokens.startLineNumber(),e.toString());
+		} 
 	}
 	
 	@Override

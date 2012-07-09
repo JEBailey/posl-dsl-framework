@@ -35,11 +35,10 @@ public class Parser implements IParser {
 	
 	private Stack<Character> charStack = new Stack<Character>();
 
-	private int lineNumber;
+	private int lineNumber = 1;
 	/** Creates a new instance of LineFactory */
 	public Parser() {
 		lexer = new Lexer();
-		lineNumber = 1;
 		statement = new Statement(lineNumber);
 	}
 	
