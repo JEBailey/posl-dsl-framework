@@ -21,8 +21,7 @@ import posl.engine.lexeme.WhiteSpace;
 
 public class Lexer implements ILexer {
 
-	// list of tokens to be returned
-	protected List<IToken> tokens;
+	private List<IToken> tokens;
 
 	private PoslStream wrapper;
 	
@@ -74,14 +73,7 @@ public class Lexer implements ILexer {
 		}
 	}
 
-	/*
-	 * private boolean isHexDigit(int value) { return isDigit(value) || (value
-	 * >= 'a' && value <= 'f') || (value >= 'A' && value <= 'F'); }
-	 */
-	@Override
-	public boolean hasMore() {
-		return !tokens.isEmpty();
-	}
+
 
 	@Override
 	public IToken next() {
@@ -91,8 +83,17 @@ public class Lexer implements ILexer {
 		return null;
 	}
 
-	public List<IToken> getTokens() {
-		return tokens;
+
+	@Override
+	public boolean hasNext() {
+		return !tokens.isEmpty();
 	}
+
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
+		// not implemented
+	}
+
 
 }

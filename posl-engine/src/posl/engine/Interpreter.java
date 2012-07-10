@@ -63,8 +63,8 @@ public class Interpreter {
 
 		parser.process(stream);
 		Object result = null;
-		while (parser.hasMore()) {
-			Statement statement = parser.getStatement();
+		while (parser.hasNext()) {
+			Statement statement = parser.next();
 			result = process(scope, statement);
 		}
 		return result;
@@ -83,8 +83,8 @@ public class Interpreter {
 		Scope scope = context.getScope();
 		Object result = null;
 		parser.process(string);
-		while (parser.hasMore()) {
-			result = process(scope, parser.getStatement());
+		while (parser.hasNext()) {
+			result = process(scope, parser.next());
 		}
 		return result;
 	}

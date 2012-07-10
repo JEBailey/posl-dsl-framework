@@ -64,7 +64,7 @@ public class Parser implements IParser {
 	 * @see po.IParser#getStatement()
 	 */
 	@Override
-	public Statement getStatement() {
+	public Statement next() {
 		return (Statement)statements.remove(0);
 	}
 
@@ -72,7 +72,7 @@ public class Parser implements IParser {
 	 * @see po.IParser#hasMore()
 	 */
 	@Override
-	public boolean hasMore() {
+	public boolean hasNext() {
 		return !statements.isEmpty();
 	}
 	
@@ -84,27 +84,15 @@ public class Parser implements IParser {
 		return charStack.isEmpty();
 	}
 
-	/*
-	 * Note to self: '(' and ')' are lists. '{' and '}' are
-	 * lazy evaluating block of code '[' and ']' are single line statements that are to be
-	 * evaluated immediately
-	 */
-
 	private void recursive() throws PoslException {
-		while (lexer.hasMore()) {
-			retrieveLine();
+		while (lexer.hasNext()) {			
+			statement = lexer.next().consume(statement, statements, charStack);
 		}
 	}
 
-	/*
-	 * This is where most of the magic happens, the posl grammar follows a simple
-	 * syntax that consists of a series of statements. A statement consists of a
-	 * command and then a list of arguments.
-	 *  
-	 */
-	private void retrieveLine() throws PoslException {
-		while (lexer.hasMore()) {			
-			statement = lexer.next().consume(statement, statements, charStack);
-		}
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
+		// not implemented 
 	}
 }
