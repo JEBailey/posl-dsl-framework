@@ -20,7 +20,7 @@ import posl.engine.type.Statement;
 /**
  * 
  * 
- * @author jason
+ * @author je bailey
  * 
  */
 public class Parser implements IParser {
@@ -36,19 +36,19 @@ public class Parser implements IParser {
 	private Stack<Character> charStack = new Stack<Character>();
 
 	private int lineNumber = 1;
-	/** Creates a new instance of LineFactory */
+
 	public Parser() {
 		lexer = new Lexer();
 		statement = new Statement(lineNumber);
 	}
 	
-	/* (non-Javadoc)
-	 * @see po.IParser#process(java.io.BufferedReader)
-	 */
+
 	@Override
 	public void process(InputStream is) throws PoslException {
 		lexer.tokenize(is);
-		recursive();
+		while (lexer.hasNext()) {			
+			statement = lexer.next().consume(statement, statements, charStack);
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -56,8 +56,7 @@ public class Parser implements IParser {
 	 */
 	@Override
 	public void process(String string) throws PoslException {
-		lexer.tokenize(new ByteArrayInputStream(string.getBytes()));
-		recursive();
+		process(new ByteArrayInputStream(string.getBytes()));
 	}
 
 	/* (non-Javadoc)
@@ -84,11 +83,6 @@ public class Parser implements IParser {
 		return charStack.isEmpty();
 	}
 
-	private void recursive() throws PoslException {
-		while (lexer.hasNext()) {			
-			statement = lexer.next().consume(statement, statements, charStack);
-		}
-	}
 
 	@Override
 	public void remove() {

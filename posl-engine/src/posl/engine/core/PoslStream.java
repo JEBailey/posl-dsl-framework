@@ -18,14 +18,14 @@ public class PoslStream {
 		this(new InputStreamReader(in));
 	}
 	
-	private int[] internationalize(CharSequence ch) {
+	private void internationalize(CharSequence ch) {
 		int[] reply = new int[ch.length()];
 		int i = 0;
 		for (int offset = 0; offset < ch.length(); ) {
 			    reply[i] = Character.codePointAt(ch, offset);
 			    offset += Character.charCount(reply[i++]);
 		}
-		return Arrays.copyOfRange(reply, 0, i);
+		data =  Arrays.copyOfRange(reply, 0, i);
 	}
 
 	public PoslStream(Reader reader) {
@@ -39,7 +39,7 @@ public class PoslStream {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		data = internationalize(out);
+		internationalize(out);
 	}
 
 	public int LA(int offset){
@@ -47,17 +47,17 @@ public class PoslStream {
 	}
 	
 	public int val(){
-		return (index < data.length) ? data[index] : -1;
+		return index < data.length ? data[index] : -1;
 	}
 	
 	
 	public int pop(){
-		return ((index < data.length) ? data[index++] : -1);
+		return index < data.length ? data[index++] : -1;
 	}
 	
 	public int pop(int offset){
 		index += offset;
-		return (index < data.length) ? data[index] : -1;
+		return index < data.length ? data[index] : -1;
 	}
 	
 	public boolean hasMore(){
@@ -82,11 +82,7 @@ public class PoslStream {
 	}
 	
 	public String getSubString(){
-		StringBuilder sb = new StringBuilder();
-		for (int i = mark;i <index;i++){
-			sb.appendCodePoint(data[i]);
-		}
-		return sb.toString();
+		return new String(data,mark,index - mark);
 	}
-
+	
 }
