@@ -6,6 +6,6 @@ import posl.engine.type.Statement;
 
 public interface IExecutable {
 
-	public abstract Object execute(Scope scope, Statement tokens) throws PoslException;
+	Object execute(Scope scope, Statement tokens) throws PoslException;
 
 }

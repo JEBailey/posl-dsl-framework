@@ -7,11 +7,6 @@ import posl.engine.type.Statement;
 
 public interface IParser {
 
-	/**
-	 * creates a Line from the tokenizer, a line is a series of tokens from
-	 * initial to the next EOL or EOF
-	 * @throws PoslException 
-	 */
 	public abstract void process(InputStream is) throws PoslException;
 
 	public abstract void process(String string) throws PoslException;

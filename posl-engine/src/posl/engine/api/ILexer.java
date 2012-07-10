@@ -6,11 +6,6 @@ import java.util.List;
 
 public interface ILexer {
 
-	/**
-	 * 
-	 * 
-	 * @param br
-	 */
 	public abstract void tokenize(InputStream is);
 
 	public abstract boolean hasMore();
