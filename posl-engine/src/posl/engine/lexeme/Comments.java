@@ -37,6 +37,8 @@ public class Comments extends ALexeme {
 		return false;
 	}
 	
+
+	
 	private class Inner implements IToken {
 
 		@Override

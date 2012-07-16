@@ -75,7 +75,7 @@ public final class PoslProvider {
 			throw new RuntimeException("missing language implementation "
 					+ currentNode);
 		}
-		if (!visited.contains(currentNode)) {
+		if (!visited.contains(poslImpl)) {
 			visited.add(poslImpl);
 			for (String nextNode : poslImpl.getRequires()) {
 				populateImpls(nextNode, visited);

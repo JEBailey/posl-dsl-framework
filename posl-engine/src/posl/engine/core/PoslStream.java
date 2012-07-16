@@ -85,4 +85,29 @@ public class PoslStream {
 		return new String(data,mark,index - mark);
 	}
 	
+	public TokenMetaData getTokenMetaData(){
+		return new TokenMetaData();
+	}
+	
+	public class TokenMetaData {
+		
+		private String parsedText = new String(data,mark,index - mark);
+		
+		private int startIndex = mark;
+		
+		private int length = index - mark;
+		
+		public String getParsedText() {
+			return parsedText;
+		}
+
+		public int getStartIndex() {
+			return startIndex;
+		}
+
+		public int getLength() {
+			return length;
+		}
+		
+	}
 }

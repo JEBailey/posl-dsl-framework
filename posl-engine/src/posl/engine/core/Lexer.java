@@ -60,10 +60,9 @@ public class Lexer implements ILexer {
 	 * 
 	 */
 	public void tokenize() {
-		Collection<ALexeme> entries = lexemes.values();
 		boolean consumed = false;
 		while (wrapper.hasMore()) {
-			for (ALexeme lexeme:entries){
+			for (ALexeme lexeme:lexemes.values()){
 				consumed = lexeme.consume(tokens, wrapper) | consumed;
 			}
 			if (!consumed){

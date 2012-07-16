@@ -26,5 +26,9 @@ public class Atom {
 		}
 		return false;
 	}
+	
+	public int hashCode() {
+		  return string.hashCode();
+	}
 
 }
