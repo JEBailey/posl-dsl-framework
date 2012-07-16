@@ -56,6 +56,18 @@ public class Identifier extends ALexeme {
 			statement.addObject(new Atom(value));
 			return statement;
 		}
+
+		@Override
+		public int length() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int getStartOffset() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 	}
 
 

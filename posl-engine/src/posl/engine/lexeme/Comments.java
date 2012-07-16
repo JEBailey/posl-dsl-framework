@@ -46,6 +46,18 @@ public class Comments extends ALexeme {
 				Stack<Character> charStack) {
 			return statement;
 		}
+
+		@Override
+		public int length() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int getStartOffset() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 		
 	}
 

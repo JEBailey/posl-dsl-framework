@@ -81,6 +81,18 @@ public class QuoteString extends ALexeme {
 			statement.addObject(value);
 			return statement;
 		}
+
+		@Override
+		public int length() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int getStartOffset() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 	}
 
 }
