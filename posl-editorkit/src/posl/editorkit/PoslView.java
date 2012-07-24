@@ -1,6 +1,5 @@
 package posl.editorkit;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,7 +11,8 @@ import javax.swing.text.PlainView;
 import javax.swing.text.Segment;
 import javax.swing.text.Utilities;
 
-import posl.engine.api.IToken;
+import posl.editorkit.token.IToken;
+
 
 /**
  * View that uses the lexical information to determine the style characteristics
@@ -21,7 +21,7 @@ import posl.engine.api.IToken;
 class PoslView extends PlainView {
 
 	/**
-	 * Construct a simple colored view of posl text.
+	 * Construct a simple colored view of text.
 	 */
 	PoslView(Element elem) {
 		super(elem);
@@ -57,8 +57,7 @@ class PoslView extends PlainView {
 		Segment text = new Segment();
 		for (IToken token : doc.getTokensInRange(start, end)) {
 			int endPosition = Math.min(token.getEndOffset(), end);
-			g2.setFont(this.getFont(token, g2.getFont()));
-			g2.setColor(getForeground(token));
+			token.consume(g2);
 			doc.getText(mark, endPosition - mark, text);
 			x = Utilities.drawTabbedText(text, x, y, g, this, mark);
 			mark = endPosition;
@@ -83,39 +82,6 @@ class PoslView extends PlainView {
 		return super.drawSelectedText(g2, x, y, p0, p1);
 	}
 
-	/**
-	 * Fetch the foreground color to use for a lexical token with the given
-	 * value.
-	 * 
-	 * @param attr
-	 *            attribute set from a token element that has a Token in the
-	 *            set.
-	 */
-	public Color getForeground(IToken token) {
-		DocAttributes attr = (DocAttributes) token.getAttribute();
-		Color reply = Color.black;
-		switch (token.type) {
-		case COMMENT:
-			reply = Color.gray;
-			break;
-		case NUMBER:
-		case STRING:
-			reply = Color.green.darker().darker();
-			break;
-		case GRAMMAR:
-			reply = Color.blue;
-			break;
-		}
-		if (attr.isCommand()) {
-			reply = new Color(147, 0, 71);// Color.red.darker().darker();
-		}
 
-		return reply;
-	}
-
-	public Font getFont(IToken token, Font font) {
-		DocAttributes attr = (DocAttributes) token.getAttribute();
-		return font.deriveFont(attr.isCommand() ? Font.BOLD : Font.PLAIN);
-	}
 
 }
