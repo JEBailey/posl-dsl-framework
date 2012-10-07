@@ -27,17 +27,22 @@ public class Grammar extends ALexeme {
 			grammar = true;
 		}
 		if (grammar){
-			tokens.add(new Inner((char)ps.pop()));//, ps.getMark()));
+			tokens.add(new Inner((char)ps.pop(), ps.getMark()));
 		}
 		return grammar;
 	}
 	
 	
 	private class Inner implements IToken {
-		char charValue;
 		
-		public Inner(char value) {
+		private char charValue;
+		
+		private int pos;
+		
+		
+		public Inner(char value, int i) {
 			this.charValue = value;
+			this.pos = i;
 		}
 		
 		@Override
@@ -94,14 +99,12 @@ public class Grammar extends ALexeme {
 
 		@Override
 		public int length() {
-			// TODO Auto-generated method stub
-			return 0;
+			return 1;
 		}
 
 		@Override
 		public int getStartOffset() {
-			// TODO Auto-generated method stub
-			return 0;
+			return pos;
 		}
 	}
 	

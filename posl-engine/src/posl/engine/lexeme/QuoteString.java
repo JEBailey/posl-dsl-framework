@@ -59,7 +59,7 @@ public class QuoteString extends ALexeme {
 		}// end while
 		if (ps.val() == '"') {
 			ps.pop();
-			tokens.add(new Inner(sb.toString()));//, ps.getMark()));;
+			tokens.add(new Inner(sb.toString(), ps.getMark()));
 		} else {
 			ps.reset();
 			return false;
@@ -70,9 +70,12 @@ public class QuoteString extends ALexeme {
 	
 	private class Inner implements IToken {
 		private String value;
+		
+		private int startPos;
 
-		public Inner(String value) {
+		public Inner(String value, int i) {
 			this.value = value;
+			this.startPos = i;
 		}
 
 		@Override
@@ -84,14 +87,12 @@ public class QuoteString extends ALexeme {
 
 		@Override
 		public int length() {
-			// TODO Auto-generated method stub
-			return 0;
+			return value.length()+2;
 		}
 
 		@Override
 		public int getStartOffset() {
-			// TODO Auto-generated method stub
-			return 0;
+			return startPos;
 		}
 	}
 

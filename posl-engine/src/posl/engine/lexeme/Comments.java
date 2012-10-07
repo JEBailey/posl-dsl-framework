@@ -18,7 +18,7 @@ public class Comments extends ALexeme {
 			while (ps.hasMore() && ps.val() != '\n') {
 				ps.pop();
 			}
-			tokens.add(new Inner());//, ps.getMark()));
+			tokens.add(new Inner(ps));//, ps.getMark()));
 			return true;
 		} else 
 		if (ps.val() == '/' && ps.LA(1)== '*') {
@@ -31,7 +31,7 @@ public class Comments extends ALexeme {
 				}
 				ps.pop();
 			}
-			tokens.add(new Inner());//, ps.getMark()));
+			tokens.add(new Inner(ps));
 			return true;
 		} 
 		return false;
@@ -41,6 +41,15 @@ public class Comments extends ALexeme {
 	
 	private class Inner implements IToken {
 
+		private int startPos;
+		
+		private int size;
+		
+		public Inner(PoslStream ps) {
+			startPos = ps.getMark();
+			size = ps.pos() - startPos;
+		}
+
 		@Override
 		public IStatement consume(IStatement statement, Stack<IStatement> statements,
 				Stack<Character> charStack) {
@@ -49,14 +58,13 @@ public class Comments extends ALexeme {
 
 		@Override
 		public int length() {
-			// TODO Auto-generated method stub
-			return 0;
+			return size;
 		}
 
 		@Override
 		public int getStartOffset() {
 			// TODO Auto-generated method stub
-			return 0;
+			return startPos;
 		}
 		
 	}

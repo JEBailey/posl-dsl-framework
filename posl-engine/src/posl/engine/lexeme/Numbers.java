@@ -37,23 +37,26 @@ public class Numbers extends ALexeme {
 			ps.pop();
 			consumeDigits(ps);
 			if (ps.val() == 'e' || ps.val() == 'E') {
+				int priorMark = ps.getMark();
 				ps.mark();
 				ps.pop();
 				if (isDigit(ps.val()) || (ps.val() == '-' || ps.val() == '+')) {
 					ps.pop();
 					consumeDigits(ps);
 				} else {
-					tokens.add(new Inner(ps.getSubString()));//, ps.getMark()));
+					//TODO:handle this properly
+					//tokens.add(new Inner(ps.getSubString(), ps.getMark()));
 					//tokens.add(Token.NUMBER(ps.getSubString(),ps.getMark()));
-					ps.reset();
+					ps.reset(priorMark);
 				}
 			}
 		}
-		tokens.add(new Inner(ps.getSubString()));
+		String numText = ps.getSubString();
+		tokens.add(new Inner(numText,ps.getMark(),numText.length()));
 		return true;
 	}
 
-	// TODO
+
 	private boolean processHexCode(List<IToken> tokens, PoslStream ps) {
 		// skip the first 0x
 		ps.pop();
@@ -62,16 +65,23 @@ public class Numbers extends ALexeme {
 		while (isDigit(ps.val()) || isHex(ps.val())) {
 			ps.pop();
 		}
-		tokens.add(new Inner(String.valueOf(Integer.parseInt(ps.getSubString(), 16))));//, ps.getMark()));
+		String numText = ps.getSubString();
+		tokens.add(new Inner(String.valueOf(Integer.parseInt(numText, 16)), ps.getMark() - 2,numText.length()+2));
 		return true;
 	}
 	
 	private class Inner implements IToken {
 
 		private String value;
+		
+		private int startPos;
+		
+		private int len;
 
-		public Inner(String value) {
+		public Inner(String value, int startPos, int length) {
 			this.value = value;
+			this.startPos = startPos;
+			this.len = length;
 		}
 		
 		
@@ -89,15 +99,14 @@ public class Numbers extends ALexeme {
 
 		@Override
 		public int length() {
-			// TODO Auto-generated method stub
-			return 0;
+			return len;
 		}
 
 
 		@Override
 		public int getStartOffset() {
 			// TODO Auto-generated method stub
-			return 0;
+			return startPos;
 		}
 		
 	}

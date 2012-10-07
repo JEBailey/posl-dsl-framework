@@ -28,7 +28,7 @@ public class Identifier extends ALexeme {
 				|| ps.val() == '_') {
 			ps.pop();
 		}
-		return tokens.add(new Inner(ps.getSubString()));//, ps.getMark()));
+		return tokens.add(new Inner(ps.getSubString(), ps.getMark()));
 	}
 
 
@@ -39,14 +39,14 @@ public class Identifier extends ALexeme {
 		while (isSpecial(ps.val())) {
 			ps.pop();
 		}
-		tokens.add(new Inner(ps.getSubString()));//, ps.getMark()));
+		tokens.add(new Inner(ps.getSubString(), ps.getMark()));
 		return true;
 	}
 	
 	private class Inner implements IToken {
 		private String value;
 
-		public Inner(String value) {
+		public Inner(String value, int i) {
 			this.value = value;
 		}
 		
