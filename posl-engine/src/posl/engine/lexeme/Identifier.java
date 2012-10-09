@@ -6,6 +6,7 @@ import java.util.Stack;
 import posl.engine.api.ALexeme;
 import posl.engine.api.IStatement;
 import posl.engine.api.IToken;
+import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 import posl.engine.type.Atom;
 
@@ -43,11 +44,12 @@ public class Identifier extends ALexeme {
 		return true;
 	}
 	
-	private class Inner implements IToken {
-		private String value;
-
+	private class Inner extends IToken {
+		
 		public Inner(String value, int i) {
 			this.value = value;
+			this.startPos = i;
+			this.endPos = i + value.length();
 		}
 		
 		@Override
@@ -56,18 +58,12 @@ public class Identifier extends ALexeme {
 			statement.addObject(new Atom(value));
 			return statement;
 		}
-
+		
 		@Override
-		public int length() {
-			// TODO Auto-generated method stub
-			return 0;
+		public void accept(TokenVisitor visitor) {
+			visitor.visitIdentifier(this);
 		}
 
-		@Override
-		public int getStartOffset() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
 	}
 
 

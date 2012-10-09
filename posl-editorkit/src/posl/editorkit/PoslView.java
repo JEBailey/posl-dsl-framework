@@ -11,7 +11,7 @@ import javax.swing.text.PlainView;
 import javax.swing.text.Segment;
 import javax.swing.text.Utilities;
 
-import posl.editorkit.token.IToken;
+import posl.engine.api.IToken;
 
 
 /**

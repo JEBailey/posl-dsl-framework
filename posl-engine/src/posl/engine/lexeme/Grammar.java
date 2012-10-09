@@ -6,6 +6,7 @@ import java.util.Stack;
 import posl.engine.api.ALexeme;
 import posl.engine.api.IStatement;
 import posl.engine.api.IToken;
+import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.PList;
@@ -33,16 +34,15 @@ public class Grammar extends ALexeme {
 	}
 	
 	
-	private class Inner implements IToken {
+	private class Inner extends IToken {
 		
 		private char charValue;
 		
-		private int pos;
-		
-		
 		public Inner(char value, int i) {
 			this.charValue = value;
-			this.pos = i;
+			this.value = Character.toString(value);
+			this.startPos = i;
+			this.endPos = i + 1;
 		}
 		
 		@Override
@@ -96,17 +96,12 @@ public class Grammar extends ALexeme {
 			}
 			return statement;
 		}
-
+		
 		@Override
-		public int length() {
-			return 1;
+		public void accept(TokenVisitor visitor) {
+			visitor.visitGrammar(this);
 		}
-
-		@Override
-		public int getStartOffset() {
-			return pos;
-		}
+		
 	}
-	
 
 }

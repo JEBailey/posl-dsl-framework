@@ -6,6 +6,7 @@ import java.util.Stack;
 import posl.engine.api.ALexeme;
 import posl.engine.api.IStatement;
 import posl.engine.api.IToken;
+import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 
 public class Comments extends ALexeme {
@@ -39,15 +40,12 @@ public class Comments extends ALexeme {
 	
 
 	
-	private class Inner implements IToken {
-
-		private int startPos;
-		
-		private int size;
+	private class Inner extends IToken {
 		
 		public Inner(PoslStream ps) {
-			startPos = ps.getMark();
-			size = ps.pos() - startPos;
+			this.value = ps.getSubString();
+			this.startPos = ps.getMark();
+			this.endPos = ps.pos();
 		}
 
 		@Override
@@ -57,16 +55,10 @@ public class Comments extends ALexeme {
 		}
 
 		@Override
-		public int length() {
-			return size;
+		public void accept(TokenVisitor visitor) {
+			visitor.visitComments(this);
 		}
 
-		@Override
-		public int getStartOffset() {
-			// TODO Auto-generated method stub
-			return startPos;
-		}
-		
 	}
 
 }

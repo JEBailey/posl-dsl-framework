@@ -2,22 +2,45 @@ package posl.engine.api;
 
 import java.util.Stack;
 
-public interface IToken {
+public abstract class IToken {
+	
+	protected int startPos;
+	protected int endPos;
+	
+	protected String value;
+	protected Object meta;
 	
 	/**
 	 * represents an encapsulation of functionality,
 	 * 
 	 * 
-	 * 
+	 *  
 	 * @param statement
 	 * @param statements
 	 * @param charStack
 	 * @return
 	 */
-	IStatement  consume(IStatement statement, Stack<IStatement> statements ,Stack<Character> charStack);
+	public abstract IStatement  consume(IStatement statement, Stack<IStatement> statements ,Stack<Character> charStack);
 	
-	int length();
+	public abstract void accept(TokenVisitor visitor);
+	
+	public int getStartOffset(){
+		return startPos;
+	}
 
-	int getStartOffset();
-
+	int getEndOffset(){
+		return endPos;
+	}
+	
+	public void setMetaInformation(Object meta){
+		this.meta = meta;
+	}
+    
+	public Object getMetaInformation(){
+		return meta;
+	}
+	
+	public String getString(){
+		return value;
+	}
 }

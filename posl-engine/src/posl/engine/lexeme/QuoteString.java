@@ -6,6 +6,7 @@ import java.util.Stack;
 import posl.engine.api.ALexeme;
 import posl.engine.api.IStatement;
 import posl.engine.api.IToken;
+import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 
 public class QuoteString extends ALexeme {
@@ -68,14 +69,12 @@ public class QuoteString extends ALexeme {
 
 	}
 	
-	private class Inner implements IToken {
-		private String value;
-		
-		private int startPos;
+	private class Inner extends IToken {
 
 		public Inner(String value, int i) {
 			this.value = value;
 			this.startPos = i;
+			this.endPos = i+value.length() + 2;
 		}
 
 		@Override
@@ -84,16 +83,13 @@ public class QuoteString extends ALexeme {
 			statement.addObject(value);
 			return statement;
 		}
-
+		
 		@Override
-		public int length() {
-			return value.length()+2;
+		public void accept(TokenVisitor visitor) {
+			visitor.visitQuote(this);
 		}
 
-		@Override
-		public int getStartOffset() {
-			return startPos;
-		}
+
 	}
 
 }

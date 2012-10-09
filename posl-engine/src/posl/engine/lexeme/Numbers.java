@@ -8,6 +8,7 @@ import java.util.Stack;
 import posl.engine.api.ALexeme;
 import posl.engine.api.IStatement;
 import posl.engine.api.IToken;
+import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 
 public class Numbers extends ALexeme {
@@ -70,18 +71,12 @@ public class Numbers extends ALexeme {
 		return true;
 	}
 	
-	private class Inner implements IToken {
-
-		private String value;
-		
-		private int startPos;
-		
-		private int len;
+	private class Inner extends IToken {
 
 		public Inner(String value, int startPos, int length) {
 			this.value = value;
 			this.startPos = startPos;
-			this.len = length;
+			this.endPos = startPos + length;
 		}
 		
 		
@@ -95,18 +90,10 @@ public class Numbers extends ALexeme {
 			}
 			return statement;
 		}
-
-
+		
 		@Override
-		public int length() {
-			return len;
-		}
-
-
-		@Override
-		public int getStartOffset() {
-			// TODO Auto-generated method stub
-			return startPos;
+		public void accept(TokenVisitor visitor) {
+			visitor.visitIdentifier(this);
 		}
 		
 	}

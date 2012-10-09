@@ -7,8 +7,8 @@ import javax.swing.event.CaretListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Highlighter;
 
-import posl.editorkit.token.IToken;
 import posl.editorkit.util.BoxHighlightPainter;
+import posl.engine.api.IToken;
 
 
 public class PairCaretListener implements CaretListener {
@@ -37,7 +37,7 @@ public class PairCaretListener implements CaretListener {
 		IToken pair;
 		try {
 			pair = (IToken) doc.getTokenAt(event.getDot());
-			DocAttributes attr = (DocAttributes)pair.getAttribute();
+			DocAttributes attr = (DocAttributes)pair.getMetaInformation();
 			if (attr.isPair()){
 				pair = attr.getToken();
 				pairHighlightTag = highlighter.addHighlight(pair.getStartOffset(),

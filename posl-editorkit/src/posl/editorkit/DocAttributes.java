@@ -1,6 +1,6 @@
 package posl.editorkit;
 
-import posl.editorkit.token.IToken;
+import posl.engine.api.IToken;
 
 
 public class DocAttributes {

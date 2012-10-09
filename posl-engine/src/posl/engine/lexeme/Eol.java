@@ -6,6 +6,7 @@ import java.util.Stack;
 import posl.engine.api.ALexeme;
 import posl.engine.api.IStatement;
 import posl.engine.api.IToken;
+import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 import posl.engine.type.Statement;
 
@@ -24,8 +25,12 @@ public class Eol extends ALexeme {
 		return false;
 	}
 	
-	private class Inner implements IToken {
-		@Override
+	private class Inner extends IToken {
+		
+		public Inner(){
+			this.value = "\n";
+		}
+		
 		public IStatement consume(IStatement statement, Stack<IStatement> statements,
 				Stack<Character> charStack) {
 			if (!statement.isMultiLine()){
@@ -38,18 +43,12 @@ public class Eol extends ALexeme {
 				return statement;
 			}
 		}
-
+		
 		@Override
-		public int length() {
-			// TODO Auto-generated method stub
-			return 0;
+		public void accept(TokenVisitor visitor) {
+			visitor.visitEol(this);
 		}
 
-		@Override
-		public int getStartOffset() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
 	}
 
 }
