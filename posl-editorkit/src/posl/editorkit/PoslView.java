@@ -57,7 +57,7 @@ class PoslView extends PlainView {
 		Segment text = new Segment();
 		for (IToken token : doc.getTokensInRange(start, end)) {
 			int endPosition = Math.min(token.getEndOffset(), end);
-			token.consume(g2);
+			((DocAttributes)token.getMeta()).consume(g2);
 			doc.getText(mark, endPosition - mark, text);
 			x = Utilities.drawTabbedText(text, x, y, g, this, mark);
 			mark = endPosition;

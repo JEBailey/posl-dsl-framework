@@ -28,15 +28,15 @@ public abstract class IToken {
 		return startPos;
 	}
 
-	int getEndOffset(){
+	public int getEndOffset(){
 		return endPos;
 	}
 	
-	public void setMetaInformation(Object meta){
+	public void setMeta(Object meta){
 		this.meta = meta;
 	}
     
-	public Object getMetaInformation(){
+	public Object getMeta(){
 		return meta;
 	}
 	

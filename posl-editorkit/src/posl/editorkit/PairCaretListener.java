@@ -37,7 +37,7 @@ public class PairCaretListener implements CaretListener {
 		IToken pair;
 		try {
 			pair = (IToken) doc.getTokenAt(event.getDot());
-			DocAttributes attr = (DocAttributes)pair.getMetaInformation();
+			DocAttributes attr = (DocAttributes)pair.getMeta();
 			if (attr.isPair()){
 				pair = attr.getToken();
 				pairHighlightTag = highlighter.addHighlight(pair.getStartOffset(),

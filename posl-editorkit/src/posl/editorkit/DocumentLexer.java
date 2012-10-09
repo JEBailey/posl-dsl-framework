@@ -8,12 +8,12 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import posl.editorkit.DocAttributes.style;
 import posl.engine.api.ILexer;
 import posl.engine.api.IToken;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.Lexer;
 import posl.engine.core.Parser;
-
 
 public class DocumentLexer implements ILexer {
 
@@ -21,8 +21,6 @@ public class DocumentLexer implements ILexer {
 
 	ILexer lexer = null;
 	public List<IToken> ITokens = null;
-
-	private Stack<IToken> charStack = new Stack<IToken>();
 
 	public DocumentLexer() {
 		lexer = new Lexer();
@@ -39,112 +37,117 @@ public class DocumentLexer implements ILexer {
 		return null;
 	}
 
+	@Override
+	public boolean hasNext() {
+		return false;
+	}
 
-	private void parse() {
-		boolean command = true;
-		IToken comparable = null;
-		while (lexer.hasMore()) {
-			IToken IToken = lexer.next();
-			DocAttributes attr = new DocAttributes();
-			IToken.setMetaInformation(attr);
-			if (log.isLoggable(Level.FINE)) {
-				log.fine("receiving IToken " + IToken);
-			}
-
-			switch (IToken.type) {
-			
-			case EOL:
-				command = true;
-				break;
-			case ATOM:
-				if (command){
-					attr.setCommand(true);
-					command = false;
-				}
-				break;
-			default:
-				break;
-			}
-			ITokens.add(IToken);
-		}
+	@Override
+	public void remove() {
+		// TODO Auto-generated method stub
 
 	}
-	
+
+	private void parse() {
+
+	}
+
 	class UIVisitor implements TokenVisitor {
 
+		boolean command = true;
+		IToken comparable = null;
+		DocAttributes attr = new DocAttributes();
+		private Stack<IToken> charStack = new Stack<IToken>();
+
 		@Override
-		public void visitComments(IToken iToken) {		
+		public void visitComments(IToken token) {
+			setDoc(token);
+			attr.setStyle(style.COMMENTS);
 		}
 
 		@Override
-		public void visitEol(IToken iToken) {			
+		public void visitEol(IToken token) {
+			command = true;
 		}
 
 		@Override
-		public void visitGrammar(IToken iToken) {
-			
-			switch (IToken.getCharValue()) {
+		public void visitGrammar(IToken token) {
+			setDoc(token);
+			char ch = token.getString().charAt(0);
+			switch (ch) {
 			case '[':
 				command = true;
-				charStack.push(IToken);
+				charStack.push(token);
 				break;
 			case '(':
-				charStack.push(IToken);
+				charStack.push(token);
 				break;
 			case '{':
 				command = true;
-				charStack.push(IToken);
+				charStack.push(token);
 				break;
 			case ')':
 				comparable = null;
 				if (!charStack.empty()) {
 					comparable = charStack.pop();
-					if (comparable.getCharValue() == '('){
+					if (comparable.getString().charAt(0) == '(') {
 						attr.setToken(comparable);
-						((DocAttributes)comparable.getMetaInformation()).setToken(IToken);
+						((DocAttributes) comparable.getMeta()).setToken(token);
 					}
-				} 
+				}
 				break;
 			case ']':
 				comparable = null;
 				if (!charStack.empty()) {
 					comparable = charStack.pop();
-					if (comparable.getCharValue() == '['){
+					if (comparable.getString().charAt(0) == '[') {
 						attr.setToken(comparable);
-						((DocAttributes)comparable.getAttribute()).setToken(IToken);
+						((DocAttributes) comparable.getMeta()).setToken(token);
 					}
-				} 
+				}
 				break;
 			case '}':
 				comparable = null;
 				if (!charStack.empty()) {
 					comparable = charStack.pop();
-					if (comparable.getCharValue() == '{'){
+					if (comparable.getString().charAt(0) == '{') {
 						attr.setToken(comparable);
-						((DocAttributes)comparable.getAttribute()).setIToken(IToken);
+						((DocAttributes) comparable.getMeta()).setToken(token);
 					}
 				}
 			}
-			break;
+			attr.setStyle(style.GRAMMAR);
+		}
+
+		private void setDoc(IToken token) {
+			attr = new DocAttributes();
+			token.setMeta(attr);
 		}
 
 		@Override
-		public void visitIdentifier(IToken iToken) {
-			
+		public void visitIdentifier(IToken token) {
+			if (command) {
+				attr.setCommand(true);
+				command = false;
+			}
+			attr.setStyle(style.INDENTIFIER);
 		}
 
 		@Override
-		public void visitNumbers(IToken iToken) {			
+		public void visitNumbers(IToken token) {
+			attr.setStyle(style.NUMBER);
 		}
 
 		@Override
-		public void visitQuote(IToken iToken) {			
+		public void visitQuote(IToken token) {
+			attr.setStyle(style.STRING);
 		}
 
 		@Override
-		public void visitWhitespace(IToken iToken) {			
+		public void visitWhitespace(IToken token) {
+
 		}
-		
+
 	}
 
 }
