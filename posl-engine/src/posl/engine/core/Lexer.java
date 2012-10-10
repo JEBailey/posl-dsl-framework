@@ -3,7 +3,6 @@ package posl.engine.core;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,12 +61,17 @@ public class Lexer implements ILexer {
 	public void tokenize() {
 		boolean consumed = false;
 		while (wrapper.hasMore()) {
+			// for each iteration through the available lexes
+			// we want to be assured that something was consumed
 			for (ALexeme lexeme:lexemes.values()){
 				consumed = lexeme.consume(tokens, wrapper) | consumed;
 			}
+			// if we've iterated through and nothing has been consumed
+			// return.(EOF could trigger this)
 			if (!consumed){
 				return;
 			}
+			//reset to false for next iteration
 			consumed = false;
 		}
 	}

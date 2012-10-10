@@ -15,44 +15,42 @@ import posl.engine.api.TokenVisitor;
 import posl.engine.core.Lexer;
 import posl.engine.core.Parser;
 
-public class DocumentLexer implements ILexer {
+public class DocumentLexer {
 
 	static Logger log = Logger.getLogger(Parser.class.getName());
 
-	ILexer lexer = null;
-	public List<IToken> ITokens = null;
+	private ILexer lexer = null;
+	private List<IToken> tokens = null;
+	private UIVisitor visitor = new UIVisitor();
 
 	public DocumentLexer() {
 		lexer = new Lexer();
-		ITokens = new ArrayList<IToken>();
+		tokens = new ArrayList<IToken>();
+	}
+	
+
+	public void tokenize(Reader reader) {
+	    lexer.tokenize(reader);
+	    parse();
+	}
+	
+	private void parse(){
+		while(lexer.hasNext()){
+			IToken next = lexer.next();
+			next.accept(visitor);
+			tokens.add(next);
+		}
+	}
+	
+	public List<IToken> getTokens(){
+		return tokens;
 	}
 
-	@Override
-	public void tokenize(InputStream is) {
-		lexer.tokenize(is);
-	}
 
-	@Override
-	public IToken next() {
-		return null;
-	}
 
-	@Override
-	public boolean hasNext() {
-		return false;
-	}
+	
 
-	@Override
-	public void remove() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void parse() {
-
-	}
-
-	class UIVisitor implements TokenVisitor {
+	private class UIVisitor implements TokenVisitor {
 
 		boolean command = true;
 		IToken comparable = null;
@@ -67,8 +65,10 @@ public class DocumentLexer implements ILexer {
 
 		@Override
 		public void visitEol(IToken token) {
+			setDoc(token);
 			command = true;
 		}
+		
 
 		@Override
 		public void visitGrammar(IToken token) {
@@ -126,6 +126,7 @@ public class DocumentLexer implements ILexer {
 
 		@Override
 		public void visitIdentifier(IToken token) {
+			setDoc(token);
 			if (command) {
 				attr.setCommand(true);
 				command = false;
@@ -135,19 +136,22 @@ public class DocumentLexer implements ILexer {
 
 		@Override
 		public void visitNumbers(IToken token) {
+			setDoc(token);
 			attr.setStyle(style.NUMBER);
 		}
 
 		@Override
 		public void visitQuote(IToken token) {
+			setDoc(token);
 			attr.setStyle(style.STRING);
 		}
 
 		@Override
 		public void visitWhitespace(IToken token) {
-
+			setDoc(token);
 		}
 
 	}
+
 
 }
