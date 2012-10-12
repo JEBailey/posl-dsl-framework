@@ -24,12 +24,12 @@ public class DocumentLexer {
 	private UIVisitor visitor = new UIVisitor();
 
 	public DocumentLexer() {
-		lexer = new Lexer();
-		tokens = new ArrayList<IToken>();
 	}
 	
 
 	public void tokenize(Reader reader) {
+		lexer = new Lexer();
+		tokens = new ArrayList<IToken>();
 	    lexer.tokenize(reader);
 	    parse();
 	}
