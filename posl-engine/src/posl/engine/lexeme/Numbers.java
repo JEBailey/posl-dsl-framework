@@ -93,7 +93,7 @@ public class Numbers extends ALexeme {
 		
 		@Override
 		public void accept(TokenVisitor visitor) {
-			visitor.visitIdentifier(this);
+			visitor.visitNumbers(this);
 		}
 		
 	}
