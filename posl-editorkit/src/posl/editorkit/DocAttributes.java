@@ -30,11 +30,11 @@ public class DocAttributes {
 		return token != null;
 	}
 
-	public IToken getToken() {
+	public IToken getPairedToken() {
 		return token;
 	}
 
-	public void setToken(IToken token) {
+	public void setPairedToken(IToken token) {
 		this.token = token;
 	}
 

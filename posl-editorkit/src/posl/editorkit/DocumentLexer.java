@@ -1,11 +1,9 @@
 package posl.editorkit;
 
-import java.io.InputStream;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import posl.editorkit.DocAttributes.style;
@@ -35,6 +33,7 @@ public class DocumentLexer {
 	}
 	
 	private void parse(){
+		log.warning("parsing");
 		while(lexer.hasNext()){
 			IToken next = lexer.next();
 			next.accept(visitor);
@@ -45,10 +44,6 @@ public class DocumentLexer {
 	public List<IToken> getTokens(){
 		return tokens;
 	}
-
-
-
-	
 
 	private class UIVisitor implements TokenVisitor {
 
@@ -91,8 +86,8 @@ public class DocumentLexer {
 				if (!charStack.empty()) {
 					comparable = charStack.pop();
 					if (comparable.getString().charAt(0) == '(') {
-						attr.setToken(comparable);
-						((DocAttributes) comparable.getMeta()).setToken(token);
+						attr.setPairedToken(comparable);
+						((DocAttributes) comparable.getMeta()).setPairedToken(token);
 					}
 				}
 				break;
@@ -101,8 +96,8 @@ public class DocumentLexer {
 				if (!charStack.empty()) {
 					comparable = charStack.pop();
 					if (comparable.getString().charAt(0) == '[') {
-						attr.setToken(comparable);
-						((DocAttributes) comparable.getMeta()).setToken(token);
+						attr.setPairedToken(comparable);
+						((DocAttributes) comparable.getMeta()).setPairedToken(token);
 					}
 				}
 				break;
@@ -111,8 +106,8 @@ public class DocumentLexer {
 				if (!charStack.empty()) {
 					comparable = charStack.pop();
 					if (comparable.getString().charAt(0) == '{') {
-						attr.setToken(comparable);
-						((DocAttributes) comparable.getMeta()).setToken(token);
+						attr.setPairedToken(comparable);
+						((DocAttributes) comparable.getMeta()).setPairedToken(token);
 					}
 				}
 			}

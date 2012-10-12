@@ -15,7 +15,7 @@ public class Comments extends ALexeme {
 	public boolean consume(List<IToken> tokens, PoslStream ps) {
 		// end of line comments
 		if (ps.val() == '/' && ps.LA(1) == '/') {
-			ps.mark();
+			ps.setMark();
 			while (ps.hasMore() && ps.val() != '\n') {
 				ps.pop();
 			}
@@ -23,7 +23,7 @@ public class Comments extends ALexeme {
 			return true;
 		} else 
 		if (ps.val() == '/' && ps.LA(1)== '*') {
-			ps.mark();
+			ps.setMark();
 			while (ps.hasMore()) {
 				if (ps.val() == '*' && ps.LA(1)== '/') {
 					ps.pop();
@@ -45,7 +45,7 @@ public class Comments extends ALexeme {
 		public Inner(PoslStream ps) {
 			this.value = ps.getSubString();
 			this.startPos = ps.getMark();
-			this.endPos = ps.pos();
+			this.endPos = ps.getPos();
 		}
 
 		@Override

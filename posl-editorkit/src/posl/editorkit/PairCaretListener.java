@@ -10,7 +10,6 @@ import javax.swing.text.Highlighter;
 import posl.editorkit.util.BoxHighlightPainter;
 import posl.engine.api.IToken;
 
-
 public class PairCaretListener implements CaretListener {
 
 	private Highlighter highlighter;
@@ -37,13 +36,14 @@ public class PairCaretListener implements CaretListener {
 		IToken pair;
 		try {
 			pair = (IToken) doc.getTokenAt(event.getDot());
-			if (pair != null){
-			DocAttributes attr = (DocAttributes)pair.getMeta();
-			if (attr.isPair()){
-				pair = attr.getToken();
-				pairHighlightTag = highlighter.addHighlight(pair.getStartOffset(),
-					pair.getEndOffset(),painter);
-			}
+			if (pair != null) {
+				DocAttributes attr = (DocAttributes) pair.getMeta();
+				if (attr.isPair()) {
+					pair = attr.getPairedToken();
+					pairHighlightTag = highlighter
+							.addHighlight(pair.getStartOffset(),
+									pair.getEndOffset(), painter);
+				}
 			}
 		} catch (Exception e) {
 			// should NOT happen

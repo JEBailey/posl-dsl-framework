@@ -68,6 +68,7 @@ public class Lexer implements ILexer {
 			}
 			// if we've iterated through and nothing has been consumed
 			// return.(EOF could trigger this)
+			// NOTE: If this IS EOF an EOL would have been caught
 			if (!consumed){
 				return;
 			}

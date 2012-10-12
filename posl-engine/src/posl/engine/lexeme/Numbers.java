@@ -29,7 +29,7 @@ public class Numbers extends ALexeme {
 	}
 
 	private  boolean processNumber(List<IToken> tokens, PoslStream ps) {
-		ps.mark();
+		ps.setMark();
 		ps.pop();
 		consumeDigits(ps);
 		// at this point we have defined all positive whole numbers
@@ -39,7 +39,7 @@ public class Numbers extends ALexeme {
 			consumeDigits(ps);
 			if (ps.val() == 'e' || ps.val() == 'E') {
 				int priorMark = ps.getMark();
-				ps.mark();
+				ps.setMark();
 				ps.pop();
 				if (isDigit(ps.val()) || (ps.val() == '-' || ps.val() == '+')) {
 					ps.pop();
@@ -62,7 +62,7 @@ public class Numbers extends ALexeme {
 		// skip the first 0x
 		ps.pop();
 		ps.pop();
-		ps.mark();
+		ps.setMark();
 		while (isDigit(ps.val()) || isHex(ps.val())) {
 			ps.pop();
 		}

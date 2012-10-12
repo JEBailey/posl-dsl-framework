@@ -198,7 +198,6 @@ public class Scope {
 			if (enclosingScope != null){
 				enclosingScope.update(key, value);				
 			} else {
-				//TODO:
 				throw new RuntimeException("unable to update value that's not defined");
 			}
 		}

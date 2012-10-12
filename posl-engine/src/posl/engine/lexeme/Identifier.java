@@ -23,7 +23,7 @@ public class Identifier extends ALexeme {
 	}
 
 	private boolean processWord(List<IToken> tokens, PoslStream ps) {
-		ps.mark();
+		ps.setMark();
 		ps.pop();
 		while (isAlpha(ps.val()) || isSpecial(ps.val()) || isDigit(ps.val())
 				|| ps.val() == '_') {
@@ -35,7 +35,7 @@ public class Identifier extends ALexeme {
 
 
 	private boolean processSpecial(List<IToken> tokens, PoslStream ps) {
-		ps.mark();
+		ps.setMark();
 		ps.pop();
 		while (isSpecial(ps.val())) {
 			ps.pop();

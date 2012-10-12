@@ -23,7 +23,7 @@ public class QuoteString extends ALexeme {
 	private boolean processQuote(List<IToken> tokens, PoslStream ps) {
 		StringBuilder sb = new StringBuilder();
 		ps.pop();
-		ps.mark();
+		ps.setMark();
 		while (ps.hasMore() && ps.val() != '"') {
 			if (ps.val() == '\\') {
 				ps.pop();

@@ -10,11 +10,11 @@ public class WhiteSpace extends ALexeme {
 
 	@Override
 	public boolean consume(List<IToken> tokens, PoslStream wrapper) {
-		int index = wrapper.pos();
+		int index = wrapper.getPos();
 		while ((wrapper.val()> 0) && wrapper.val()<= ' ' && wrapper.val() != '\n') {
 			wrapper.pop();
 		}
-		return index < wrapper.pos();
+		return index < wrapper.getPos();
 	}
 
 }

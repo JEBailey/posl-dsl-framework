@@ -14,7 +14,7 @@ public class Eol extends ALexeme {
 
 	@Override
 	public boolean consume(List<IToken> tokens, PoslStream ps) {
-		ps.mark();
+		ps.setMark();
 		if (ps.val() == -1){
 			tokens.add(new Inner(ps));
 			return false;

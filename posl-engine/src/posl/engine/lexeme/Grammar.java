@@ -16,7 +16,7 @@ public class Grammar extends ALexeme {
 
 	@Override
 	public boolean consume(List<IToken> tokens, PoslStream ps) {
-		ps.mark();
+		ps.setMark();
 		boolean grammar = false;
 		switch (ps.val()){
 		case '{':
