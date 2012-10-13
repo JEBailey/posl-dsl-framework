@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.Highlighter;
 
 import posl.editorkit.util.BoxHighlightPainter;

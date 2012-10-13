@@ -49,7 +49,8 @@ public class DocAttributes {
 	public String textLocation() {
 		return "text";
 	}
-
+	private static Color commandColor = new Color(147, 0, 71);// Color.red.darker().darker();
+	
 	public void consume(Graphics2D g2) {
 		Color color = Color.black;
 		switch (currentStyle) {
@@ -66,7 +67,7 @@ public class DocAttributes {
 		default:
 			break;
 		}
-		g2.setColor(color);
+		g2.setColor(isCommand() ? commandColor : color);
 		g2.setFont(g2.getFont().deriveFont(isCommand() ? Font.BOLD : Font.PLAIN));
 
 	}

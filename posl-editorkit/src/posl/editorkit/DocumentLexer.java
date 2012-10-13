@@ -33,7 +33,6 @@ public class DocumentLexer {
 	}
 	
 	private void parse(){
-		log.warning("parsing");
 		while(lexer.hasNext()){
 			IToken next = lexer.next();
 			next.accept(visitor);
