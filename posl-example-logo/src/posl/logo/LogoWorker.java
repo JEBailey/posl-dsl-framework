@@ -4,7 +4,10 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.Arc2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.util.LinkedList;
@@ -37,14 +40,14 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 	// private int turtleIndex;
 
 	// command based values
-	private BufferedImage bimage;
+	private BufferedImage offscreenImage;
 
-	private Graphics2D outerImage;
+	private Graphics2D onscreenGraphics;
 
 	public LogoWorker(String text, BufferedImage outerImage) {
 		super();
 		this.text = text;
-		this.outerImage = (Graphics2D) outerImage.getGraphics();
+		this.onscreenGraphics = (Graphics2D) outerImage.getGraphics();
 	}
 
 	@Override
@@ -58,9 +61,9 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 		}
 
 		// configure image to be used
-		bimage = ImageUtil.getBufferedImage(width, height);
+		offscreenImage = ImageUtil.getBufferedImage(width, height);
 
-		turtle = new Turtle(bimage);
+		turtle = new Turtle(offscreenImage);
 		turtle.setX(height);
 
 		try {
@@ -70,15 +73,15 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 			this.firePropertyChange("error", null, e);
 			System.out.println(e.toString());
 		}
-		publish(bimage);
-		return bimage;
+		publish(offscreenImage);
+		return offscreenImage;
 	}
 
 	@Override
 	protected void process(List<BufferedImage> chunks) {
 		if (chunks.size() > 0) {
 			BufferedImage image = chunks.get(chunks.size() - 1);
-			this.outerImage.drawImage(image, 0, 0, null);
+			this.onscreenGraphics.drawImage(image, 0, 0, null);
 		}
 	}
 
@@ -92,7 +95,7 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 	@Command("pause")
 	public void pause(Number pause) {
 		try {
-			publish(bimage);
+			publish(offscreenImage);
 			Thread.sleep(pause.longValue());
 		} catch (InterruptedException e) {
 			// whatever
@@ -116,12 +119,12 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 	}
 
 	@Command("forward")
-	public Object forward(Number number) {
+	public Double forward(Number number) {
 		return turtle.forward(number.doubleValue());
 	}
 
 	@Command("back")
-	public Object back(Number number) {
+	public Double back(Number number) {
 		return turtle.back(number.doubleValue());
 	}
 
@@ -135,61 +138,16 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 		return turtle.left(number.doubleValue());
 	}
 
-	/**
-	 * Fills a color in the image with a different color.
-	 * 
-	 * @param x
-	 *            x coordinate of starting point.
-	 * @param y
-	 *            y coordinate of starting point.
-	 * @param targetColor
-	 *            color we want to replace.
-	 * @param replacementColor
-	 *            the color which is used as the replacement.
-	 * @param image
-	 *            the image where we fill the color.
-	 */
-	public void floodFill(Point point, int targetColor, int replacementColor) {
-		Queue<Point> queue = new LinkedList<Point>();
-		boolean[][] queued = new boolean[bimage.getWidth()][bimage.getHeight()];
-		queue.add(point);
-		while (!queue.isEmpty()) {
-			Point p = queue.remove();
-			int x = p.x;
-			int y = p.y;
-			if (bimage.getRGB(x, y) == targetColor) {
-				bimage.setRGB(x, y, replacementColor);
-				if (x > 0 && x < bimage.getWidth() - 1 && y > 0
-						&& y < bimage.getHeight() - 1) {
-					if (!queued[x + 1][y]) {
-						queue.add(new Point(x + 1, y));
-					}
-					if (!queued[x - 1][y]) {
-						queue.add(new Point(x - 1, y));
-					}
-					if (!queued[x][y + 1]) {
-						queue.add(new Point(x, y + 1));
-					}
-					if (!queued[x][y - 1]) {
-						queue.add(new Point(x, y - 1));
-					}
-				}
-			}
-		}
-		queue = null;
-	}
-
-	@Command("flood")
-	public void flood(Number xDelta, Number yDelta, Color replacementColor) {
-		int x = (int) turtle.getPos().getX() - xDelta.intValue();
-		int y = (int) turtle.getPos().getY() - yDelta.intValue();
-		int targetColor = bimage.getRGB(x, y);
-		floodFill(new Point(x, y), targetColor, replacementColor.getRGB());
+	@Command("ellipse")
+	public void ellipse(Number width, Number height){
+		double x = turtle.getX();
+		double y = turtle.getY();
+		turtle.getGraphics().draw(new Ellipse2D.Double(x, y, width.doubleValue(), height.doubleValue()));
 	}
 
 	@Command("paint")
 	public void paint() {
-		publish(bimage);
+		publish(offscreenImage);
 	}
 
 	@Command("pencolor")
@@ -203,19 +161,17 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 		turtle.getGraphics().setStroke(new BasicStroke(number.floatValue()));
 		return number;
 	}
-
-	@Command("center_width")
-	public Object centerWidth() {
-		return turtle.setX(width / 2);
+	
+	@Command("center")
+	public void center() {
+		turtle.setX(width / 2);
+		turtle.setY(height / 2);
 	}
-
-	@Command("center_height")
-	public Object centerHeight() {
-		return turtle.setY(height / 2);
-	}
+	
 
 	@Command("home")
 	public void home() {
+		clear();
 		turtle.setX(0);
 		turtle.setY(height);
 	}
@@ -230,6 +186,17 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 	public Point2D pos() {
 		return turtle.getPos();
 	}
+	
+	@Command("getx")
+	public Number getx(){
+		return turtle.getX();
+	}
+	
+	@Command("gety")
+	public Number gety(){
+		return turtle.getY();
+	}
+	
 
 	@Command("setpos")
 	public void setpos(Object object) {
@@ -242,8 +209,21 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 	}
 
 	@Command("rand")
-	public Object rand(Number number) {
+	public Number rand(Number number) {
 		return random.nextInt(number.intValue());
 	}
-
+	
+    @Command("arc")
+    public void arc(double r, double angle1, double angle2) {
+        if (r < 0) throw new RuntimeException("arc radius can't be negative");
+        while (angle2 < angle1) {
+        	angle2 += 360;
+        }
+        double xs = turtle.getX();
+        double ys = turtle.getY();
+        double ws = 2*r;
+        double hs = 2*r;
+        turtle.getGraphics().draw(new Arc2D.Double(xs - ws/2, ys - hs/2, ws, hs, angle1, angle2 - angle1, Arc2D.OPEN));
+    }
+	
 }

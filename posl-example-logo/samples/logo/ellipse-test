@@ -1,0 +1,24 @@
+clear
+center_width
+center_height
+
+penup
+
+set a 30
+set b 40
+
+function spin () {
+	ellipse a b
+	right 20
+	forward 20
+} 
+
+set timer 19
+
+while [> timer 1] {
+	spin
+	let timer [- timer 1]
+    let a [+ a 5]
+    let b [- b 1]
+}
+

@@ -37,7 +37,7 @@ public class Turtle {
 	}
 	
 	
-	public Object back(double number){
+	public Double back(double number){
 		double endX   = x + number * Math.sin(heading.getRadians());
 		double endY   = y + number * Math.cos(heading.getRadians());
 		if (pendown) {
@@ -77,8 +77,16 @@ public class Turtle {
 		return x;
 	}
 	
+	public double getX(){
+		return x;
+	}
+	
 	public double setY(double y){
 		this.y = y;
+		return y;
+	}
+	
+	public double getY(){
 		return y;
 	}
 	

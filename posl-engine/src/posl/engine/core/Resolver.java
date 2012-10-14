@@ -1,15 +1,13 @@
-package posl.engine.resolvers;
+package posl.engine.core;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
-import posl.engine.core.ParameterInfo;
-import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Statement;
 
-public class NewDefault  {
+public class Resolver  {
 	
 protected Type[] params;
 	

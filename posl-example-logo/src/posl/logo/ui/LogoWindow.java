@@ -23,7 +23,7 @@ public class LogoWindow {
 	private JFrame frmPologo;
 
 	private BufferedImage bimage = ImageUtil.getBufferedImage(800, 600);
-		
+
 	/**
 	 * Create the application.
 	 */
@@ -47,12 +47,10 @@ public class LogoWindow {
 		frmPologo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		panel = new JPanel() {
-			/**
-			 * 
-			 */
+
 			private static final long serialVersionUID = 1L;
 
-			{
+			{// static
 				new Timer(20, new ActionListener() {
 
 					@Override
@@ -76,22 +74,22 @@ public class LogoWindow {
 		frmPologo.getContentPane().add(panel, BorderLayout.CENTER);
 	}
 
-	public void runLogo(String text,final PropertyChangeListener errorListener ) {
+	public void runLogo(String text, final PropertyChangeListener errorListener) {
 		if (logoWorker == null) {
-			logoWorker =  new LogoWorker(text,bimage);
+			logoWorker = new LogoWorker(text, bimage);
 			frmPologo.setTitle("Processing");
 			logoWorker.addPropertyChangeListener(new PropertyChangeListener() {
-				
+
 				@Override
 				public void propertyChange(PropertyChangeEvent evt) {
-					if (evt.getNewValue().equals(SwingWorker.StateValue.DONE)){
+					if (evt.getNewValue().equals(SwingWorker.StateValue.DONE)) {
 						frmPologo.setTitle("Done");
 						logoWorker.removePropertyChangeListener(this);
 						logoWorker.removePropertyChangeListener(errorListener);
 						logoWorker = null;
 					}
 				}
-				
+
 			});
 			logoWorker.addPropertyChangeListener(errorListener);
 			logoWorker.execute();

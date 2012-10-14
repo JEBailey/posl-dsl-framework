@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 
 import posl.engine.api.IExecutable;
 import posl.engine.error.PoslException;
-import posl.engine.resolvers.NewDefault;
 import posl.engine.type.Statement;
 
 public class MethodProxy implements IExecutable {
@@ -14,7 +13,7 @@ public class MethodProxy implements IExecutable {
 
 	private Object object;
 	
-	private NewDefault resolver = new NewDefault();	
+	private Resolver resolver = new Resolver();	
 
 	public MethodProxy(Method method, Object object) {
 		this.method = method;
