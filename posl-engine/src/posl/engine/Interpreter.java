@@ -19,11 +19,12 @@ import posl.engine.error.PoslException;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.Statement;
 
-/**
- *
- */
 
 /**
+ * Interpreter, initiates the process of turning a
+ * string of text into an executable structure based
+ * on information supplied in the Context
+ * 
  * 
  * @author jason bailey
  */
@@ -108,7 +109,7 @@ public class Interpreter {
 	/**
 	 * 
 	 * 
-	 * @param scope
+	 * @param scope provides the variables which the statement will be executed within
 	 * @param statement
 	 * @return
 	 * @throws PoslException
