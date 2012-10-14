@@ -3,14 +3,14 @@ package posl.engine.lexeme;
 import java.util.List;
 import java.util.Stack;
 
-import posl.engine.api.ALexeme;
+import posl.engine.api.Lexeme;
 import posl.engine.api.IStatement;
 import posl.engine.api.IToken;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 import posl.engine.type.Statement;
 
-public class Eol extends ALexeme {
+public class Eol extends Lexeme {
 
 	@Override
 	public boolean consume(List<IToken> tokens, PoslStream ps) {

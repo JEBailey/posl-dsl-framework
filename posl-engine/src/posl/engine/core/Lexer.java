@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import posl.engine.api.ALexeme;
+import posl.engine.api.Lexeme;
 import posl.engine.api.ILexer;
 import posl.engine.api.IToken;
 import posl.engine.lexeme.Comments;
@@ -25,7 +25,7 @@ public class Lexer implements ILexer {
 	private PoslStream wrapper;
 	
 	@SuppressWarnings("serial")
-	private Map<String, ALexeme> lexemes = new LinkedHashMap<String, ALexeme>(){{
+	private Map<String, Lexeme> lexemes = new LinkedHashMap<String, Lexeme>(){{
 		put("whitespace",new WhiteSpace());
 		put("comments",new Comments());
 		put("numbers",new Numbers());
@@ -63,7 +63,7 @@ public class Lexer implements ILexer {
 		while (wrapper.hasMore()) {
 			// for each iteration through the available lexes
 			// we want to be assured that something was consumed
-			for (ALexeme lexeme:lexemes.values()){
+			for (Lexeme lexeme:lexemes.values()){
 				consumed = lexeme.consume(tokens, wrapper) | consumed;
 			}
 			// if we've iterated through and nothing has been consumed

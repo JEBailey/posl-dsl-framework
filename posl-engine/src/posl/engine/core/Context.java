@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import posl.engine.annotation.Command;
 import posl.engine.annotation.Primitive;
+import posl.engine.api.Lexeme;
 import posl.engine.api.IParser;
 
 public class Context {
@@ -40,6 +41,10 @@ public class Context {
 	public void load(Object libraryObject) {
 		Method[] methods = libraryObject.getClass().getMethods();
 		loadMethods(libraryObject, methods);
+	}
+	
+	public void loadType(Lexeme lex){
+		
 	}
 
 	public IParser getParser() {

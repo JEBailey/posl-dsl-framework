@@ -26,13 +26,14 @@ protected Type[] params;
 	}
 	
 
-	/*
-	 * So the key here is that we have a number of
+	/**
 	 * 
-	 * (non-Javadoc)
 	 * 
-	 * @see posl.engine.api.AArgumentHandler#render(posl.engine.core.Scope,
-	 * posl.engine.type.Statement)
+	 * 
+	 * @param scope provides the available set of objects to work with
+	 * @param tokens is the executable statement
+	 * @return
+	 * @throws PoslException
 	 */
 	public Object[] render(Scope scope, Statement tokens) throws PoslException {
 		// This is the argument array that will be passed in the method call

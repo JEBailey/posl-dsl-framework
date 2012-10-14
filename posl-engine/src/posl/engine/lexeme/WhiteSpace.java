@@ -2,11 +2,11 @@ package posl.engine.lexeme;
 
 import java.util.List;
 
-import posl.engine.api.ALexeme;
+import posl.engine.api.Lexeme;
 import posl.engine.api.IToken;
 import posl.engine.core.PoslStream;
 
-public class WhiteSpace extends ALexeme {
+public class WhiteSpace extends Lexeme {
 
 	@Override
 	public boolean consume(List<IToken> tokens, PoslStream wrapper) {

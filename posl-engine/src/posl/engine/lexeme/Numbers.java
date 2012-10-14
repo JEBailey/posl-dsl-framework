@@ -5,13 +5,13 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Stack;
 
-import posl.engine.api.ALexeme;
+import posl.engine.api.Lexeme;
 import posl.engine.api.IStatement;
 import posl.engine.api.IToken;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 
-public class Numbers extends ALexeme {
+public class Numbers extends Lexeme {
 	
 	private static NumberFormat nf = NumberFormat.getInstance();
 
