@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import posl.editorkit.DocAttributes.style;
 import posl.engine.api.ILexer;
-import posl.engine.api.IToken;
+import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.Lexer;
 import posl.engine.core.Parser;
@@ -18,7 +18,7 @@ public class DocumentLexer {
 	static Logger log = Logger.getLogger(Parser.class.getName());
 
 	private ILexer lexer = null;
-	private List<IToken> tokens = null;
+	private List<Token> tokens = null;
 	private UIVisitor visitor = new UIVisitor();
 
 	public DocumentLexer() {
@@ -27,45 +27,45 @@ public class DocumentLexer {
 
 	public void tokenize(Reader reader) {
 		lexer = new Lexer();
-		tokens = new ArrayList<IToken>();
+		tokens = new ArrayList<Token>();
 	    lexer.tokenize(reader);
 	    parse();
 	}
 	
 	private void parse(){
 		while(lexer.hasNext()){
-			IToken next = lexer.next();
+			Token next = lexer.next();
 			next.accept(visitor);
 			tokens.add(next);
 		}
 	}
 	
-	public List<IToken> getTokens(){
+	public List<Token> getTokens(){
 		return tokens;
 	}
 
 	private class UIVisitor implements TokenVisitor {
 
 		boolean command = true;
-		IToken comparable = null;
+		Token comparable = null;
 		DocAttributes attr = new DocAttributes();
-		private Stack<IToken> charStack = new Stack<IToken>();
+		private Stack<Token> charStack = new Stack<Token>();
 
 		@Override
-		public void visitComments(IToken token) {
+		public void visitComments(Token token) {
 			setDoc(token);
 			attr.setStyle(style.COMMENTS);
 		}
 
 		@Override
-		public void visitEol(IToken token) {
+		public void visitEol(Token token) {
 			setDoc(token);
 			command = true;
 		}
 		
 
 		@Override
-		public void visitGrammar(IToken token) {
+		public void visitGrammar(Token token) {
 			setDoc(token);
 			char ch = token.getString().charAt(0);
 			switch (ch) {
@@ -113,13 +113,13 @@ public class DocumentLexer {
 			attr.setStyle(style.GRAMMAR);
 		}
 
-		private void setDoc(IToken token) {
+		private void setDoc(Token token) {
 			attr = new DocAttributes();
 			token.setMeta(attr);
 		}
 
 		@Override
-		public void visitIdentifier(IToken token) {
+		public void visitIdentifier(Token token) {
 			setDoc(token);
 			if (command) {
 				attr.setCommand(true);
@@ -129,19 +129,19 @@ public class DocumentLexer {
 		}
 
 		@Override
-		public void visitNumbers(IToken token) {
+		public void visitNumbers(Token token) {
 			setDoc(token);
 			attr.setStyle(style.NUMBER);
 		}
 
 		@Override
-		public void visitQuote(IToken token) {
+		public void visitQuote(Token token) {
 			setDoc(token);
 			attr.setStyle(style.STRING);
 		}
 
 		@Override
-		public void visitWhitespace(IToken token) {
+		public void visitWhitespace(Token token) {
 			setDoc(token);
 		}
 

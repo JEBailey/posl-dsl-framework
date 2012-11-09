@@ -9,7 +9,7 @@ import java.util.Map;
 
 import posl.engine.api.Lexeme;
 import posl.engine.api.ILexer;
-import posl.engine.api.IToken;
+import posl.engine.api.Token;
 import posl.engine.lexeme.Comments;
 import posl.engine.lexeme.Eol;
 import posl.engine.lexeme.Grammar;
@@ -20,7 +20,7 @@ import posl.engine.lexeme.WhiteSpace;
 
 public class Lexer implements ILexer {
 
-	private List<IToken> tokens;
+	private List<Token> tokens;
 
 	private PoslStream wrapper;
 	
@@ -42,14 +42,14 @@ public class Lexer implements ILexer {
 	 */
 	public void tokenize(InputStream is) {
 		wrapper = new PoslStream(is);
-		tokens = new ArrayList<IToken>();
+		tokens = new ArrayList<Token>();
 		tokenize();
 		wrapper = null;
 	}
 
 	public void tokenize(Reader reader) {
 		wrapper = new PoslStream(reader);
-		tokens = new ArrayList<IToken>();
+		tokens = new ArrayList<Token>();
 		tokenize();
 		wrapper = null;
 	}
@@ -80,9 +80,9 @@ public class Lexer implements ILexer {
 
 
 	@Override
-	public IToken next() {
+	public Token next() {
 		if (!tokens.isEmpty()) {
-			return (IToken) tokens.remove(0);
+			return (Token) tokens.remove(0);
 		}
 		return null;
 	}

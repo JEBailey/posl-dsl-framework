@@ -3,19 +3,19 @@ package posl.engine.lexeme;
 import java.util.List;
 import java.util.Stack;
 
+import posl.engine.api.Container;
 import posl.engine.api.Lexeme;
-import posl.engine.api.IStatement;
-import posl.engine.api.IToken;
+import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 import posl.engine.type.MultiLineStatement;
-import posl.engine.type.PList;
-import posl.engine.type.Statement;
+import posl.engine.type.ListContainer;
+import posl.engine.type.SingleStatement;
 
 public class Grammar extends Lexeme {
 
 	@Override
-	public boolean consume(List<IToken> tokens, PoslStream ps) {
+	public boolean consume(List<Token> tokens, PoslStream ps) {
 		ps.setMark();
 		boolean grammar = false;
 		switch (ps.val()){
@@ -34,7 +34,7 @@ public class Grammar extends Lexeme {
 	}
 	
 	
-	private class Inner extends IToken {
+	private class Inner extends Token {
 		
 		private char charValue;
 		
@@ -46,30 +46,29 @@ public class Grammar extends Lexeme {
 		}
 		
 		@Override
-		public IStatement consume(IStatement statement, Stack<IStatement> statements,
+		public Container consume(Container statement, Stack<Container> statements,
 				Stack<Character> charStack) {
-			int lineNumber = statement.endLineNumber();
 			switch (charValue) {
 			case '[':
 				charStack.push(']');
 				statements.push(statement);
-				statement = new Statement(lineNumber);
+				statement = new SingleStatement();
 				break;
 			case '(':
 				charStack.push(')');
 				statements.push(statement);
-				statement = new PList();
+				statement = new ListContainer();
 				break;
 			case '{':
 				charStack.push('}');
 				statements.push(statement);
-				statement = new MultiLineStatement(lineNumber);
+				statement = new MultiLineStatement();
 				break;
 			case ')':
 				if (!charStack.empty() && charStack.pop() == charValue){
-					Object temp = statement;
+					Container temp = statement;
 					statement = statements.pop();
-					statement.addObject(temp);
+					statement.add((List<?>)temp.get());
 				} else {
 					//throw new PoslException(lineNumber,"could not match parenthesis");
 				}
@@ -78,7 +77,7 @@ public class Grammar extends Lexeme {
 				if (!charStack.empty() && charStack.pop() == charValue){
 					Object temp = statement;
 					statement = statements.pop();
-					statement.addObject(temp);
+					statement.add(temp);
 				} else {
 					//throw new PoslException(lineNumber,"could not match square bracket");
 				}
@@ -88,7 +87,7 @@ public class Grammar extends Lexeme {
 					statement.addEol();
 					Object temp = statement;
 					statement = statements.pop();
-					statement.addObject(temp);
+					statement.add(temp);
 				} else {
 					//throw new PoslException(lineNumber,"could not match brace");
 				}

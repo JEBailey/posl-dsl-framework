@@ -3,16 +3,16 @@ package posl.engine.lexeme;
 import java.util.List;
 import java.util.Stack;
 
+import posl.engine.api.Container;
 import posl.engine.api.Lexeme;
-import posl.engine.api.IStatement;
-import posl.engine.api.IToken;
+import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 
 public class Comments extends Lexeme {
 
 	@Override
-	public boolean consume(List<IToken> tokens, PoslStream ps) {
+	public boolean consume(List<Token> tokens, PoslStream ps) {
 		// end of line comments
 		if (ps.val() == '/' && ps.LA(1) == '/') {
 			ps.setMark();
@@ -40,7 +40,7 @@ public class Comments extends Lexeme {
 	
 
 	
-	private class Inner extends IToken {
+	private class Inner extends Token {
 		
 		public Inner(PoslStream ps) {
 			this.value = ps.getSubString();
@@ -49,7 +49,7 @@ public class Comments extends Lexeme {
 		}
 
 		@Override
-		public IStatement consume(IStatement statement, Stack<IStatement> statements,
+		public Container consume(Container statement, Stack<Container> statements,
 				Stack<Character> charStack) {
 			return statement;
 		}

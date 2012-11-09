@@ -7,7 +7,7 @@ import java.util.Iterator;
 
 import posl.engine.core.PoslStream;
 
-public interface ILexer extends Iterator<IToken> {
+public interface ILexer extends Iterator<Token> {
 
 	public abstract void tokenize(InputStream is);
 	

@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
-import posl.engine.api.IToken;
+import posl.engine.api.Token;
 
 public class DocAttributes {
 
-	private IToken token;
+	private Token token;
 
 	private boolean command;
 
@@ -30,11 +30,11 @@ public class DocAttributes {
 		return token != null;
 	}
 
-	public IToken getPairedToken() {
+	public Token getPairedToken() {
 		return token;
 	}
 
-	public void setPairedToken(IToken token) {
+	public void setPairedToken(Token token) {
 		this.token = token;
 	}
 

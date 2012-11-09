@@ -5,7 +5,7 @@ import posl.engine.api.IExecutable;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.MultiLineStatement;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 
 public class NamespaceExec implements IExecutable {
 
@@ -18,14 +18,14 @@ public class NamespaceExec implements IExecutable {
 
 	public NamespaceExec(Scope scope,MultiLineStatement statements) throws PoslException {
 		runtimeScope = scope.createChildScope();
-		Interpreter.processList(runtimeScope,statements);
+		Interpreter.process(runtimeScope,statements.get());
 	}
 	
 	public Object processStatements(MultiLineStatement statements) throws PoslException{
-		return Interpreter.processList(runtimeScope,statements);
+		return Interpreter.process(runtimeScope,statements.get());
 	}
 	
-	public Object processStatement(Statement statement) throws PoslException{
+	public Object processStatement(SingleStatement statement) throws PoslException{
 		return Interpreter.process(runtimeScope,statement);
 	}
 	
@@ -34,18 +34,12 @@ public class NamespaceExec implements IExecutable {
 	}
 
 	@Override
-	public Object execute(Scope callingScope, Statement tokens) throws PoslException {
+	public Object execute(Scope callingScope, SingleStatement tokens) throws PoslException {
 		try {
-			/*Object token = runtimeScope.getValue(tokens.get(1));
-			Statement subList = tokens.subList(1,tokens.size());
-			if (token instanceof IExecutable) {
-				token = ((IExecutable)token).execute(callingScope, subList);
-			}
-			return token;*/
-			Statement subList = tokens.subList(1,tokens.size());
+			SingleStatement subList = tokens.subList(1,tokens.size());
 			return Interpreter.process(runtimeScope, subList);
 		} catch (PoslException e) {
-			throw e.push(tokens.startLineNumber(), "in namespace "+tokens.get(0).toString());
+			throw e.push(tokens.startPos(), "in namespace "+tokens.get(0).toString());
 		}
 	}
 

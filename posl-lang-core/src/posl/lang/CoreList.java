@@ -1,10 +1,10 @@
 package posl.lang;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import posl.engine.annotation.Command;
 import posl.engine.error.PoslException;
-import posl.engine.type.PList;
 import posl.engine.type.Reference;
 
 
@@ -22,23 +22,23 @@ public class CoreList {
 	}
 	
 	@Command("push")
-	public static PList push(List<?> list, Object token) throws Exception {
-		PList reply = new PList(list);
-		reply.push(token);
+	public static List<Object> push(List<?> list, Object token) throws Exception {
+		List<Object> reply = new LinkedList<Object>(list);
+		reply.add(0, token);
 		return reply;
 	}
 	
 	
 	
 	@Command("append")
-	public static List<?> append(PList list, Object token) throws Exception {
-		list = new PList(list);
-		list.addLast(token);
+	public static List<?> append(List<Object> list, Object token) throws Exception {
+		list = new LinkedList<Object>(list);
+		list.add(token);
 		return list;
 	}
 	
 	@Command("rest")
-	public static  List<?> rest(PList list) throws Exception {
+	public static  List<?> rest(List<Object> list) throws Exception {
 		return list.subList(1, list.size());
 	}
 	
@@ -48,14 +48,14 @@ public class CoreList {
 	}
 	
 	@Command("head")
-	public static Object head(PList list) throws Exception {
-		return list.peek();
+	public static Object head(List<?> list) throws Exception {
+		return list.get(0);
 	}
 	
 	@Command("cat")
-	public static Object cat(PList list, Reference key) throws PoslException {
-		list = new PList(list);
-		list.push(key);
+	public static Object cat(List<Object> list, Reference key) throws PoslException {
+		list = new LinkedList<Object>(list);
+		list.add(0,key);
 		return list;
 	}
 	

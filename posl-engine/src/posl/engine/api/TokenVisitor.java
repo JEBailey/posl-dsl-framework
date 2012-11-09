@@ -2,18 +2,18 @@ package posl.engine.api;
 
 public interface TokenVisitor {
 
-	void visitComments(IToken iToken);
+	void visitComments(Token iToken);
 	
-	void visitEol(IToken iToken);
+	void visitEol(Token iToken);
 	
-	void visitGrammar(IToken iToken);
+	void visitGrammar(Token iToken);
 	
-	void visitIdentifier(IToken iToken);
+	void visitIdentifier(Token iToken);
 	
-	void visitNumbers(IToken iToken);
+	void visitNumbers(Token iToken);
 	
-	void visitQuote(IToken iToken);
+	void visitQuote(Token iToken);
 	
-	void visitWhitespace(IToken iToken);
+	void visitWhitespace(Token iToken);
 
 }

@@ -7,7 +7,7 @@ import javax.swing.event.CaretListener;
 import javax.swing.text.Highlighter;
 
 import posl.editorkit.util.BoxHighlightPainter;
-import posl.engine.api.IToken;
+import posl.engine.api.Token;
 
 public class PairCaretListener implements CaretListener {
 
@@ -32,9 +32,9 @@ public class PairCaretListener implements CaretListener {
 			highlighter.removeHighlight(pairHighlightTag);
 			pairHighlightTag = null;
 		}
-		IToken pair;
+		Token pair;
 		try {
-			pair = (IToken) doc.getTokenAt(event.getDot());
+			pair = (Token) doc.getTokenAt(event.getDot());
 			if (pair != null) {
 				DocAttributes attr = (DocAttributes) pair.getMeta();
 				if (attr.isPair()) {

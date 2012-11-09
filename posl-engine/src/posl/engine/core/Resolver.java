@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 import posl.engine.error.PoslException;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 
 public class Resolver  {
 	
@@ -35,7 +35,7 @@ protected Type[] params;
 	 * @return
 	 * @throws PoslException
 	 */
-	public Object[] render(Scope scope, Statement tokens) throws PoslException {
+	public Object[] render(Scope scope, SingleStatement tokens) throws PoslException {
 		// This is the argument array that will be passed in the method call
 		Object[] arguments = new Object[info.length];
 		// we're going to loop through the parameter information
@@ -48,7 +48,7 @@ protected Type[] params;
 			// first check to see if we've ran out of arguments
 			if (tokenIndex > length) {
 				if (!param.isOptional()) {
-					throw new PoslException(tokens.startLineNumber(),
+					throw new PoslException(tokens.startPos(),
 							"incorrect number of arguments");
 				}
 			} else {

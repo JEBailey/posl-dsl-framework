@@ -3,33 +3,30 @@ package posl.engine.type;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import posl.engine.api.Container;
 import posl.engine.api.IStatement;
+import posl.engine.api.StatementVisitor;
 
-public class Statement implements IStatement {
+public class SingleStatement implements IStatement, Container {
 
 	private int startLineNumber;
 	private int endLineNumber;
 	
 	private LinkedList<Object> content = new LinkedList<Object>();
 	
-	public Statement(int lineNumber){
-		this.startLineNumber = lineNumber;
+	public SingleStatement(){
 	}
 	
-	public Statement(Collection<? extends Object> list) {
+	public SingleStatement(Collection<? extends Object> list) {
 		content = new LinkedList<Object>(list);
-	}
-	
-	public boolean addObject(Object object){
-		return content.add(object);
 	}
 	
 	public boolean notEmpty(){
 		return !content.isEmpty();
 	}
 
-	public Statement subList(int arg0, int arg1){
-		return new Statement(content.subList(arg0, arg1));
+	public SingleStatement subList(int arg0, int arg1){
+		return new SingleStatement(content.subList(arg0, arg1));
 	}
 	
 	public String errorString() {
@@ -45,11 +42,6 @@ public class Statement implements IStatement {
 		}
 		sb.append(' ');
 		return sb.toString();
-	}
-
-	@Override
-	public boolean isMultiLine() {
-		return false;
 	}
 
 	public boolean add(Object object) {
@@ -69,24 +61,29 @@ public class Statement implements IStatement {
 	}
 
 	@Override
-	public void addEol() {
-		// TODO Auto-generated method stub
+	public boolean addEol() {
+		return !content.isEmpty();
 		
 	}
 
-	@Override
-	public int startLineNumber() {
-		return startLineNumber;
+	public int startPos() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int endPos() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
-	public int endLineNumber() {
-		return endLineNumber;
+	public Object get() {
+		return this;
 	}
 
 	@Override
-	public int incrLineNumber() {
-		return ++endLineNumber;
+	public Object accept(StatementVisitor visitor) {
+		return visitor.visit(this);
 	}
 	
 

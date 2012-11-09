@@ -3,17 +3,17 @@ package posl.engine.lexeme;
 import java.util.List;
 import java.util.Stack;
 
+import posl.engine.api.Container;
 import posl.engine.api.Lexeme;
-import posl.engine.api.IStatement;
-import posl.engine.api.IToken;
+import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 
 public class Eol extends Lexeme {
 
 	@Override
-	public boolean consume(List<IToken> tokens, PoslStream ps) {
+	public boolean consume(List<Token> tokens, PoslStream ps) {
 		ps.setMark();
 		if (ps.val() == -1){
 			tokens.add(new Inner(ps));
@@ -26,7 +26,7 @@ public class Eol extends Lexeme {
 		return false;
 	}
 	
-	private class Inner extends IToken {
+	private class Inner extends Token {
 		
 		
 		
@@ -36,17 +36,13 @@ public class Eol extends Lexeme {
 			this.endPos = ps.getMark();
 		}
 		
-		public IStatement consume(IStatement statement, Stack<IStatement> statements,
+		public Container consume(Container statement, Stack<Container> statements,
 				Stack<Character> charStack) {
-			if (!statement.isMultiLine()){
-				if (statement.notEmpty()){
-					statements.add((Statement)statement);
-				}
-				return new Statement(statement.endLineNumber()+1);
-			} else {
-				statement.addEol();
-				return statement;
+			if (statement.addEol()){
+				statements.add(statement);
+				statement = new SingleStatement();
 			}
+			return statement;
 		}
 		
 		@Override

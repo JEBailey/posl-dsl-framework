@@ -4,9 +4,9 @@ import java.io.InputStream;
 import java.util.Iterator;
 
 import posl.engine.error.PoslException;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 
-public interface IParser extends Iterator<Statement> {
+public interface IParser extends Iterator<SingleStatement> {
 
 	public abstract void process(InputStream is) throws PoslException;
 

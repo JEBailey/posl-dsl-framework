@@ -1,7 +1,10 @@
 package posl.engine.type;
 
+import java.util.List;
+
 import posl.engine.Interpreter;
 import posl.engine.api.IStatement;
+import posl.engine.api.StatementVisitor;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 /**
@@ -13,7 +16,7 @@ import posl.engine.error.PoslException;
  * @author jbailey
  *
  */
-public class Reference {
+public class Reference implements StatementVisitor {
 	
 	private Object key;
 	
@@ -58,13 +61,29 @@ public class Reference {
 	public Object evaluate() throws PoslException{
 		Object result = scope.getValue(key);
 		if (result instanceof IStatement){
-			if (((IStatement)result).isMultiLine()){
-				return Interpreter.processList(scope, (MultiLineStatement)result);
-			} else {
-				return Interpreter.process(scope, (Statement)result);
-			}
+			return ((IStatement)result).accept(this);
 		}
 		return result;
+	}
+
+	@Override
+	public Object visit(SingleStatement statement) {
+		try {
+			return Interpreter.process(scope, statement);
+		} catch (PoslException e){
+			return e;
+		}
+		
+	}
+
+	@Override
+	public Object visit(List<SingleStatement> statements) {
+		try {
+			return Interpreter.process(scope, statements);
+		} catch (PoslException e){
+			return e;
+		}
+		
 	}
 
 

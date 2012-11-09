@@ -6,7 +6,7 @@ import posl.engine.core.PoslStream;
 
 public abstract class Lexeme {
 	
-	public abstract boolean  consume(List<IToken>tokens, PoslStream ps);
+	public abstract boolean  consume(List<Token>tokens, PoslStream ps);
 	
 	/**
 	 * determines if supplied char is a digit

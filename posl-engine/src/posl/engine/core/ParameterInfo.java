@@ -9,7 +9,7 @@ import java.util.Collection;
 import posl.engine.annotation.Property;
 import posl.engine.annotation.Optional;
 import posl.engine.error.PoslException;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 
 public class ParameterInfo {
 
@@ -51,7 +51,7 @@ public class ParameterInfo {
 		return state == State.OPTIONAL;
 	}
 
-	public Object render(Scope scope, Statement statement, int tokenIndex)
+	public Object render(Scope scope, SingleStatement statement, int tokenIndex)
 			throws PoslException {
 		switch (state) {
 		case NORMAL:
@@ -76,7 +76,7 @@ public class ParameterInfo {
 					add.invoke(list, scope.get(generic, statement.get(index)));
 				}
 			} catch (Exception e) {
-				throw new PoslException(statement.startLineNumber(),
+				throw new PoslException(statement.startPos(),
 						"failed to get COLLECTION");
 			}
 

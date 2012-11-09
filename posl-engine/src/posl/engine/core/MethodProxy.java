@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 
 import posl.engine.api.IExecutable;
 import posl.engine.error.PoslException;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 
 public class MethodProxy implements IExecutable {
 
@@ -22,11 +22,11 @@ public class MethodProxy implements IExecutable {
 	}
 
 	@Override
-	public Object execute(Scope argumentScope, Statement tokens) throws PoslException {
+	public Object execute(Scope argumentScope, SingleStatement tokens) throws PoslException {
 		try {
 			return method.invoke(object, resolver.render(argumentScope, tokens));
 		} catch (PoslException e1) {
-			e1.push(tokens.startLineNumber(), "in method "+tokens.get(0).toString());
+			e1.push(tokens.startPos(), "in method "+tokens.get(0).toString());
 			throw e1;
 		} catch (InvocationTargetException ite) {
 			// Any exception which occurs in the proxied method
@@ -35,12 +35,12 @@ public class MethodProxy implements IExecutable {
 			try {
 				exception = (PoslException)ite.getTargetException();
 			} catch (Exception e){
-				exception = new PoslException(tokens.startLineNumber(),ite.getCause().toString());
+				exception = new PoslException(tokens.startPos(),ite.getCause().toString());
 			}
-			exception.push(tokens.startLineNumber(),  "in command '"+tokens.get(0)+"'");
+			exception.push(tokens.startPos(),  "in command '"+tokens.get(0)+"'");
 			throw exception;
 		} catch (IllegalAccessException e) {
-			throw new PoslException(tokens.startLineNumber(),e.toString());
+			throw new PoslException(tokens.startPos(),e.toString());
 		} 
 	}
 	

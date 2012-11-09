@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import posl.engine.api.IExecutable;
 import posl.engine.core.Scope;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 
 public class JavaField implements IExecutable {
 
@@ -17,7 +17,7 @@ public class JavaField implements IExecutable {
 	}
 	
 	@Override
-	public Object execute(Scope scope, Statement tokens)
+	public Object execute(Scope scope, SingleStatement tokens)
 	{
 		try {
 			return field.get(reference);

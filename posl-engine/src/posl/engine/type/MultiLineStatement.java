@@ -1,37 +1,34 @@
 package posl.engine.type;
 
-import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
+import posl.engine.api.Container;
 import posl.engine.api.IStatement;
+import posl.engine.api.StatementVisitor;
 
-public class MultiLineStatement implements IStatement, Iterable<Statement> {
+public class MultiLineStatement implements IStatement, Container {
 
-	private LinkedList<Statement> statements = new LinkedList<Statement>();
+	private List<SingleStatement> statements = new LinkedList<SingleStatement>();
 
-	private Statement statement;
+	private SingleStatement statement;
+	
 	public int startLineNumber;
 	public int endLineNumber;
 
-	public MultiLineStatement(int lineNumber) {
-		super();
-		statement = new Statement(lineNumber);
-		this.startLineNumber = lineNumber;
+	public MultiLineStatement() {
+		statement = new SingleStatement();
 	}
 
-	public boolean addObject(Object object) {
+	public boolean add(Object object) {
 		return statement.add(object);
-	}
-
-	public boolean notEmpty() {
-		return statement.notEmpty();
 	}
 
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("{\n");
-		for (Statement statement : statements) {
+		for (SingleStatement statement : statements) {
 			sb.append(statement.toString());
 			sb.append('\n');
 		}
@@ -39,37 +36,23 @@ public class MultiLineStatement implements IStatement, Iterable<Statement> {
 		return sb.toString();
 	}
 
-	@Override
-	public Iterator<Statement> iterator() {
-		return statements.iterator();
+	public List<SingleStatement> get(){
+		return statements;
 	}
+	
 
 	@Override
-	public boolean isMultiLine() {
-		return true;
-	}
-
-	@Override
-	public void addEol() {
+	public boolean addEol() {
 		if (statement.notEmpty()) {
 			statements.add(statement);
-			this.statement = new Statement(incrLineNumber());
+			this.statement = new SingleStatement();
 		}
+		return false;
 	}
 
 	@Override
-	public int startLineNumber() {
-		return startLineNumber;
-	}
-
-	@Override
-	public int endLineNumber() {
-		return endLineNumber;
-	}
-
-	@Override
-	public int incrLineNumber() {
-		return ++endLineNumber;
+	public Object accept(StatementVisitor visitor) {
+		return visitor.visit((List<SingleStatement>)statements);
 	}
 
 }

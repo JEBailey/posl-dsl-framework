@@ -8,7 +8,7 @@ import java.util.List;
 import posl.engine.api.IExecutable;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 
 public class JavaMethod implements IExecutable {
 
@@ -25,7 +25,7 @@ public class JavaMethod implements IExecutable {
 	}
 
 	@Override
-	public Object execute(Scope scope, Statement tokens) {
+	public Object execute(Scope scope, SingleStatement tokens) {
 		Method method = null;		
 		Object[] args = new Object[tokens.size()];
 		for (int i = 0 ; i < args.length;++i){

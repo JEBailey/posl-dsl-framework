@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
 
 import posl.engine.api.IExecutable;
 import posl.engine.api.IParser;
@@ -17,7 +18,7 @@ import posl.engine.core.Context;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.MultiLineStatement;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 
 
 /**
@@ -65,7 +66,7 @@ public class Interpreter {
 		parser.process(stream);
 		Object result = null;
 		while (parser.hasNext()) {
-			Statement statement = parser.next();
+			SingleStatement statement = parser.next();
 			result = process(scope, statement);
 		}
 		return result;
@@ -98,9 +99,9 @@ public class Interpreter {
 	 * @return
 	 * @throws PoslException
 	 */
-	public static Object processList(Scope scope, MultiLineStatement statements) throws PoslException {
+	public static Object process(Scope scope, List<SingleStatement> statements) throws PoslException {
 		Object result = null;
-		for (Statement statement : statements) {
+		for (SingleStatement statement : statements) {
 			result = process(scope, statement);
 		}
 		return result;
@@ -114,7 +115,7 @@ public class Interpreter {
 	 * @return
 	 * @throws PoslException
 	 */
-	public static Object process(Scope scope, Statement statement) throws PoslException {
+	public static Object process(Scope scope, SingleStatement statement) throws PoslException {
 		Object token  = scope.getValue(statement.get(0));
 		if (token instanceof IExecutable) {
 			token = ((IExecutable) token).execute(scope, statement);

@@ -5,9 +5,9 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Stack;
 
+import posl.engine.api.Container;
 import posl.engine.api.Lexeme;
-import posl.engine.api.IStatement;
-import posl.engine.api.IToken;
+import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 
@@ -16,7 +16,7 @@ public class Numbers extends Lexeme {
 	private static NumberFormat nf = NumberFormat.getInstance();
 
 	@Override
-	public boolean consume(List<IToken> tokens, PoslStream ps) {
+	public boolean consume(List<Token> tokens, PoslStream ps) {
 		// numbers
 		if (isDigit(ps.val())
 				|| (ps.val() == '-' && isDigit(ps.LA(1)))) {
@@ -28,7 +28,7 @@ public class Numbers extends Lexeme {
 		return false;
 	}
 
-	private  boolean processNumber(List<IToken> tokens, PoslStream ps) {
+	private  boolean processNumber(List<Token> tokens, PoslStream ps) {
 		ps.setMark();
 		ps.pop();
 		consumeDigits(ps);
@@ -58,7 +58,7 @@ public class Numbers extends Lexeme {
 	}
 
 
-	private boolean processHexCode(List<IToken> tokens, PoslStream ps) {
+	private boolean processHexCode(List<Token> tokens, PoslStream ps) {
 		// skip the first 0x
 		ps.pop();
 		ps.pop();
@@ -71,7 +71,7 @@ public class Numbers extends Lexeme {
 		return true;
 	}
 	
-	private class Inner extends IToken {
+	private class Inner extends Token {
 
 		public Inner(String value, int startPos, int length) {
 			this.value = value;
@@ -81,12 +81,12 @@ public class Numbers extends Lexeme {
 		
 		
 		@Override
-		public IStatement consume(IStatement statement, Stack<IStatement> statements,
+		public Container consume(Container statement, Stack<Container> statements,
 				Stack<Character> charStack) {
 			try {
-				statement.addObject(nf.parse(value));
+				statement.add(nf.parse(value));
 			} catch (ParseException e) {
-				statement.addObject(new Error("bad number format"));
+				statement.add(new Error("bad number format"));
 			}
 			return statement;
 		}

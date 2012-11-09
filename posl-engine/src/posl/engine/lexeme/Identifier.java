@@ -3,9 +3,9 @@ package posl.engine.lexeme;
 import java.util.List;
 import java.util.Stack;
 
+import posl.engine.api.Container;
 import posl.engine.api.Lexeme;
-import posl.engine.api.IStatement;
-import posl.engine.api.IToken;
+import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 import posl.engine.type.Atom;
@@ -13,7 +13,7 @@ import posl.engine.type.Atom;
 public class Identifier extends Lexeme {
 
 	@Override
-	public boolean consume(List<IToken> tokens, PoslStream ps) {
+	public boolean consume(List<Token> tokens, PoslStream ps) {
 		if (isAlpha(ps.val()) || (ps.val() == '_' && isAlpha(ps.LA(1)))) {
 			return processWord(tokens, ps);
 		} else if (isSpecial(ps.val())) {
@@ -22,7 +22,7 @@ public class Identifier extends Lexeme {
 		return false;
 	}
 
-	private boolean processWord(List<IToken> tokens, PoslStream ps) {
+	private boolean processWord(List<Token> tokens, PoslStream ps) {
 		ps.setMark();
 		ps.pop();
 		while (isAlpha(ps.val()) || isSpecial(ps.val()) || isDigit(ps.val())
@@ -34,7 +34,7 @@ public class Identifier extends Lexeme {
 
 
 
-	private boolean processSpecial(List<IToken> tokens, PoslStream ps) {
+	private boolean processSpecial(List<Token> tokens, PoslStream ps) {
 		ps.setMark();
 		ps.pop();
 		while (isSpecial(ps.val())) {
@@ -44,7 +44,7 @@ public class Identifier extends Lexeme {
 		return true;
 	}
 	
-	private class Inner extends IToken {
+	private class Inner extends Token {
 		
 		public Inner(String value, int i) {
 			this.value = value;
@@ -53,9 +53,9 @@ public class Identifier extends Lexeme {
 		}
 		
 		@Override
-		public IStatement consume(IStatement statement, Stack<IStatement> statements,
+		public Container consume(Container statement, Stack<Container> statements,
 				Stack<Character> charStack) {
-			statement.addObject(new Atom(value));
+			statement.add(new Atom(value));
 			return statement;
 		}
 		

@@ -2,7 +2,7 @@ package posl.engine.api;
 
 import java.util.Stack;
 
-public abstract class IToken {
+public abstract class Token {
 	
 	protected int startPos;
 	protected int endPos;
@@ -20,7 +20,7 @@ public abstract class IToken {
 	 * @param charStack
 	 * @return
 	 */
-	public abstract IStatement  consume(IStatement statement, Stack<IStatement> statements ,Stack<Character> charStack);
+	public abstract Container consume(Container statement, Stack<Container> statements ,Stack<Character> charStack);
 	
 	public abstract void accept(TokenVisitor visitor);
 	

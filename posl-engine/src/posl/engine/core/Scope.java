@@ -16,7 +16,7 @@ import posl.engine.Interpreter;
 import posl.engine.error.PoslException;
 import posl.engine.type.Atom;
 import posl.engine.type.Reference;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 
 /**
  * 
@@ -97,8 +97,8 @@ public class Scope {
 				throw new PoslException(-1,"Null reference for "+object.toString());
 			}
 		}
-	    if (response instanceof Statement){
-			response = Interpreter.process(this,(Statement)object);
+	    if (response instanceof SingleStatement){
+			response = Interpreter.process(this,(SingleStatement)object);
 		}
 		return response;
 	}
@@ -131,8 +131,8 @@ public class Scope {
 			return new Reference(object,this);
 		}
 		
-		if (object.getClass() == Statement.class){
-			object = Interpreter.process(this,(Statement)object);
+		if (object.getClass() == SingleStatement.class){
+			object = Interpreter.process(this,(SingleStatement)object);
 			if (object == null){
 				System.out.println("issue");
 			}

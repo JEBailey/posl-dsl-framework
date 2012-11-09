@@ -11,11 +11,12 @@ import java.io.InputStream;
 import java.util.Stack;
 import java.util.logging.Logger;
 
+import posl.engine.api.Container;
 import posl.engine.api.ILexer;
 import posl.engine.api.IParser;
 import posl.engine.api.IStatement;
 import posl.engine.error.PoslException;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 
 /**
  * 
@@ -29,17 +30,15 @@ public class Parser implements IParser {
 	
 	private static Logger log = Logger.getLogger(Parser.class.getName());
 
-	private Stack<IStatement> statements = new Stack<IStatement>();
+	private Stack<Container> statements = new Stack<Container>();
 
-	private IStatement statement;
+	private Container statement;
 	
 	private Stack<Character> charStack = new Stack<Character>();
 
-	private int lineNumber = 1;
-
 	public Parser() {
 		lexer = new Lexer();
-		statement = new Statement(lineNumber);
+		statement = new SingleStatement();
 	}
 	
 
@@ -63,8 +62,8 @@ public class Parser implements IParser {
 	 * @see po.IParser#getStatement()
 	 */
 	@Override
-	public Statement next() {
-		return (Statement)statements.remove(0);
+	public SingleStatement next() {
+		return (SingleStatement)statements.remove(0);
 	}
 
 	/* (non-Javadoc)

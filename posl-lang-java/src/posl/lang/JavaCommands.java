@@ -11,7 +11,7 @@ import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Atom;
 import posl.engine.type.MultiLineStatement;
-import posl.engine.type.Statement;
+import posl.engine.type.SingleStatement;
 import posl.java.Java;
 import posl.java.JavaInvocationHandler;
 
@@ -20,13 +20,13 @@ public class JavaCommands {
 	
 	@Command("java")
 	//TODO - fix
-	public static Object ceateJava(Scope scope, Statement statement)
+	public static Object ceateJava(Scope scope, SingleStatement statement)
 			throws PoslException, ClassNotFoundException {
 		if(scope.containsKey(statement.get(1).toString())){
 			ArrayList<Object> derivedArgs = new ArrayList<Object>();
 			derivedArgs.add(statement.get(0));
 			derivedArgs.add(scope.get(statement.get(1).toString()));
-			Statement newArgs = new Statement(derivedArgs);
+			SingleStatement newArgs = new SingleStatement(derivedArgs);
 			return new Java(scope, newArgs);
 		}
 		return new Java(scope, statement);
@@ -34,7 +34,7 @@ public class JavaCommands {
 	
 	@Command("importJava")
 	//TODO - fix this with the new @Collection object
-	public static void alias(Scope scope, Statement args) throws Exception {
+	public static void alias(Scope scope, SingleStatement args) throws Exception {
 		String []pathElements = args.get(1).toString().split("[.]");
 		String className = pathElements[pathElements.length - 1];
 		scope.put(className, new Atom(args.get(1).toString()));
