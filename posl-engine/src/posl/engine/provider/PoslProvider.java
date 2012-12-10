@@ -18,6 +18,7 @@ public final class PoslProvider {
 	
 	@SuppressWarnings("serial")
 	private static Map<String, PoslImpl> impls = new HashMap<String, PoslImpl>() {
+		// This is a static initialization of the extended Map
 		{
 			Logger log = Logger.getLogger(PoslProvider.class.getName());
 			

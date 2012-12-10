@@ -11,7 +11,7 @@ import javax.swing.text.PlainView;
 import javax.swing.text.Segment;
 import javax.swing.text.Utilities;
 
-import posl.engine.api.IToken;
+import posl.engine.api.Token;
 
 
 /**
@@ -55,7 +55,7 @@ class PoslView extends PlainView {
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		int mark = start;
 		Segment text = new Segment();
-		for (IToken token : doc.getTokensInRange(start, end)) {
+		for (Token token : doc.getTokensInRange(start, end)) {
 			int endPosition = Math.min(token.getEndOffset(), end);
 			((DocAttributes)token.getMeta()).consume(g2);
 			doc.getText(mark, endPosition - mark, text);

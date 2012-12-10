@@ -137,6 +137,12 @@ public class PoslStream {
 		return mark;
 	}
 	
+	/**
+	 * Returns a section of the underlying stream starting 
+	 * at the last marked point and ending at the current index
+	 * 
+	 * @return
+	 */
 	public String getSubString(){
 		return new String(data,mark,index - mark);
 	}

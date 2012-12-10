@@ -9,7 +9,7 @@ import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.PoslStream;
 
-public class QuoteString extends Lexeme {
+public class QuotedString extends Lexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, PoslStream ps) {

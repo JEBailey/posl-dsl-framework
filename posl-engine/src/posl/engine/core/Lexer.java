@@ -15,7 +15,7 @@ import posl.engine.lexeme.Eol;
 import posl.engine.lexeme.Grammar;
 import posl.engine.lexeme.Identifier;
 import posl.engine.lexeme.Numbers;
-import posl.engine.lexeme.QuoteString;
+import posl.engine.lexeme.QuotedString;
 import posl.engine.lexeme.WhiteSpace;
 
 public class Lexer implements ILexer {
@@ -30,7 +30,7 @@ public class Lexer implements ILexer {
 		put("comments",new Comments());
 		put("numbers",new Numbers());
 		put("identifier",new Identifier());
-		put("quotes",new QuoteString());
+		put("quotes",new QuotedString());
 		put("grammar",new Grammar());
 		put("eol",new Eol());
 	}};

@@ -8,9 +8,8 @@ import posl.engine.api.StatementVisitor;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 /**
- * Reference class provides an encapsulated view of a word(atom) and it's representation
- * The purpose of this is to provide an encapsulated method of retrieving a value without
- * having to do multiple argument resolvers
+ * Reference class provides an encapsulated view of an identifier(atom) and it's unevaluated
+ * value. The purpose of this is to provide a method of lazy evaluation. 
  * 
  * 
  * @author jbailey
@@ -39,8 +38,6 @@ public class Reference implements StatementVisitor {
 	public Object getValue() {
 		return scope.get(key.toString());
 	}
-	
-	
 	
 	public void setValue(Object value){
 		this.scope.put(key.toString(), value);
