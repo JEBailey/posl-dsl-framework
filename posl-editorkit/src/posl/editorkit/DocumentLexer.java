@@ -7,17 +7,17 @@ import java.util.Stack;
 import java.util.logging.Logger;
 
 import posl.editorkit.DocAttributes.style;
-import posl.engine.api.ILexer;
+import posl.engine.api.Lexer;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
-import posl.engine.core.Lexer;
-import posl.engine.core.Parser;
+import posl.engine.core.DefaultLexer;
+import posl.engine.core.DefaultParser;
 
 public class DocumentLexer {
 
-	static Logger log = Logger.getLogger(Parser.class.getName());
+	static Logger log = Logger.getLogger(DefaultParser.class.getName());
 
-	private ILexer lexer = null;
+	private Lexer lexer = null;
 	private List<Token> tokens = null;
 	private UIVisitor visitor = new UIVisitor();
 
@@ -26,7 +26,7 @@ public class DocumentLexer {
 	
 
 	public void tokenize(Reader reader) {
-		lexer = new Lexer();
+		lexer = new DefaultLexer();
 		tokens = new ArrayList<Token>();
 	    lexer.tokenize(reader);
 	    parse();
