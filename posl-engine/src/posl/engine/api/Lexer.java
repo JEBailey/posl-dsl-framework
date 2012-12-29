@@ -5,9 +5,9 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import posl.engine.core.PoslStream;
+import posl.engine.core.Stream;
 
-public interface ILexer extends Iterator<Token> {
+public interface Lexer extends Iterator<Token> {
 
 	public abstract void tokenize(InputStream is);
 	

@@ -2,11 +2,11 @@ package posl.engine.api;
 
 import java.util.List;
 
-import posl.engine.core.PoslStream;
+import posl.engine.core.Stream;
 
 public abstract class Lexeme {
 	
-	public abstract boolean  consume(List<Token>tokens, PoslStream ps);
+	public abstract boolean  consume(List<Token>tokens, Stream ps);
 	
 	/**
 	 * determines if supplied char is a digit
@@ -19,7 +19,7 @@ public abstract class Lexeme {
 	}
 	
 	/**
-	 * determines if the supplied value represents a hex charachter
+	 * determines if the supplied value represents a hex character
 	 * 0-9,a-f,A-F
 	 * 
 	 * 
@@ -36,7 +36,7 @@ public abstract class Lexeme {
 	 * 
 	 * @param ps
 	 */
-	public static void consumeDigits(PoslStream ps) {
+	public static void consumeDigits(Stream ps) {
 		while (isDigit(ps.val())) {
 			ps.pop();
 		}

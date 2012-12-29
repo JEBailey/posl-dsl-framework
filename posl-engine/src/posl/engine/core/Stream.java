@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Arrays;
 
-public class PoslStream {
+public class Stream {
 
 	private int[] data;
 	
@@ -14,7 +14,7 @@ public class PoslStream {
 	
 	private int mark;
 
-	public PoslStream(InputStream in) {
+	public Stream(InputStream in) {
 		this(new InputStreamReader(in));
 	}
 	
@@ -28,7 +28,7 @@ public class PoslStream {
 		data =  Arrays.copyOfRange(reply, 0, i);
 	}
 
-	public PoslStream(Reader reader) {
+	public Stream(Reader reader) {
 		StringBuilder out = new StringBuilder();
 	    char[] b = new char[4096];
 	    try {

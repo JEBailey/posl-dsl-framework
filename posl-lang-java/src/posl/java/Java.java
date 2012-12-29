@@ -5,17 +5,17 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import posl.engine.api.IExecutable;
+import posl.engine.api.Executable;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Atom;
 import posl.engine.type.SingleStatement;
 
-public class Java implements IExecutable {
+public class Java implements Executable {
 
 	private Object object;
 	private Class<?> klass;
-	private Map<String, IExecutable> names;
+	private Map<String, Executable> names;
 	//private boolean isStatic;
 
 	/**
@@ -52,7 +52,7 @@ public class Java implements IExecutable {
 		Field[] fields = klass.getFields();
 		Method[] methods = klass.getMethods();
 		
-		names = new HashMap<String,IExecutable>();
+		names = new HashMap<String,Executable>();
 		
 		for (Field field:fields){
 			names.put(field.getName(), new JavaField(getObject(),field));

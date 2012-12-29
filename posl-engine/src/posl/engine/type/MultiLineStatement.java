@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import posl.engine.api.Container;
-import posl.engine.api.IStatement;
+import posl.engine.api.Statement;
 import posl.engine.api.StatementVisitor;
 
-public class MultiLineStatement implements IStatement, Container {
+public class MultiLineStatement implements Statement, Container {
 
 	private List<SingleStatement> statements = new LinkedList<SingleStatement>();
 

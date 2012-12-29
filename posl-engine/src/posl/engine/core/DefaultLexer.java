@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import posl.engine.api.Lexeme;
-import posl.engine.api.ILexer;
+import posl.engine.api.Lexer;
 import posl.engine.api.Token;
 import posl.engine.lexeme.Comments;
 import posl.engine.lexeme.Eol;
@@ -18,11 +18,11 @@ import posl.engine.lexeme.Numbers;
 import posl.engine.lexeme.QuotedString;
 import posl.engine.lexeme.WhiteSpace;
 
-public class Lexer implements ILexer {
+public class DefaultLexer implements Lexer {
 
 	private List<Token> tokens;
 
-	private PoslStream wrapper;
+	private Stream wrapper;
 	
 	@SuppressWarnings("serial")
 	private Map<String, Lexeme> lexemes = new LinkedHashMap<String, Lexeme>(){{
@@ -41,14 +41,14 @@ public class Lexer implements ILexer {
 	 * 
 	 */
 	public void tokenize(InputStream is) {
-		wrapper = new PoslStream(is);
+		wrapper = new Stream(is);
 		tokens = new ArrayList<Token>();
 		tokenize();
 		wrapper = null;
 	}
 
 	public void tokenize(Reader reader) {
-		wrapper = new PoslStream(reader);
+		wrapper = new Stream(reader);
 		tokens = new ArrayList<Token>();
 		tokenize();
 		wrapper = null;

@@ -7,13 +7,13 @@ import posl.engine.api.Container;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
-import posl.engine.core.PoslStream;
+import posl.engine.core.Stream;
 import posl.engine.type.Atom;
 
 public class Identifier extends Lexeme {
 
 	@Override
-	public boolean consume(List<Token> tokens, PoslStream ps) {
+	public boolean consume(List<Token> tokens, Stream ps) {
 		if (isAlpha(ps.val()) || (ps.val() == '_' && isAlpha(ps.LA(1)))) {
 			return processWord(tokens, ps);
 		} else if (isSpecial(ps.val())) {
@@ -22,7 +22,7 @@ public class Identifier extends Lexeme {
 		return false;
 	}
 
-	private boolean processWord(List<Token> tokens, PoslStream ps) {
+	private boolean processWord(List<Token> tokens, Stream ps) {
 		ps.setMark();
 		ps.pop();
 		while (isAlpha(ps.val()) || isSpecial(ps.val()) || isDigit(ps.val())
@@ -34,7 +34,7 @@ public class Identifier extends Lexeme {
 
 
 
-	private boolean processSpecial(List<Token> tokens, PoslStream ps) {
+	private boolean processSpecial(List<Token> tokens, Stream ps) {
 		ps.setMark();
 		ps.pop();
 		while (isSpecial(ps.val())) {

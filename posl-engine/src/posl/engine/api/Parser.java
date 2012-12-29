@@ -6,7 +6,7 @@ import java.util.Iterator;
 import posl.engine.error.PoslException;
 import posl.engine.type.SingleStatement;
 
-public interface IParser extends Iterator<SingleStatement> {
+public interface Parser extends Iterator<SingleStatement> {
 
 	public abstract void process(InputStream is) throws PoslException;
 

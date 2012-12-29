@@ -7,12 +7,12 @@ import posl.engine.api.Container;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
-import posl.engine.core.PoslStream;
+import posl.engine.core.Stream;
 
 public class Comments extends Lexeme {
 
 	@Override
-	public boolean consume(List<Token> tokens, PoslStream ps) {
+	public boolean consume(List<Token> tokens, Stream ps) {
 		// end of line comments
 		if (ps.val() == '/' && ps.LA(1) == '/') {
 			ps.setMark();
@@ -42,7 +42,7 @@ public class Comments extends Lexeme {
 	
 	private class Inner extends Token {
 		
-		public Inner(PoslStream ps) {
+		public Inner(Stream ps) {
 			this.value = ps.getSubString();
 			this.startPos = ps.getMark();
 			this.endPos = ps.getPos();

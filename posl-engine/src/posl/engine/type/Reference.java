@@ -3,7 +3,7 @@ package posl.engine.type;
 import java.util.List;
 
 import posl.engine.Interpreter;
-import posl.engine.api.IStatement;
+import posl.engine.api.Statement;
 import posl.engine.api.StatementVisitor;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
@@ -57,8 +57,8 @@ public class Reference implements StatementVisitor {
 	
 	public Object evaluate() throws PoslException{
 		Object result = scope.getValue(key);
-		if (result instanceof IStatement){
-			return ((IStatement)result).accept(this);
+		if (result instanceof Statement){
+			return ((Statement)result).accept(this);
 		}
 		return result;
 	}

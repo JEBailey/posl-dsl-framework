@@ -3,13 +3,13 @@ package posl.lang.executable;
 import java.util.List;
 
 import posl.engine.Interpreter;
-import posl.engine.api.IExecutable;
+import posl.engine.api.Executable;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.SingleStatement;
 
-public class Function implements IExecutable {
+public class Function implements Executable {
 
 	/**
 	 * Actual code that will be executed with the passed in parameters

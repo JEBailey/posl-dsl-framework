@@ -61,7 +61,7 @@ public class ParameterInfo {
 			return scope.get((String) parameter);
 		case SCOPE:
 			return scope;
-			// Collection is a special case which takes a paramatized Collection
+			// Collection is a special case which takes a Collection
 			// object and
 			// adds all the remaining arguments into that collection
 		case COLLECTION:

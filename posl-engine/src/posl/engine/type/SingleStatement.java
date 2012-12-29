@@ -4,10 +4,10 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import posl.engine.api.Container;
-import posl.engine.api.IStatement;
+import posl.engine.api.Statement;
 import posl.engine.api.StatementVisitor;
 
-public class SingleStatement implements IStatement, Container {
+public class SingleStatement implements Statement, Container {
 
 	private int startLineNumber;
 	private int endLineNumber;

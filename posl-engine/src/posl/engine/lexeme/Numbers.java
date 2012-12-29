@@ -9,14 +9,14 @@ import posl.engine.api.Container;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
-import posl.engine.core.PoslStream;
+import posl.engine.core.Stream;
 
 public class Numbers extends Lexeme {
 	
 	private static NumberFormat nf = NumberFormat.getInstance();
 
 	@Override
-	public boolean consume(List<Token> tokens, PoslStream ps) {
+	public boolean consume(List<Token> tokens, Stream ps) {
 		// numbers
 		if (isDigit(ps.val())
 				|| (ps.val() == '-' && isDigit(ps.LA(1)))) {
@@ -28,7 +28,7 @@ public class Numbers extends Lexeme {
 		return false;
 	}
 
-	private  boolean processNumber(List<Token> tokens, PoslStream ps) {
+	private  boolean processNumber(List<Token> tokens, Stream ps) {
 		ps.setMark();
 		ps.pop();
 		consumeDigits(ps);
@@ -58,7 +58,7 @@ public class Numbers extends Lexeme {
 	}
 
 
-	private boolean processHexCode(List<Token> tokens, PoslStream ps) {
+	private boolean processHexCode(List<Token> tokens, Stream ps) {
 		// skip the first 0x
 		ps.pop();
 		ps.pop();

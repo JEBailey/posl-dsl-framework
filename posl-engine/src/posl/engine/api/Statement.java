@@ -1,6 +1,6 @@
 package posl.engine.api;
 
-public interface IStatement {
+public interface Statement {
 	
 	Object accept(StatementVisitor visitor);
 

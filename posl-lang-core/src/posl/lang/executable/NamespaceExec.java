@@ -1,13 +1,13 @@
 package posl.lang.executable;
 
 import posl.engine.Interpreter;
-import posl.engine.api.IExecutable;
+import posl.engine.api.Executable;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.SingleStatement;
 
-public class NamespaceExec implements IExecutable {
+public class NamespaceExec implements Executable {
 
 	/**
 	 * Parent scope. When the actual method block runs, it will run within a

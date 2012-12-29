@@ -3,11 +3,11 @@ package posl.engine.core;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import posl.engine.api.IExecutable;
+import posl.engine.api.Executable;
 import posl.engine.error.PoslException;
 import posl.engine.type.SingleStatement;
 
-public class MethodProxy implements IExecutable {
+public class MethodProxy implements Executable {
 
 	private Method method;
 

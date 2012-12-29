@@ -7,13 +7,13 @@ import posl.engine.api.Container;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
-import posl.engine.core.PoslStream;
+import posl.engine.core.Stream;
 import posl.engine.type.SingleStatement;
 
 public class Eol extends Lexeme {
 
 	@Override
-	public boolean consume(List<Token> tokens, PoslStream ps) {
+	public boolean consume(List<Token> tokens, Stream ps) {
 		ps.setMark();
 		if (ps.val() == -1){
 			tokens.add(new Inner(ps));
@@ -30,7 +30,7 @@ public class Eol extends Lexeme {
 		
 		
 		
-		public Inner(PoslStream ps){
+		public Inner(Stream ps){
 			this.value = "\n";
 			this.startPos = ps.getMark();
 			this.endPos = ps.getMark();

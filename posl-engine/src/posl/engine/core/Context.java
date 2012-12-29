@@ -8,11 +8,11 @@ import java.util.logging.Logger;
 import posl.engine.annotation.Command;
 import posl.engine.annotation.Primitive;
 import posl.engine.api.Lexeme;
-import posl.engine.api.IParser;
+import posl.engine.api.Parser;
 
 public class Context {
 
-	private IParser parser;
+	private Parser parser;
 	private Scope scope;
 
 	private static final String output = "__outputstream";
@@ -20,14 +20,14 @@ public class Context {
 	private static final Logger log = Logger.getLogger(Context.class.getName());
 
 	public Context() {
-		this(new Parser(), new Scope());
+		this(new DefaultParser(), new Scope());
 	}
 
 	public Context(Scope scope) {
-		this(new Parser(), scope);
+		this(new DefaultParser(), scope);
 	}
 
-	public Context(IParser parser, Scope scope) {
+	public Context(Parser parser, Scope scope) {
 		this.parser = parser;
 		this.scope = scope;
 		scope.put(output, System.out);
@@ -47,7 +47,7 @@ public class Context {
 		
 	}
 
-	public IParser getParser() {
+	public Parser getParser() {
 		return parser;
 	}
 
@@ -118,7 +118,7 @@ public class Context {
 	}
 
 	public void resetParser() {
-		this.parser = new Parser();
+		this.parser = new DefaultParser();
 	}
 
 }

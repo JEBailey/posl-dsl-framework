@@ -5,12 +5,12 @@ import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 
-import posl.engine.api.IExecutable;
+import posl.engine.api.Executable;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.SingleStatement;
 
-public class JavaMethod implements IExecutable {
+public class JavaMethod implements Executable {
 
 	private Object reference;
 	private List<Method> methods = new LinkedList<Method>();

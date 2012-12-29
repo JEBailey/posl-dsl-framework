@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-import posl.engine.api.IExecutable;
+import posl.engine.api.Executable;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Atom;
@@ -60,8 +60,8 @@ public class JavaInvocationHandler implements InvocationHandler {
 			//e.printStackTrace(); // it's possible that we haven't mapped all functions. That's ok
 		}
 		if (token != null) {
-			if (token instanceof IExecutable) {
-				token = ((IExecutable)token).execute(scope, tokens);
+			if (token instanceof Executable) {
+				token = ((Executable)token).execute(scope, tokens);
 			}
 		}
 		return token;

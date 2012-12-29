@@ -7,12 +7,12 @@ import posl.engine.api.Container;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
-import posl.engine.core.PoslStream;
+import posl.engine.core.Stream;
 
 public class QuotedString extends Lexeme {
 
 	@Override
-	public boolean consume(List<Token> tokens, PoslStream ps) {
+	public boolean consume(List<Token> tokens, Stream ps) {
 		// string
 		if (ps.val() == '"') {
 			return processQuote(tokens,ps);
@@ -20,7 +20,7 @@ public class QuotedString extends Lexeme {
 		return false;
 	}
 	
-	private boolean processQuote(List<Token> tokens, PoslStream ps) {
+	private boolean processQuote(List<Token> tokens, Stream ps) {
 		StringBuilder sb = new StringBuilder();
 		ps.pop();
 		ps.setMark();

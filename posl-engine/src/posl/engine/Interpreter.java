@@ -12,8 +12,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
-import posl.engine.api.IExecutable;
-import posl.engine.api.IParser;
+import posl.engine.api.Executable;
+import posl.engine.api.Parser;
 import posl.engine.core.Context;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
@@ -60,7 +60,7 @@ public class Interpreter {
 	public static Object process(Context context, InputStream stream)
 			throws PoslException {
 		
-		IParser parser = context.getParser();
+		Parser parser = context.getParser();
 		Scope scope = context.getScope();
 
 		parser.process(stream);
@@ -81,7 +81,7 @@ public class Interpreter {
 	 */
 	public static Object process(Context context, String string)
 			throws PoslException {
-		IParser parser = context.getParser();
+		Parser parser = context.getParser();
 		Scope scope = context.getScope();
 		Object result = null;
 		parser.process(string);
@@ -117,8 +117,8 @@ public class Interpreter {
 	 */
 	public static Object process(Scope scope, SingleStatement statement) throws PoslException {
 		Object token  = scope.getValue(statement.get(0));
-		if (token instanceof IExecutable) {
-			token = ((IExecutable) token).execute(scope, statement);
+		if (token instanceof Executable) {
+			token = ((Executable) token).execute(scope, statement);
 		}
 		return token;
 

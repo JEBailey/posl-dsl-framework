@@ -2,11 +2,11 @@ package posl.java;
 
 import java.lang.reflect.Field;
 
-import posl.engine.api.IExecutable;
+import posl.engine.api.Executable;
 import posl.engine.core.Scope;
 import posl.engine.type.SingleStatement;
 
-public class JavaField implements IExecutable {
+public class JavaField implements Executable {
 
 	private Object reference;
 	private Field field;
