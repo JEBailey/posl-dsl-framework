@@ -32,10 +32,11 @@ public class PairCaretListener implements CaretListener {
 			highlighter.removeHighlight(pairHighlightTag);
 			pairHighlightTag = null;
 		}
-		Token pair;
+		Token[] pairs;
 		try {
-			pair = (Token) doc.getTokenAt(event.getDot());
-			if (pair != null) {
+			pairs = doc.getTokenAt(event.getDot());
+			if (pairs.length > 0) {
+				Token pair = pairs[1];
 				DocAttributes attr = (DocAttributes) pair.getMeta();
 				if (attr.isPair()) {
 					pair = attr.getPairedToken();
