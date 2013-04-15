@@ -26,7 +26,7 @@ public class MultiLineStatement implements Statement, Container {
 
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("{\n");
 		for (SingleStatement statement : statements) {
 			sb.append(statement.toString());

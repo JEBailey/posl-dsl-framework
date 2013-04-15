@@ -294,7 +294,7 @@ public class Editor {
 	private String title = "PoLogo Editor";
 
 	private void updateTitle(boolean changed) {
-		StringBuffer buffer = new StringBuffer(title);
+		StringBuilder buffer = new StringBuilder(title);
 		if (this.selectedFile != null) {
 			buffer.append("(");
 			buffer.append(this.selectedFile.getName());

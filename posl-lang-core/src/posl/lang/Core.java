@@ -94,7 +94,7 @@ public class Core {
 
 	@Command("println")
 	public static Object println(@Property("__outputstream") OutputStream out, @Collection List<String> args) throws PoslException, IOException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (String string:args) {
 			sb.append(string);
 			out.write(string.getBytes());
@@ -106,7 +106,7 @@ public class Core {
 	
 	@Command("print")
 	public static Object print(@Property("__outputstream") OutputStream out, @Collection List<String> args) throws PoslException, IOException {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (String string:args) {
 			sb.append(string);
 		}

@@ -8,9 +8,6 @@ import posl.engine.api.Statement;
 import posl.engine.api.StatementVisitor;
 
 public class SingleStatement implements Statement, Container {
-
-	private int startLineNumber;
-	private int endLineNumber;
 	
 	private LinkedList<Object> content = new LinkedList<Object>();
 	
@@ -30,12 +27,12 @@ public class SingleStatement implements Statement, Container {
 	}
 	
 	public String errorString() {
-		return "at line "+ startLineNumber + ":" + toString();
+		return "at pos :" + toString();
 	}
 	
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (Object object:content){
 			sb.append(' ');
 			sb.append(object.toString());
