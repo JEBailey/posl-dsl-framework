@@ -17,7 +17,7 @@ public class CoreImpl implements PoslImpl {
 
 	@Override
 	public void visit(Context context) {
-		context.load(Core.class);
+		context.load(CoreLangFeatures.class);
 		context.load(CoreList.class);
 		context.load(Types.class);
 		context.load(Var.class);

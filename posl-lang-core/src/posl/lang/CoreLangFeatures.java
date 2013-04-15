@@ -20,7 +20,7 @@ import posl.engine.type.MultiLineStatement;
 import posl.engine.type.Reference;
 import posl.lang.executable.NamespaceExec;
 
-public class Core {
+public class CoreLangFeatures {
 
 	// name space commands
 	@Command("new")
