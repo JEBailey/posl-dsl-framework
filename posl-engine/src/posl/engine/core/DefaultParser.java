@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import posl.engine.api.Container;
 import posl.engine.api.Lexer;
 import posl.engine.api.Parser;
-import posl.engine.api.Statement;
 import posl.engine.error.PoslException;
 import posl.engine.type.SingleStatement;
 

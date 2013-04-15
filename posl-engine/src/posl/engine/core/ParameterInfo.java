@@ -6,8 +6,8 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-import posl.engine.annotation.Property;
 import posl.engine.annotation.Optional;
+import posl.engine.annotation.Property;
 import posl.engine.error.PoslException;
 import posl.engine.type.SingleStatement;
 

@@ -17,7 +17,6 @@ import posl.engine.api.Parser;
 import posl.engine.core.Context;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
-import posl.engine.type.MultiLineStatement;
 import posl.engine.type.SingleStatement;
 
 
