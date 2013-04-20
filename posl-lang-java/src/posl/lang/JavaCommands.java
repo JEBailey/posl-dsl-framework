@@ -7,6 +7,7 @@ import java.util.List;
 
 import posl.engine.Interpreter;
 import posl.engine.annotation.Command;
+import posl.engine.api.Statement;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Atom;
@@ -41,10 +42,10 @@ public class JavaCommands {
 	}
 	
 	@Command("proxy")
-	public static Object proxy(final Scope scope, List<?> klassNames, MultiLineStatement statement)
+	public static Object proxy(final Scope scope, List<?> klassNames, List<SingleStatement> statement)
 			throws Exception, PoslException {
 		Scope child = scope.createChildScope();
-		Interpreter.processList(child, statement);
+		Interpreter.process(child, statement);
 		Class<?>[] klasses = new Class[klassNames.size()];
 		int index = 0;
 		for (Object object : klassNames) {
