@@ -22,7 +22,7 @@ public class Graph<T> {
 	 * @param target
 	 * @param origin
 	 */
-	public void addEdge(T target, T origin) {
+	public void addDependency(T target, T origin) {
 		getEdgesTo(target).add(origin);
 		getEdgesFrom(origin).add(target);
 	}

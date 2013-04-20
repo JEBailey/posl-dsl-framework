@@ -7,11 +7,9 @@ import java.util.List;
 
 import posl.engine.Interpreter;
 import posl.engine.annotation.Command;
-import posl.engine.api.Statement;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Atom;
-import posl.engine.type.MultiLineStatement;
 import posl.engine.type.SingleStatement;
 import posl.java.Java;
 import posl.java.JavaInvocationHandler;

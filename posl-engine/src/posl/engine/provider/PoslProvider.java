@@ -49,7 +49,7 @@ public final class PoslProvider {
 		for (PoslImpl source : list) {
 			for (String implName : source.getRequires()) {
 				PoslImpl target = impls.get(implName);
-				graph.addEdge(target, source);
+				graph.addDependency(target, source);
 			}
 		}
 
