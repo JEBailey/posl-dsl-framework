@@ -36,7 +36,7 @@ public class PairCaretListener implements CaretListener {
 		try {
 			pairs = doc.getTokenAt(event.getDot());
 			if (pairs.length > 0) {
-				Token pair = pairs[1];
+				Token pair = pairs[0];
 				DocAttributes attr = (DocAttributes) pair.getMeta();
 				if (attr.isPair()) {
 					pair = attr.getPairedToken();
