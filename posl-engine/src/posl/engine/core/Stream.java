@@ -17,16 +17,6 @@ public class Stream {
 	public Stream(InputStream in) {
 		this(new InputStreamReader(in));
 	}
-	
-	private void internationalize(CharSequence ch) {
-		int[] reply = new int[ch.length()];
-		int i = 0;
-		for (int offset = 0; offset < ch.length(); ) {
-			    reply[i] = Character.codePointAt(ch, offset);
-			    offset += Character.charCount(reply[i++]);
-		}
-		data =  Arrays.copyOfRange(reply, 0, i);
-	}
 
 	public Stream(Reader reader) {
 		StringBuilder out = new StringBuilder();
@@ -41,8 +31,25 @@ public class Stream {
 		}
 		internationalize(out);
 	}
+	
+	private void internationalize(CharSequence ch) {
+		int[] reply = new int[ch.length()];
+		int i = 0;
+		for (int offset = 0; offset < ch.length(); ) {
+			    reply[i] = Character.codePointAt(ch, offset);
+			    offset += Character.charCount(reply[i++]);
+		}
+		data =  Arrays.copyOfRange(reply, 0, i);
+	}
 
-	public int LA(int offset){
+	/**
+	 * looks ahead into the stream and returns the value
+	 * located at the offset
+	 * 
+	 * @param offset
+	 * @return value at stream location or -1 for end of stream
+	 */
+	public int la(int offset){
 		return (index + offset) >= data.length ? -1 : data[index + offset];
 	}
 	

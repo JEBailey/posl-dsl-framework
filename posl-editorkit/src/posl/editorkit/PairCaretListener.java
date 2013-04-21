@@ -1,4 +1,4 @@
-package posl.editorkit;
+ package posl.editorkit;
 
 import java.awt.Color;
 

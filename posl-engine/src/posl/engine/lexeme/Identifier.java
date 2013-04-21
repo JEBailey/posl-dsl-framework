@@ -14,7 +14,7 @@ public class Identifier extends Lexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {
-		if (isAlpha(ps.val()) || (ps.val() == '_' && isAlpha(ps.LA(1)))) {
+		if (isAlpha(ps.val()) || (ps.val() == '_' && isAlpha(ps.la(1)))) {
 			return processWord(tokens, ps);
 		} else if (isSpecial(ps.val())) {
 			return processSpecial(tokens, ps);

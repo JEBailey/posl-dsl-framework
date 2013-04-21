@@ -22,8 +22,7 @@ function moveit(angle) {
 	set count 0
 	repeat angle {
 		++ count
-		center_height
-		center_width
+		center
 		clear
 		hilb 5 count 6
 		pause 100

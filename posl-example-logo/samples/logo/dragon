@@ -1,7 +1,7 @@
-set count 0
+var count 0
 
 function drag (n a h) {
-	let count [mod [++ count] 1000]
+	= count [mod [++ count] 1000]
 	if [< n 1] {
 		pencolor [if [< count 400] red blue]
 		forward h
@@ -13,8 +13,8 @@ function drag (n a h) {
 	paint
 }
 clear
-center_width
-center_height
+center
+bottom
 drag 15 90 2
 
 

@@ -19,8 +19,8 @@ public class Numbers extends Lexeme {
 	public boolean consume(List<Token> tokens, Stream ps) {
 		// numbers
 		if (isDigit(ps.val())
-				|| (ps.val() == '-' && isDigit(ps.LA(1)))) {
-			if (ps.val() == '0' && ps.LA(1) == 'x') {
+				|| (ps.val() == '-' && isDigit(ps.la(1)))) {
+			if (ps.val() == '0' && ps.la(1) == 'x') {
 				return processHexCode(tokens,ps);
 			}
 			return processNumber(tokens,ps);

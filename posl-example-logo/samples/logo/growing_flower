@@ -1,7 +1,6 @@
-center_width
-center_height
+center
 
-function demo () {
+function demo(){
 	set length 9
 	set stemlength 60
 	repeat 15 {
