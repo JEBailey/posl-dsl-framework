@@ -5,12 +5,12 @@ import posl.engine.type.Reference;
 
 public class Var {
 
-	@Command("let")
+	@Command("=")
 	public static Object let(Reference key, Object value) throws Exception {
 		return key.updateValue(value);
 	}
 	
-	@Command("set")
+	@Command("var")
 	public static Object set(Reference key, Object value) throws Exception {
 		Object prior = key.put(value);
 		if (prior != null){

@@ -16,7 +16,7 @@ public class Relational {
 		return left.doubleValue() > right.doubleValue();
 	}
 	
-	@Command("=")
+	@Command("==")
 	public static Object equal(Number left, Number right) throws Exception {
 		return left.doubleValue() == right.doubleValue();
 	}

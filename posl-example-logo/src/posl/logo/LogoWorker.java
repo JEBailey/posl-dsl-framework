@@ -3,16 +3,12 @@ package posl.logo;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 import javax.swing.SwingWorker;
@@ -165,9 +161,17 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 	@Command("center")
 	public void center() {
 		turtle.setX(width / 2);
-		turtle.setY(height / 2);
 	}
 	
+	@Command("bottom")
+	public void bottom() {
+		turtle.setY(height);
+	}
+	
+	@Command("middle")
+	public void middle() {
+		turtle.setY(height/2);
+	}
 
 	@Command("home")
 	public void home() {

@@ -1,6 +1,6 @@
 clear
 
-center_width
+center
 
 set colors (red green blue yellow)
 
@@ -27,7 +27,7 @@ function knu (n a t h) {
 	}
 }
 home
-center_width
+center
 forward 1
 //colorIt
 knu 11 -90 45 8

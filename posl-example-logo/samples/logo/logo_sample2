@@ -21,7 +21,7 @@ function tree (length angle step) {
         tree [- length step] angle step
         left angle
         back [+ length variance]
-    } { //create leaf at the end
+    } { //create lea f at the end
 		let count [+ count 1]
         line_width 6
         pencolor green
@@ -36,7 +36,7 @@ function tree (length angle step) {
 }
 
 home
-center_width
+//center
 tree 70 18 5
 
-println count
+print(count)
