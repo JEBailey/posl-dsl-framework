@@ -21,7 +21,7 @@ import posl.engine.type.SingleStatement;
 
 
 /**
- * Interpreter, initiates the process of turning a
+ * Initiates the process of turning a
  * string of text into an executable structure based
  * on information supplied in the Context
  * 
@@ -120,7 +120,6 @@ public class Interpreter {
 			token = ((Executable) token).execute(scope, statement);
 		}
 		return token;
-
 	}
 
 }

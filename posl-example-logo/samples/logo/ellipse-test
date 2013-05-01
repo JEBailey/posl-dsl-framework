@@ -1,11 +1,11 @@
 clear
-center_width
-center_height
+center
+middle
 
 penup
 
-set a 30
-set b 40
+var a 30
+var b 40
 
 function spin () {
 	ellipse a b
@@ -13,12 +13,12 @@ function spin () {
 	forward 20
 } 
 
-set timer 19
+var timer 19
 
 while [> timer 1] {
 	spin
-	let timer [- timer 1]
-    let a [+ a 5]
-    let b [- b 1]
+	= timer [- timer 1]
+    = a [+ a 5]
+    = b [- b 1]
 }
 

@@ -82,7 +82,7 @@ public class DefaultLexer implements Lexer {
 	@Override
 	public Token next() {
 		if (!tokens.isEmpty()) {
-			return (Token) tokens.remove(0);
+			return tokens.remove(0);
 		}
 		return null;
 	}

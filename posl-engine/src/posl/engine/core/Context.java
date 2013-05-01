@@ -56,7 +56,7 @@ public class Context {
 	}
 
 	/**
-	 * Utility function to add a key value pair to the underlying scope
+	 * facade to add a key value pair to the underlying scope
 	 * 
 	 * @param key
 	 * @param value
@@ -65,8 +65,14 @@ public class Context {
 		scope.put(key, value);
 	}
 
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param object instance of class that the methods belong to
+	 * @param methods all potential methods
+	 */
 	private void loadMethods(Object object, Method[] methods) {
-
 		for (Method method : methods) {
 			boolean isCommand = method.isAnnotationPresent(Command.class);
 			boolean isPrimitive = method.isAnnotationPresent(Primitive.class);

@@ -20,22 +20,23 @@ import posl.engine.type.SingleStatement;
 
 /**
  * 
- * @author jason bailey
+ * @author JE Bailey
  */
 public class Scope {
 
 	/**
-	 * Enclosing scope represents the parent scope
-	 * 
+	 * parent scope
 	 */
 	private Scope enclosingScope;
 	
+	/**
+	 * objects existing in the current scope
+	 */
 	private Map<String,Object>content;
 
 	// private static Logger log = Logger.getLogger(Scope.class.getName());
 
 	public Scope() {
-		super();
 		content = new HashMap<String,Object>();
 	}
 

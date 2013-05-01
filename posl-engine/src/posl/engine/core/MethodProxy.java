@@ -13,12 +13,12 @@ public class MethodProxy implements Executable {
 
 	private Object object;
 	
-	private Resolver resolver = new Resolver();	
+	private Resolver resolver;	
 
 	public MethodProxy(Method method, Object object) {
 		this.method = method;
 		this.object = object;
-		resolver.populate(method);
+		this.resolver = new Resolver(method);
 	}
 
 	@Override

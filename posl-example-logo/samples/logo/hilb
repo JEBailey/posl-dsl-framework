@@ -1,6 +1,8 @@
 pencolor blue
+center
+middle
 
-function hilb (n a h) {
+function hilb(n a h) {
   if [> n 0] {
       right a 
       hilb [- n 1] [- 0 a] h 
@@ -19,10 +21,11 @@ function hilb (n a h) {
 
 
 function moveit(angle) {
-	set count 0
+	var count 0
 	repeat angle {
 		++ count
 		center
+		middle
 		clear
 		hilb 5 count 6
 		pause 100

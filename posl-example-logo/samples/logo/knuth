@@ -1,5 +1,5 @@
 clear
-center_width
+center
 
 pencolor blue
 
@@ -29,8 +29,7 @@ function moveit() {
 	set count 0
 	repeat 45 {
 		++ count
-		center_width
-		center_height
+		center
 		clear
 		knu 9 -90 count 4
 		pause 40
@@ -41,8 +40,7 @@ function split() {
 	set count 90
 	repeat 90 {
 		-- count
-		center_width
-		center_height
+		center
 		clear
 		knu 9 [- 0 count] 45 4
 		pause 40

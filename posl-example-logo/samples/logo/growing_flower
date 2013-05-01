@@ -1,13 +1,14 @@
 center
+middle
 
 function demo(){
-	set length 9
-	set stemlength 60
+	var length 9
+	var stemlength 60
 	repeat 15 {
 		clear
 		pencolor green
 		back stemlength
-		let stemlength [+ stemlength 5]
+		= stemlength [+ stemlength 5]
 		forward stemlength
 		pencolor red
 		repeat 18 {
@@ -17,7 +18,7 @@ function demo(){
 			}
 			left 20
 		}
-		let length [+ length 2]
+		= length [+ length 2]
 		paint
 		pause 100
 	}

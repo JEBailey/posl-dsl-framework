@@ -6,7 +6,14 @@ import java.lang.reflect.Type;
 
 import posl.engine.error.PoslException;
 import posl.engine.type.SingleStatement;
-
+/**
+ * Provides a mechanism to resolve the parameters that
+ * will be passed into a wrapped java method.
+ * 
+ * 
+ * @author JE Bailey
+ *
+ */
 public class Resolver  {
 	
 protected Type[] params;
@@ -15,8 +22,7 @@ protected Type[] params;
 	
 	protected ParameterInfo[] info;
 	
-	
-	public void populate(Method method){
+	public Resolver(Method method){
 		this.params = method.getGenericParameterTypes();
 		this.annotations = method.getParameterAnnotations();
 		info = new ParameterInfo[params.length];
