@@ -21,53 +21,53 @@ public class Namespace {
 
     @Test
     public void testNamespaceCreation() throws PoslException {
-        eval("set Foo {}");
-        Object namespace = eval("set Bar [new Foo]");
+        eval("var Foo {}");
+        Object namespace = eval("var Bar [new Foo]");
         assertEquals(NamespaceExec.class, namespace.getClass());
     }
 
     @Test
     public void testCreationWithFields() throws PoslException {
         evalMulti(
-                "set Foo {",
-                    "set length 5",
+                "var Foo {",
+                    "var length 5",
                 "}");
-        eval("set bar [new Foo]");
+        eval("var bar [new Foo]");
         assertEquals(new Long(5), eval("bar length"));
     }
     
     @Test
     public void testCreationWithFieldsUnicode() throws PoslException {
         evalMulti(
-                "set Foo {",
-                    "set છ 5",
+                "var Foo {",
+                    "var છ 5",
                 "}");
-        eval("set bar [new Foo]");
+        eval("var bar [new Foo]");
         assertEquals(new Long(5), eval("bar છ"));
     }
 
     @Test
     public void testCreationWithFunctions() throws PoslException {
         evalMulti(
-                "set Foo {",
+                "var Foo {",
                     "function compute(x){",
                         "* x 2",
                     "}",
                 "}");
-        eval("set bar [new Foo]");
+        eval("var bar [new Foo]");
         assertEquals(10D, eval("bar compute 5"));
     }
 
     @Test
     public void testCreationWithFieldsAndFunctions() throws PoslException {
         evalMulti(
-                "set Foo {",
-                    "set x 3",
+                "var Foo {",
+                    "var x 3",
                     "function mutate(y){",
-                        "let x [* y x]",
+                        "= x [* y x]",
                     "}",
                 "}");
-        eval("set bar [new Foo]");
+        eval("var bar [new Foo]");
         eval("bar mutate 10");                                  
         assertEquals(30D, eval("bar x"));
     }
@@ -77,13 +77,13 @@ public class Namespace {
     //word by accident please let me know
     public void testCreationWithFieldsAndFunctionsUnicode() throws PoslException {
         evalMulti(
-                "set אבא {",
-                    "set x 3",
+                "var אבא {",
+                    "var x 3",
                     "function mutate(y){",
-                        "let x [* y x]",
+                        "= x [* y x]",
                     "}",
                 "}");
-        eval("set bar [new אבא]");
+        eval("var bar [new אבא]");
         eval("bar mutate 10");
         assertEquals(30D, eval("bar x"));
     }
@@ -91,20 +91,20 @@ public class Namespace {
     @Test
     public void testNamespaceState() throws PoslException{
         evalMulti(
-                "set Foo {",
-                    "set x 23",
+                "var Foo {",
+                    "var x 23",
                     "function set_x(y){",
-                        "let x y",
+                        "= x y",
                     "}",
                 "}");
         
         //retains state
-        eval("set bar [new Foo]");
+        eval("var bar [new Foo]");
         eval("bar set_x 123");
         assertEquals(123L, eval("bar x"));
         
         //does not share state across instances
-        eval("set baz [new Foo]");
+        eval("var baz [new Foo]");
         eval("baz set_x 777");
  
         assertEquals(new Long(777), eval("baz x"));

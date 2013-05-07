@@ -47,7 +47,7 @@ public class Types {
 	
 	@Test
 	public void testMultiLineStatementType() throws PoslException {
-		assertEquals(MultiLineStatement.class,eval("set x { }").getClass());
+		assertEquals(MultiLineStatement.class,eval("var x { }").getClass());
 	}
 	
 	@Test

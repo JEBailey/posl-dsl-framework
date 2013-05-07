@@ -1,8 +1,8 @@
 
-set year_size 365
+var year_size 365
 
 function birthday_paradox (probability num_of_people) {
-	set new_probability [* [/ [- year_size num_of_people] year_size] probability]
+	var new_probability [* [/ [- year_size num_of_people] year_size] probability]
 	if [< new_probability 0.5] {
 		++ num_of_people
 	} {
