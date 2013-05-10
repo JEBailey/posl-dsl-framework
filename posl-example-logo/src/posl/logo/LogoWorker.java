@@ -3,11 +3,14 @@ package posl.logo;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.io.ByteArrayInputStream;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -69,15 +72,26 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 			this.firePropertyChange("error", null, e);
 			System.out.println(e.toString());
 		}
-		publish(offscreenImage);
+
+		doPublish(offscreenImage);
 		return offscreenImage;
 	}
+
+	private static final Object mutex = new Object();
 
 	@Override
 	protected void process(List<BufferedImage> chunks) {
 		if (chunks.size() > 0) {
 			BufferedImage image = chunks.get(chunks.size() - 1);
-			this.onscreenGraphics.drawImage(image, 0, 0, null);
+			synchronized (mutex) {
+				this.onscreenGraphics.drawImage(image, 0, 0, null);
+			}
+		}
+	}
+
+	private void doPublish(BufferedImage image) {
+		synchronized (mutex) {
+			publish(image);
 		}
 	}
 
@@ -91,7 +105,7 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 	@Command("pause")
 	public void pause(Number pause) {
 		try {
-			publish(offscreenImage);
+			doPublish(offscreenImage);
 			Thread.sleep(pause.longValue());
 		} catch (InterruptedException e) {
 			// whatever
@@ -135,15 +149,17 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 	}
 
 	@Command("ellipse")
-	public void ellipse(Number width, Number height){
+	public void ellipse(Number width, Number height) {
 		double x = turtle.getX();
 		double y = turtle.getY();
-		turtle.getGraphics().draw(new Ellipse2D.Double(x, y, width.doubleValue(), height.doubleValue()));
+		turtle.getGraphics().draw(
+				new Ellipse2D.Double(x, y, width.doubleValue(), height
+						.doubleValue()));
 	}
 
 	@Command("paint")
 	public void paint() {
-		publish(offscreenImage);
+		doPublish(offscreenImage);
 	}
 
 	@Command("pencolor")
@@ -157,20 +173,20 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 		turtle.getGraphics().setStroke(new BasicStroke(number.floatValue()));
 		return number;
 	}
-	
+
 	@Command("center")
 	public void center() {
 		turtle.setX(width / 2);
 	}
-	
+
 	@Command("bottom")
 	public void bottom() {
 		turtle.setY(height);
 	}
-	
+
 	@Command("middle")
 	public void middle() {
-		turtle.setY(height/2);
+		turtle.setY(height / 2);
 	}
 
 	@Command("home")
@@ -190,17 +206,16 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 	public Point2D pos() {
 		return turtle.getPos();
 	}
-	
+
 	@Command("getx")
-	public Number getx(){
+	public Number getx() {
 		return turtle.getX();
 	}
-	
+
 	@Command("gety")
-	public Number gety(){
+	public Number gety() {
 		return turtle.getY();
 	}
-	
 
 	@Command("setpos")
 	public void setpos(Object object) {
@@ -216,18 +231,97 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 	public Number rand(Number number) {
 		return random.nextInt(number.intValue());
 	}
-	
-    @Command("arc")
-    public void arc(double r, double angle1, double angle2) {
-        if (r < 0) throw new RuntimeException("arc radius can't be negative");
-        while (angle2 < angle1) {
-        	angle2 += 360;
-        }
-        double xs = turtle.getX();
-        double ys = turtle.getY();
-        double ws = 2*r;
-        double hs = 2*r;
-        turtle.getGraphics().draw(new Arc2D.Double(xs - ws/2, ys - hs/2, ws, hs, angle1, angle2 - angle1, Arc2D.OPEN));
-    }
-	
+
+	@Command("arc")
+	public void arc(double r, double angle1, double angle2) {
+		if (r < 0)
+			throw new RuntimeException("arc radius can't be negative");
+		while (angle2 < angle1) {
+			angle2 += 360;
+		}
+		double xs = turtle.getX();
+		double ys = turtle.getY();
+		double ws = 2 * r;
+		double hs = 2 * r;
+		turtle.getGraphics().draw(
+				new Arc2D.Double(xs - ws / 2, ys - hs / 2, ws, hs, angle1,
+						angle2 - angle1, Arc2D.OPEN));
+	}
+
+	public Image fill(Image img, int xSeed, int ySeed, Color col) {
+		BufferedImage bi = new BufferedImage(img.getWidth(null),
+				img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		bi.getGraphics().drawImage(img, 0, 0, null);
+		int x = xSeed;
+		int y = ySeed;
+		int width = bi.getWidth();
+		int height = bi.getHeight();
+
+		DataBufferInt data = (DataBufferInt) (bi.getRaster().getDataBuffer());
+		int[] pixels = data.getData();
+
+		if (x >= 0 && x < width && y >= 0 && y < height) {
+
+			int oldColor = pixels[y * width + x];
+			int fillColor = col.getRGB();
+
+			if (oldColor != fillColor) {
+				floodIt(pixels, x, y, width, height, oldColor, fillColor);
+			}
+		}
+		return bi;
+	}
+
+	private void floodIt(int[] pixels, int x, int y, int width, int height,
+			int oldColor, int fillColor) {
+
+		int[] point = new int[] { x, y };
+		LinkedList<int[]> points = new LinkedList<int[]>();
+		points.addFirst(point);
+
+		while (!points.isEmpty()) {
+			point = points.remove();
+
+			x = point[0];
+			y = point[1];
+			int xr = x;
+
+			int yp = y * width;
+			int ypp = yp + width;
+			int ypm = yp - width;
+
+			do {
+				pixels[xr + yp] = fillColor;
+				xr++;
+			} while (xr < width && pixels[xr + y * width] == oldColor);
+
+			int xl = x;
+			do {
+				pixels[xl + yp] = fillColor;
+				xl--;
+			} while (xl >= 0 && pixels[xl + y * width] == oldColor);
+
+			xr--;
+			xl++;
+
+			boolean upLine = false;
+			boolean downLine = false;
+
+			for (int xi = xl; xi <= xr; xi++) {
+				if (y > 0 && pixels[xi + ypm] == oldColor && !upLine) {
+					points.addFirst(new int[] { xi, y - 1 });
+					upLine = true;
+				} else {
+					upLine = false;
+				}
+				if (y < height - 1 && pixels[xi + ypp] == oldColor && !downLine) {
+					points.addFirst(new int[] { xi, y + 1 });
+					downLine = true;
+				} else {
+					downLine = false;
+				}
+			}
+		}
+	}
+
 }

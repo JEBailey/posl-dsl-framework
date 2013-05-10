@@ -1,18 +1,18 @@
 pencolor blue
 
 function spiro (R r a) {
-	set t 100
-	set x 0
-	set y 0
-	set offsetX [getx]
-	set offsetY [gety]
+	var t 100
+	var x 0
+	var y 0
+	var offsetX [getx]
+	var offsetY [gety]
 	while [> t 0] {
-		let x [getx]
-		let y [gety]
-		let x [- [* [+ R r] [cos t]] [* [+ R a] [cos [*[/[+ R r] r] t]]]]
-		let y [- [* [+ R r] [sin t]] [* [+ R a] [sin [*[/[+ R r] r] t]]]]
+		= x [getx]
+		= y [gety]
+		= x [- [* [+ R r] [cos t]] [* [+ R a] [cos [*[/[+ R r] r] t]]]]
+		= y [- [* [+ R r] [sin t]] [* [+ R a] [sin [*[/[+ R r] r] t]]]]
 		setpos [newpos [- offsetY y] [+ offsetX x]]
-		let t [- t 0.05]
+		= t [- t 0.05]
 		pause 10
 		//paint
 	}

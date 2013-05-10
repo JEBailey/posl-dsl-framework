@@ -59,17 +59,17 @@ function examples () {
 }
 
 function spirograph (r1 r2 p1 rot stepsize) {
-	center_width
-	center_height
+	center
+	center
 	// Calculate how much the inner gear rotates per stepsize of outer rotation
-	set innerstep [* stepsize [/ r1 r2]]
+	var innerstep [* stepsize [/ r1 r2]]
 	//Init angle of inner gear
 	
 	// Save where we started
 	forward 30
-	set innerangle 0
-	set origpos [getpos]
-    set prevpos [getpos]
+	var innerangle 0
+	var origpos [getpos]
+    var prevpos [getpos]
 	//forward 20
 	// repeat for rotations (each broken down into stepsize)
 	//rot*360/:stepsize ~//damn lack of clarity
@@ -87,7 +87,7 @@ function spirograph (r1 r2 p1 rot stepsize) {
 		pendown
 		forward 12
 		// Save where we are so we can return
-		set savepos [getpos]
+		var savepos [getpos]
 
 		// Draw line back to prev position
 		setpos prevpos
@@ -95,7 +95,7 @@ function spirograph (r1 r2 p1 rot stepsize) {
 		setpos savepos
 
 		// Save current position and next times prev position
-		let prevpos savepos
+		= prevpos savepos
 
 		// Back to center of small gear
 

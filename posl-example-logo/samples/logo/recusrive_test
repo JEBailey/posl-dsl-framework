@@ -18,6 +18,5 @@ function axiom (n a h) {
 	zero n a h
 }
 clear
-center_width
-center_height
+center
 axiom 7 45 10

@@ -15,4 +15,5 @@ function drag (n a h) {
 }
 clear
 center
+bottom
 drag 15 90 2
