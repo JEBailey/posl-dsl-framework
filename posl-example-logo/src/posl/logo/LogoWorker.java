@@ -3,7 +3,6 @@ package posl.logo;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -248,28 +247,23 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 						angle2 - angle1, Arc2D.OPEN));
 	}
 
-	public Image fill(Image img, int xSeed, int ySeed, Color col) {
-		BufferedImage bi = new BufferedImage(img.getWidth(null),
-				img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-		bi.getGraphics().drawImage(img, 0, 0, null);
-		int x = xSeed;
-		int y = ySeed;
-		int width = bi.getWidth();
-		int height = bi.getHeight();
+	@Command("fill")
+	public void fill(int xSeed, int ySeed, Color col) {
+		int x = (int)turtle.getX() + xSeed;
+		int y = (int)turtle.getY() - ySeed;
+		int width = offscreenImage.getWidth();
+		int height = offscreenImage.getHeight();
 
-		DataBufferInt data = (DataBufferInt) (bi.getRaster().getDataBuffer());
+		DataBufferInt data = (DataBufferInt) (offscreenImage.getRaster().getDataBuffer());
 		int[] pixels = data.getData();
 
 		if (x >= 0 && x < width && y >= 0 && y < height) {
-
 			int oldColor = pixels[y * width + x];
 			int fillColor = col.getRGB();
-
 			if (oldColor != fillColor) {
 				floodIt(pixels, x, y, width, height, oldColor, fillColor);
 			}
 		}
-		return bi;
 	}
 
 	private void floodIt(int[] pixels, int x, int y, int width, int height,
@@ -284,16 +278,16 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 
 			x = point[0];
 			y = point[1];
-			int xr = x;
+			int xrow = x;
 
 			int yp = y * width;
 			int ypp = yp + width;
 			int ypm = yp - width;
 
 			do {
-				pixels[xr + yp] = fillColor;
-				xr++;
-			} while (xr < width && pixels[xr + y * width] == oldColor);
+				pixels[xrow + yp] = fillColor;
+				xrow++;
+			} while (xrow < width && pixels[xrow + y * width] == oldColor);
 
 			int xl = x;
 			do {
@@ -301,13 +295,13 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 				xl--;
 			} while (xl >= 0 && pixels[xl + y * width] == oldColor);
 
-			xr--;
+			xrow--;
 			xl++;
 
 			boolean upLine = false;
 			boolean downLine = false;
 
-			for (int xi = xl; xi <= xr; xi++) {
+			for (int xi = xl; xi <= xrow; xi++) {
 				if (y > 0 && pixels[xi + ypm] == oldColor && !upLine) {
 					points.addFirst(new int[] { xi, y - 1 });
 					upLine = true;
