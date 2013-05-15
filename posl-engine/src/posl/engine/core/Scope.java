@@ -125,27 +125,26 @@ public class Scope {
 	 */
 	public Object get(Type requestedType, Object object) throws PoslException {
 		if (requestedType instanceof ParameterizedType){
-			requestedType = ((ParameterizedType) requestedType).getRawType();
+			return get(((ParameterizedType) requestedType).getRawType(),object);
 		}
 		
 		if (requestedType == Reference.class){
 			return new Reference(object,this);
 		}
 		
-		if (object.getClass() == SingleStatement.class){
-			object = Interpreter.process(this,(SingleStatement)object);
-			if (object == null){
-				System.out.println("issue");
-			}
+		final Class<? extends Object> klass = object.getClass();
+		
+		if (klass == SingleStatement.class){
+			return get(requestedType,Interpreter.process(this,(SingleStatement)object));
 		}
 		
-		if (object.getClass() == Atom.class) {
+		if (klass == Atom.class) {
 			if (requestedType != Atom.class){
-				object = this.getValue(object);
+				return get(requestedType,this.getValue(object));
 			}
 		}
 		
-		if (((Class<?>)requestedType).isAssignableFrom(object.getClass())){
+		if (((Class<?>)requestedType).isAssignableFrom(klass)){
 			return object;
 		}
 		
