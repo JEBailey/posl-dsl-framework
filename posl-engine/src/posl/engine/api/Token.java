@@ -20,7 +20,7 @@ public abstract class Token {
 	 * @param charStack
 	 * @return
 	 */
-	public abstract Container consume(Container statement, Stack<Container> statements ,Stack<Character> charStack);
+	public abstract Assembler consume(Assembler statement, Stack<Assembler> statements ,Stack<Character> charStack);
 	
 	public abstract void accept(TokenVisitor visitor);
 	

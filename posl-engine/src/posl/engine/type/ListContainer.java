@@ -3,9 +3,9 @@ package posl.engine.type;
 import java.util.LinkedList;
 import java.util.List;
 
-import posl.engine.api.Container;
+import posl.engine.api.Assembler;
 
-public class ListContainer implements Container {
+public class ListContainer implements Assembler {
 
 	private List<Object>content;
 

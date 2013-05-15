@@ -3,7 +3,7 @@ package posl.engine.lexeme;
 import java.util.List;
 import java.util.Stack;
 
-import posl.engine.api.Container;
+import posl.engine.api.Assembler;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
@@ -36,7 +36,7 @@ public class Eol extends Lexeme {
 			this.endPos = ps.getMark();
 		}
 		
-		public Container consume(Container statement, Stack<Container> statements,
+		public Assembler consume(Assembler statement, Stack<Assembler> statements,
 				Stack<Character> charStack) {
 			if (statement.addEol()){
 				statements.add(statement);

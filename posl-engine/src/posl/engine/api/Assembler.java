@@ -1,6 +1,6 @@
 package posl.engine.api;
 
-public interface Container {
+public interface Assembler {
 	
 	boolean add(Object token);
 

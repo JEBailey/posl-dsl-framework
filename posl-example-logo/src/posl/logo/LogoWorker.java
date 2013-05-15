@@ -156,6 +156,15 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 						.doubleValue()));
 	}
 
+	@Command("filledEllipse")
+	public void fellipse(Number width, Number height) {
+		double x = turtle.getX() - (width.doubleValue()/2);
+		double y = turtle.getY() - (height.doubleValue()/2);
+		turtle.getGraphics().fill(
+				new Ellipse2D.Double(x, y, width.doubleValue(), height
+						.doubleValue()));
+	}
+	
 	@Command("paint")
 	public void paint() {
 		doPublish(offscreenImage);
@@ -246,11 +255,16 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 				new Arc2D.Double(xs - ws / 2, ys - hs / 2, ws, hs, angle1,
 						angle2 - angle1, Arc2D.OPEN));
 	}
+	
+	@Command("circle")
+	public void circle(Number height, Number width) {
+		turtle.getGraphics().drawOval((int)turtle.getX(),(int)turtle.getY(), width.intValue(), height.intValue());
+	}
 
 	@Command("fill")
-	public void fill(int xSeed, int ySeed, Color col) {
-		int x = (int)turtle.getX() + xSeed;
-		int y = (int)turtle.getY() - ySeed;
+	public void fill(Number xSeed, Number ySeed, Color col) {
+		int x = (int)turtle.getX() + xSeed.intValue();
+		int y = (int)turtle.getY() - ySeed.intValue();
 		int width = offscreenImage.getWidth();
 		int height = offscreenImage.getHeight();
 
@@ -302,17 +316,13 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 			boolean downLine = false;
 
 			for (int xi = xl; xi <= xrow; xi++) {
-				if (y > 0 && pixels[xi + ypm] == oldColor && !upLine) {
+				upLine = (y > 0 && pixels[xi + ypm] == oldColor && !upLine);
+				if (upLine){
 					points.addFirst(new int[] { xi, y - 1 });
-					upLine = true;
-				} else {
-					upLine = false;
 				}
-				if (y < height - 1 && pixels[xi + ypp] == oldColor && !downLine) {
+				downLine = (y < height - 1 && pixels[xi + ypp] == oldColor && !downLine);
+				if (downLine){
 					points.addFirst(new int[] { xi, y + 1 });
-					downLine = true;
-				} else {
-					downLine = false;
 				}
 			}
 		}

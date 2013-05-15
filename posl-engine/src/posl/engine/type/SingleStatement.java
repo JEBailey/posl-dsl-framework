@@ -3,11 +3,11 @@ package posl.engine.type;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import posl.engine.api.Container;
+import posl.engine.api.Assembler;
 import posl.engine.api.Statement;
 import posl.engine.api.StatementVisitor;
 
-public class SingleStatement implements Statement, Container {
+public class SingleStatement implements Statement, Assembler {
 	
 	private LinkedList<Object> content = new LinkedList<Object>();
 	
