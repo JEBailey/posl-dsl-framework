@@ -84,7 +84,7 @@ public class Grammar extends Lexeme {
 				break;
 			case '}':
 				if (!charStack.empty() && charStack.pop() == charValue){
-					statement.addEol();
+					statement.isComplete();
 					Object temp = statement;
 					statement = statements.pop();
 					statement.add(temp);

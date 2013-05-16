@@ -28,8 +28,6 @@ public class Eol extends Lexeme {
 	
 	private class Inner extends Token {
 		
-		
-		
 		public Inner(Stream ps){
 			this.value = "\n";
 			this.startPos = ps.getMark();
@@ -38,7 +36,7 @@ public class Eol extends Lexeme {
 		
 		public Aggregator consume(Aggregator statement, Stack<Aggregator> statements,
 				Stack<Character> charStack) {
-			if (statement.addEol()){
+			if (statement.isComplete()){
 				statements.add(statement);
 				statement = new SingleStatement();
 			}

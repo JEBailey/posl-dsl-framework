@@ -13,11 +13,9 @@ public abstract class Token {
 	/**
 	 * represents an encapsulation of functionality,
 	 * 
-	 * 
-	 *  
-	 * @param statement
-	 * @param statements
-	 * @param charStack
+	 * @param statement current Aggregator which is consuming tokens
+	 * @param statements stack of aggregators
+	 * @param charStack used for to look for current bounding representation
 	 * @return
 	 */
 	public abstract Aggregator consume(Aggregator statement, Stack<Aggregator> statements ,Stack<Character> charStack);

@@ -58,9 +58,8 @@ public class SingleStatement implements Statement, Aggregator {
 	}
 
 	@Override
-	public boolean addEol() {
+	public boolean isComplete() {
 		return !content.isEmpty();
-		
 	}
 
 	public int startPos() {
