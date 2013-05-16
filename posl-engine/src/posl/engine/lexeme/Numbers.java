@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Stack;
 
-import posl.engine.api.Assembler;
+import posl.engine.api.Aggregator;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
@@ -81,7 +81,7 @@ public class Numbers extends Lexeme {
 		
 		
 		@Override
-		public Assembler consume(Assembler statement, Stack<Assembler> statements,
+		public Aggregator consume(Aggregator statement, Stack<Aggregator> statements,
 				Stack<Character> charStack) {
 			try {
 				statement.add(nf.parse(value));

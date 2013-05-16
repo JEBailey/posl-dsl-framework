@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.Stack;
 import java.util.logging.Logger;
 
-import posl.engine.api.Assembler;
+import posl.engine.api.Aggregator;
 import posl.engine.api.Lexer;
 import posl.engine.api.Parser;
 import posl.engine.error.PoslException;
@@ -29,9 +29,9 @@ public class DefaultParser implements Parser {
 	
 	private static Logger log = Logger.getLogger(DefaultParser.class.getName());
 
-	private Stack<Assembler> statements = new Stack<Assembler>();
+	private Stack<Aggregator> statements = new Stack<Aggregator>();
 
-	private Assembler statement;
+	private Aggregator statement;
 	
 	private Stack<Character> charStack = new Stack<Character>();
 

@@ -1,6 +1,6 @@
 package posl.engine.api;
 
-public interface Assembler {
+public interface Aggregator {
 	
 	boolean add(Object token);
 
