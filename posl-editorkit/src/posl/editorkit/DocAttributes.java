@@ -6,6 +6,14 @@ import java.awt.Graphics2D;
 
 import posl.engine.api.Token;
 
+/**
+ * Provides some additional information based on the type of token that's being provided
+ * 
+ * 
+ * 
+ * @author jason
+ *
+ */
 public class DocAttributes {
 
 	private Token token;

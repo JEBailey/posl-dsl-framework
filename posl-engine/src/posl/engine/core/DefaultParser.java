@@ -84,7 +84,6 @@ public class DefaultParser implements Parser {
 
 	@Override
 	public void remove() {
-		// TODO Auto-generated method stub
-		// not implemented 
+		log.warning("remove not supported");
 	}
 }

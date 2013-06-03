@@ -7,6 +7,14 @@ import posl.engine.api.Executable;
 import posl.engine.error.PoslException;
 import posl.engine.type.SingleStatement;
 
+/**
+ * MethodProxy is used to wrap an invocation of an executable that
+ * is mapped to a specific java method.
+ * 
+ * 
+ * @author je bailey
+ *
+ */
 public class MethodProxy implements Executable {
 
 	private Method method;
@@ -25,19 +33,8 @@ public class MethodProxy implements Executable {
 	public Object execute(Scope argumentScope, SingleStatement tokens) throws PoslException {
 		try {
 			return method.invoke(object, resolver.render(argumentScope, tokens));
-		} catch (PoslException e1) {
-			e1.push(tokens.startPos(), "in method "+tokens.get(0).toString());
-			throw e1;
 		} catch (InvocationTargetException ite) {
-			// Any exception which occurs in the proxied method
-			// will result in an InvocationTargetException
-			PoslException exception = null;
-			try {
-				exception = (PoslException)ite.getTargetException();
-			} catch (Exception e){
-				exception = new PoslException(tokens.startPos(),ite.getCause().toString());
-			}
-			exception.push(tokens.startPos(),  "in command '"+tokens.get(0)+"'");
+			PoslException exception = new PoslException(tokens.startPos(),ite.getCause().toString());
 			throw exception;
 		} catch (IllegalAccessException e) {
 			throw new PoslException(tokens.startPos(),e.toString());

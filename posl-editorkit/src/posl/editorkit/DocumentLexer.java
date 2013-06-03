@@ -13,6 +13,14 @@ import posl.engine.api.TokenVisitor;
 import posl.engine.core.DefaultLexer;
 import posl.engine.core.DefaultParser;
 
+/**
+ * The document lexer is used instead of the original lexer, to focus on the structure
+ * of the code and how that will be displayed in the view.
+ * 
+ * 
+ * @author jason bailey
+ *
+ */
 public class DocumentLexer {
 
 	static Logger log = Logger.getLogger(DefaultParser.class.getName());
