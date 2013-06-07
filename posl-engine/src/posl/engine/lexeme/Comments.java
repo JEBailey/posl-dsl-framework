@@ -9,7 +9,7 @@ import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.Stream;
 
-public class Comments extends Lexeme {
+public class Comments implements Lexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {
@@ -60,5 +60,5 @@ public class Comments extends Lexeme {
 		}
 
 	}
-
+	
 }

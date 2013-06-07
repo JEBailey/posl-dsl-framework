@@ -6,20 +6,21 @@ import java.util.List;
 import java.util.Stack;
 
 import posl.engine.api.Aggregator;
+import posl.engine.api.LexUtil;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.Stream;
 
-public class Numbers extends Lexeme {
+public class Numbers implements Lexeme {
 	
 	private static NumberFormat nf = NumberFormat.getInstance();
 
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {
 		// numbers
-		if (isDigit(ps.val())
-				|| (ps.val() == '-' && isDigit(ps.la(1)))) {
+		if (LexUtil.isDigit(ps.val())
+				|| (ps.val() == '-' && LexUtil.isDigit(ps.la(1)))) {
 			if (ps.val() == '0' && ps.la(1) == 'x') {
 				return processHexCode(tokens,ps);
 			}
@@ -41,7 +42,7 @@ public class Numbers extends Lexeme {
 				int priorMark = ps.getMark();
 				ps.setMark();
 				ps.pop();
-				if (isDigit(ps.val()) || (ps.val() == '-' || ps.val() == '+')) {
+				if (LexUtil.isDigit(ps.val()) || (ps.val() == '-' || ps.val() == '+')) {
 					ps.pop();
 					consumeDigits(ps);
 				} else {
@@ -63,12 +64,24 @@ public class Numbers extends Lexeme {
 		ps.pop();
 		ps.pop();
 		ps.setMark();
-		while (isDigit(ps.val()) || isHex(ps.val())) {
+		while (LexUtil.isDigit(ps.val()) || LexUtil.isHex(ps.val())) {
 			ps.pop();
 		}
 		String numText = ps.getSubString();
 		tokens.add(new Inner(String.valueOf(Integer.parseInt(numText, 16)), ps.getMark() - 2,numText.length()+2));
 		return true;
+	}
+	
+	/**
+	 * Moves the stream index forward until it
+	 * reaches a non-digit character
+	 * 
+	 * @param ps
+	 */
+	public static void consumeDigits(Stream ps) {
+		while (LexUtil.isDigit(ps.val())) {
+			ps.pop();
+		}
 	}
 	
 	private class Inner extends Token {

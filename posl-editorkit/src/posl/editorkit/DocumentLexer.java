@@ -10,6 +10,7 @@ import posl.editorkit.DocAttributes.style;
 import posl.engine.api.Lexer;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
+import posl.engine.core.Context;
 import posl.engine.core.DefaultLexer;
 import posl.engine.core.DefaultParser;
 
@@ -36,7 +37,7 @@ public class DocumentLexer {
 	public void tokenize(Reader reader) {
 		lexer = new DefaultLexer();
 		tokens = new ArrayList<Token>();
-	    lexer.tokenize(reader);
+	    lexer.tokenize(reader,Context.standardLexemes());
 	    parse();
 	}
 	

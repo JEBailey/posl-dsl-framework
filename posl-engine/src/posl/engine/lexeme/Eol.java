@@ -10,7 +10,7 @@ import posl.engine.api.TokenVisitor;
 import posl.engine.core.Stream;
 import posl.engine.type.SingleStatement;
 
-public class Eol extends Lexeme {
+public class Eol implements Lexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {

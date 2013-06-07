@@ -4,19 +4,20 @@ import java.util.List;
 import java.util.Stack;
 
 import posl.engine.api.Aggregator;
+import posl.engine.api.LexUtil;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.Stream;
 import posl.engine.type.Atom;
 
-public class Identifier extends Lexeme {
+public class Identifier implements Lexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {
-		if (isAlpha(ps.val()) || (ps.val() == '_' && isAlpha(ps.la(1)))) {
+		if (LexUtil.isAlpha(ps.val()) || (ps.val() == '_' && LexUtil.isAlpha(ps.la(1)))) {
 			return processWord(tokens, ps);
-		} else if (isSpecial(ps.val())) {
+		} else if (LexUtil.isSpecial(ps.val())) {
 			return processSpecial(tokens, ps);
 		}
 		return false;
@@ -25,7 +26,7 @@ public class Identifier extends Lexeme {
 	private boolean processWord(List<Token> tokens, Stream ps) {
 		ps.setMark();
 		ps.pop();
-		while (isAlpha(ps.val()) || isSpecial(ps.val()) || isDigit(ps.val())
+		while (LexUtil.isAlpha(ps.val()) || LexUtil.isSpecial(ps.val()) || LexUtil.isDigit(ps.val())
 				|| ps.val() == '_') {
 			ps.pop();
 		}
@@ -37,7 +38,7 @@ public class Identifier extends Lexeme {
 	private boolean processSpecial(List<Token> tokens, Stream ps) {
 		ps.setMark();
 		ps.pop();
-		while (isSpecial(ps.val())) {
+		while (LexUtil.isSpecial(ps.val())) {
 			ps.pop();
 		}
 		tokens.add(new Inner(ps.getSubString(), ps.getMark()));

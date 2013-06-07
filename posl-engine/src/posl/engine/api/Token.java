@@ -14,9 +14,9 @@ public abstract class Token {
 	 * represents an encapsulation of functionality,
 	 * 
 	 * @param statement current Aggregator which is consuming tokens
-	 * @param statements stack of aggregators
+	 * @param statements stack of aggregators to indicate nesting
 	 * @param charStack used for to look for current bounding representation
-	 * @return
+	 * @return either the aggregator that was passed in or a potential new aggregator
 	 */
 	public abstract Aggregator consume(Aggregator statement, Stack<Aggregator> statements ,Stack<Character> charStack);
 	

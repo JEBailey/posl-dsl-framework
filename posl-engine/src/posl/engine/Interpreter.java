@@ -62,7 +62,7 @@ public class Interpreter {
 		Parser parser = context.getParser();
 		Scope scope = context.getScope();
 
-		parser.process(stream);
+		parser.process(stream, context.lexemes);
 		Object result = null;
 		while (parser.hasNext()) {
 			SingleStatement statement = parser.next();
@@ -83,7 +83,7 @@ public class Interpreter {
 		Parser parser = context.getParser();
 		Scope scope = context.getScope();
 		Object result = null;
-		parser.process(string);
+		parser.process(string, context.lexemes);
 		while (parser.hasNext()) {
 			result = process(scope, parser.next());
 		}

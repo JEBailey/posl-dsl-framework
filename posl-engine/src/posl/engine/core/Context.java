@@ -3,17 +3,27 @@ package posl.engine.core;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import posl.engine.annotation.Command;
 import posl.engine.annotation.Primitive;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Parser;
+import posl.engine.lexeme.Comments;
+import posl.engine.lexeme.Eol;
+import posl.engine.lexeme.Grammar;
+import posl.engine.lexeme.Identifier;
+import posl.engine.lexeme.Numbers;
+import posl.engine.lexeme.QuotedString;
+import posl.engine.lexeme.WhiteSpace;
 
 public class Context {
 
 	private Parser parser;
 	private Scope scope;
+	public List<Lexeme> lexemes;
 
 	private static final String output = "__outputstream";
 
@@ -43,8 +53,17 @@ public class Context {
 		loadMethods(libraryObject, methods);
 	}
 	
-	public void loadType(Lexeme lex){
-		
+	@SuppressWarnings("serial")
+	public static List<Lexeme> standardLexemes(){
+		return new LinkedList<Lexeme>(){{
+			add(new WhiteSpace());
+			add(new Comments());
+			add(new Numbers());
+			add(new Identifier());
+			add(new QuotedString());
+			add(new Grammar());
+			add(new Eol());
+		}};
 	}
 
 	public Parser getParser() {

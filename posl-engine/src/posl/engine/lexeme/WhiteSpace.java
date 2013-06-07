@@ -6,7 +6,7 @@ import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.core.Stream;
 
-public class WhiteSpace extends Lexeme {
+public class WhiteSpace implements Lexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, Stream wrapper) {

@@ -3,20 +3,11 @@ package posl.engine.core;
 import java.io.InputStream;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import posl.engine.api.Lexeme;
 import posl.engine.api.Lexer;
 import posl.engine.api.Token;
-import posl.engine.lexeme.Comments;
-import posl.engine.lexeme.Eol;
-import posl.engine.lexeme.Grammar;
-import posl.engine.lexeme.Identifier;
-import posl.engine.lexeme.Numbers;
-import posl.engine.lexeme.QuotedString;
-import posl.engine.lexeme.WhiteSpace;
 
 public class DefaultLexer implements Lexer {
 
@@ -24,32 +15,25 @@ public class DefaultLexer implements Lexer {
 
 	private Stream wrapper;
 	
-	@SuppressWarnings("serial")
-	private Map<String, Lexeme> lexemes = new LinkedHashMap<String, Lexeme>(){{
-		put("whitespace",new WhiteSpace());
-		put("comments",new Comments());
-		put("numbers",new Numbers());
-		put("identifier",new Identifier());
-		put("quotes",new QuotedString());
-		put("grammar",new Grammar());
-		put("eol",new Eol());
-	}};
+	private List<Lexeme> lexemes;
 	
 	
 	/**
 	 * 
 	 * 
 	 */
-	public void tokenize(InputStream is) {
+	public void tokenize(InputStream is, List<Lexeme>lexemes) {
 		wrapper = new Stream(is);
 		tokens = new ArrayList<Token>();
+		this.lexemes = lexemes;
 		tokenize();
 		wrapper = null;
 	}
 
-	public void tokenize(Reader reader) {
+	public void tokenize(Reader reader, List<Lexeme>lexemes) {
 		wrapper = new Stream(reader);
 		tokens = new ArrayList<Token>();
+		this.lexemes = lexemes;
 		tokenize();
 		wrapper = null;
 	}
@@ -63,7 +47,7 @@ public class DefaultLexer implements Lexer {
 		while (wrapper.hasMore()) {
 			// for each iteration through the available lexes
 			// we want to be assured that something was consumed
-			for (Lexeme lexeme:lexemes.values()){
+			for (Lexeme lexeme:lexemes){
 				consumed = lexeme.consume(tokens, wrapper) | consumed;
 			}
 			// if we've iterated through and nothing has been consumed

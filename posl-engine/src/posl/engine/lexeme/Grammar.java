@@ -12,7 +12,7 @@ import posl.engine.type.ListContainer;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.SingleStatement;
 
-public class Grammar extends Lexeme {
+public class Grammar implements Lexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {
