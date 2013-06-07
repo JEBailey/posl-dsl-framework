@@ -24,6 +24,7 @@ public class CoreImpl implements PoslImpl {
 		context.load(CoreFunction.class);
 		context.load(CoreMath.class);
 		context.load(Relational.class);
+		context.lexemes = Context.standardLexemes();
 	}
 
 }
