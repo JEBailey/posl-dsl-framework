@@ -6,6 +6,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Simple dependency graph, pass in a number of dependency releationships
+ * and the graph will spit out which dependency to load first.
+ * 
+ * 
+ * @author JE Bailey
+ *
+ * @param <T>
+ */
 public class Graph<T> {
 
 	private Map<T, List<T>> edgesTo = new HashMap<T, List<T>>();

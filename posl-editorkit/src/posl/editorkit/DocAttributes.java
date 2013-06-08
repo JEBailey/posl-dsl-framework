@@ -9,9 +9,7 @@ import posl.engine.api.Token;
 /**
  * Provides some additional information based on the type of token that's being provided
  * 
- * 
- * 
- * @author jason
+ * @author je bailey
  *
  */
 public class DocAttributes {

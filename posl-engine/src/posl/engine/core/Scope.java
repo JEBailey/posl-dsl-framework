@@ -180,9 +180,6 @@ public class Scope {
 				object = enclosingScope.get(key);				
 			}
 		}
-		if (object == null){
-			//TODO:throw exception here 
-		}
 		return object;
 	}
 
