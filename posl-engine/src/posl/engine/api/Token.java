@@ -2,14 +2,8 @@ package posl.engine.api;
 
 import java.util.Stack;
 
-public abstract class Token {
-	
-	protected int startPos;
-	protected int endPos;
-	
-	protected String value;
-	protected Object meta;
-	
+public interface Token {
+
 	/**
 	 * represents an encapsulation of functionality,
 	 * 
@@ -18,27 +12,19 @@ public abstract class Token {
 	 * @param charStack used for to look for current bounding representation
 	 * @return either the aggregator that was passed in or a potential new aggregator
 	 */
-	public abstract Aggregator consume(Aggregator statement, Stack<Aggregator> statements ,Stack<Character> charStack);
-	
-	public abstract void accept(TokenVisitor visitor);
-	
-	public int getStartOffset(){
-		return startPos;
-	}
+	public Aggregator consume(Aggregator statement,
+			Stack<Aggregator> statements, Stack<Character> charStack);
 
-	public int getEndOffset(){
-		return endPos;
-	}
-	
-	public void setMeta(Object meta){
-		this.meta = meta;
-	}
-    
-	public Object getMeta(){
-		return meta;
-	}
-	
-	public String getString(){
-		return value;
-	}
+	public void accept(TokenVisitor visitor);
+
+	public int getStartOffset();
+
+	public int getEndOffset();
+
+	public void setMeta(Object meta);
+
+	public Object getMeta();
+
+	public abstract String getString();
+
 }

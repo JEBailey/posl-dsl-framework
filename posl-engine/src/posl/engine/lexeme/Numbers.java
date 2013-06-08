@@ -8,6 +8,7 @@ import java.util.Stack;
 import posl.engine.api.Aggregator;
 import posl.engine.api.LexUtil;
 import posl.engine.api.Lexeme;
+import posl.engine.api.BasicToken;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.Stream;
@@ -84,7 +85,7 @@ public class Numbers implements Lexeme {
 		}
 	}
 	
-	private class Inner extends Token {
+	private class Inner extends BasicToken {
 
 		public Inner(String value, int startPos, int length) {
 			this.value = value;

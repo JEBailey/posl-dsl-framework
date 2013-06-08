@@ -5,6 +5,7 @@ import java.util.Stack;
 
 import posl.engine.api.Aggregator;
 import posl.engine.api.Lexeme;
+import posl.engine.api.BasicToken;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.Stream;
@@ -69,7 +70,7 @@ public class QuotedString implements Lexeme {
 
 	}
 	
-	private class Inner extends Token {
+	private class Inner extends BasicToken {
 
 		public Inner(String value, int i) {
 			this.value = value;
