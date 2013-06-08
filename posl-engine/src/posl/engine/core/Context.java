@@ -40,6 +40,7 @@ public class Context {
 	public Context(Parser parser, Scope scope) {
 		this.parser = parser;
 		this.scope = scope;
+		this.lexemes = standardLexemes();
 		scope.put(output, System.out);
 	}
 
