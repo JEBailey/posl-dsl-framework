@@ -61,4 +61,9 @@ public abstract class BasicToken implements Token {
 	public String getString(){
 		return value;
 	}
+	
+	@Override
+	public String toString(){
+		return value;
+	}
 }
