@@ -58,7 +58,7 @@ public class SingleStatement implements Statement, Aggregator {
 	}
 
 	@Override
-	public boolean isComplete() {
+	public boolean finish() {
 		return !content.isEmpty();
 	}
 

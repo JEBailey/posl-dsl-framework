@@ -42,7 +42,7 @@ public class MultiLineStatement implements Statement, Aggregator {
 	
 
 	@Override
-	public boolean isComplete() {
+	public boolean finish() {
 		if (statement.notEmpty()) {
 			statements.add(statement);
 			this.statement = new SingleStatement();

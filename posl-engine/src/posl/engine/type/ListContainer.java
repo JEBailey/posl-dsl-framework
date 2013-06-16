@@ -20,7 +20,7 @@ public class ListContainer implements Aggregator {
 
 
 	@Override
-	public boolean isComplete() {
+	public boolean finish() {
 		return false;
 	}
 

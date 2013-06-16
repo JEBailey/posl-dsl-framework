@@ -16,9 +16,9 @@ public interface Aggregator {
 	 * This provides an indicator as to whether the token creates a new
 	 * aggregator or continues to use the existing one
 	 * 
-	 * @return if the aggregate can be completed
+	 * @return if the aggregate can be replaced
 	 */
-	boolean isComplete();
+	boolean finish();
 	
 	/**
 	 * This returns the object that the aggregator is aggretating to.
