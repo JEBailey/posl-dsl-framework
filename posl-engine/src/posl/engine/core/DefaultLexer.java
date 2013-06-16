@@ -54,6 +54,11 @@ public class DefaultLexer implements Lexer {
 			// return.(EOF could trigger this)
 			// NOTE: If this IS EOF an EOL would have been caught
 			if (!consumed){
+				if (wrapper.hasMore()){
+					//TODO unhandled data - must log
+					String problem = wrapper.getSubString();
+					System.out.print((char)wrapper.pop());
+				}
 				return;
 			}
 			//reset to false for next iteration
