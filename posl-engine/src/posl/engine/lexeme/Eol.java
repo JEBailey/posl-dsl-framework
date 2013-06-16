@@ -37,7 +37,7 @@ public class Eol implements Lexeme {
 		
 		public Aggregator consume(Aggregator statement, Stack<Aggregator> statements,
 				Stack<Character> charStack) {
-			if (statement.isComplete()){
+			if (statement.finish()){
 				statements.add(statement);
 				statement = new SingleStatement();
 			}
