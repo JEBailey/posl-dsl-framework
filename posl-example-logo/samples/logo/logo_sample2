@@ -1,14 +1,14 @@
 clear
 pencolor black
 
-set count 0
+var count 0
 
 function tree (length angle step) {
 	line_width 1
     if [> length step] {
 		paint
-        set variance [- [rand 30] 10] //length
-        set var [rand 10] //angle
+        var variance [- [rand 30] 10] //length
+        var var [rand 10] //angle
         line_width [/ length [* step 2]]
         forward [+ length variance]
         left angle

@@ -1,5 +1,5 @@
-center_width
-center_height
+middle
+center
 //really need to default clear when you run it
 clear
 function snowflake() {
@@ -12,8 +12,4 @@ function snowflake() {
 	}
 }
 
-function demo() {
-	snowflake
-}
-
-demo
+snowflake

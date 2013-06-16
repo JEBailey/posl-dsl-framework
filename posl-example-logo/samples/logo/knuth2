@@ -2,14 +2,14 @@ clear
 
 center
 
-set colors (red green blue yellow)
+var colors (red green blue yellow)
 
 function colorIt () {
 	//flood - 2 2 [nth colors [rand 4]]
 }
 
 function knu (n a t h) {
-	if [= n 0] {
+	if [== n 0] {
 		right [+ 135 t] // right [+ 45 t] try 135 
 		forward h
 		left [+ 139 t]

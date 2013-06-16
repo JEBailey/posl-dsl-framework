@@ -146,7 +146,7 @@ public class Editor {
 		frmPologoEditor.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
 		final JEditorPane editorPane = new JEditorPane();
-		editorPane.setEditorKit(new PoslEditorKit());
+		editorPane.setEditorKit(new PoslEditorKit("posl.logo"));
 		editorPane.setContentType("text/posl");
 		scrollPane.setViewportView(editorPane);
 

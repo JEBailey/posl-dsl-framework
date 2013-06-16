@@ -1,6 +1,6 @@
-set minimum 4
-set angle 27
-set step 4
+var minimum 4
+var angle 27
+var step 4
 
 function tree (distance) {
    if [> distance  minimum] {
@@ -15,5 +15,5 @@ function tree (distance) {
 }
 home
 clear
-center_width
+center
 tree 50
