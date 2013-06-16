@@ -13,6 +13,7 @@ import posl.engine.api.TokenVisitor;
 import posl.engine.core.Context;
 import posl.engine.core.DefaultLexer;
 import posl.engine.core.DefaultParser;
+import posl.engine.provider.PoslProvider;
 
 /**
  * The document lexer is used instead of the original lexer, to focus on the structure
@@ -30,14 +31,17 @@ public class DocumentLexer {
 	private List<Token> tokens = null;
 	private UIVisitor visitor = new UIVisitor();
 
-	public DocumentLexer() {
+	private Context context;
+
+	public DocumentLexer(String contentType) {
+		context = PoslProvider.getContext("brainfuck");
 	}
 	
 
 	public void tokenize(Reader reader) {
 		lexer = new DefaultLexer();
 		tokens = new ArrayList<Token>();
-	    lexer.tokenize(reader,Context.standardLexemes());
+	    lexer.tokenize(reader,context.lexemes);
 	    parse();
 	}
 	
