@@ -13,6 +13,7 @@ public class DefaultGraphicsDecorator implements GraphicsDecorator {
 	private Graphics2D g2d;
 	
 	private static Color commandColor = new Color(147, 0, 71);// Color.red.darker().darker();
+	private static Color defaultColor = Color.black;
 
 	@Override
 	public void visitComments(Token token) {
@@ -21,6 +22,7 @@ public class DefaultGraphicsDecorator implements GraphicsDecorator {
 
 	@Override
 	public void visitEol(Token token) {
+		set(token,defaultColor);
 	}
 
 	@Override
@@ -30,7 +32,7 @@ public class DefaultGraphicsDecorator implements GraphicsDecorator {
 
 	@Override
 	public void visitIdentifier(Token token) {
-
+		set(token,defaultColor);
 	}
 
 	@Override
@@ -45,6 +47,7 @@ public class DefaultGraphicsDecorator implements GraphicsDecorator {
 
 	@Override
 	public void visitWhitespace(Token token) {
+		set(token,defaultColor);
 	}
 
 	@Override

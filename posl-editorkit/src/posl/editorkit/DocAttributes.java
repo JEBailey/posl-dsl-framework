@@ -17,9 +17,6 @@ public class DocAttributes {
 	private Token token;
 
 	private boolean command;
-	
-	public DocAttributes(){
-	}
 
 	public boolean isPair() {
 		return token != null;

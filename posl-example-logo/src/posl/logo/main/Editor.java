@@ -147,7 +147,7 @@ public class Editor {
 
 		final JEditorPane editorPane = new JEditorPane();
 		editorPane.setEditorKit(new PoslEditorKit("posl.logo"));
-		editorPane.setContentType("text/posl");
+		editorPane.setContentType("posl.logo");
 		scrollPane.setViewportView(editorPane);
 
 		JPanel panel = new JPanel();

@@ -33,7 +33,7 @@ public class DocumentLexer {
 	private Context context;
 
 	public DocumentLexer(String contentType) {
-		context = PoslProvider.getContext("brainfuck");
+		context = PoslProvider.getContext(contentType);
 	}
 	
 
