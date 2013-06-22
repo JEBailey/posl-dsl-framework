@@ -3,11 +3,11 @@ package posl.engine.type;
 import java.util.LinkedList;
 import java.util.List;
 
-import posl.engine.api.Aggregator;
+import posl.engine.api.Collector;
 import posl.engine.api.Statement;
 import posl.engine.api.StatementVisitor;
 
-public class MultiLineStatement implements Statement, Aggregator {
+public class MultiLineStatement implements Statement, Collector {
 
 	private List<SingleStatement> statements = new LinkedList<SingleStatement>();
 

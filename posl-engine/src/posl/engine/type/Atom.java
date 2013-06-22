@@ -1,5 +1,15 @@
 package posl.engine.type;
 
+/**
+ * An atom is an identifier in a programming language that stands for something else.
+ * 
+ * Within posl anything that is not a base type, such as a string or number is considered an
+ * atom.
+ * 
+ * 
+ * @author je bailey
+ *
+ */
 public class Atom {
 
 	private String string;
@@ -12,12 +22,11 @@ public class Atom {
 		return string;
 	}
 
-	@Override
 	public String toString() {
 		return string.toString();
 	}
 	
-	@Override
+
 	public boolean equals(Object obj) {
 		if (obj != null) {
 			if (obj instanceof Atom){

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.logging.Logger;
 
-import posl.engine.api.Aggregator;
+import posl.engine.api.Collector;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Lexer;
 import posl.engine.api.Parser;
@@ -31,9 +31,9 @@ public class DefaultParser implements Parser {
 	
 	private static Logger log = Logger.getLogger(DefaultParser.class.getName());
 
-	private Stack<Aggregator> statements = new Stack<Aggregator>();
+	private Stack<Collector> statements = new Stack<Collector>();
 
-	private Aggregator statement;
+	private Collector statement;
 	
 	private Stack<Character> charStack = new Stack<Character>();
 

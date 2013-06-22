@@ -12,8 +12,8 @@ public interface Token {
 	 * @param charStack used for to look for current bounding representation
 	 * @return either the aggregator that was passed in or a potential new aggregator
 	 */
-	public Aggregator consume(Aggregator statement,
-			Stack<Aggregator> statements, Stack<Character> charStack);
+	public Collector consume(Collector statement,
+			Stack<Collector> statements, Stack<Character> charStack);
 
 	public void accept(TokenVisitor visitor);
 

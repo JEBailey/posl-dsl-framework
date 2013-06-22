@@ -3,7 +3,7 @@ package posl.engine.lexeme;
 import java.util.List;
 import java.util.Stack;
 
-import posl.engine.api.Aggregator;
+import posl.engine.api.Collector;
 import posl.engine.api.Lexeme;
 import posl.engine.api.BasicToken;
 import posl.engine.api.Token;
@@ -79,7 +79,7 @@ public class QuotedString implements Lexeme {
 		}
 
 		@Override
-		public Aggregator consume(Aggregator statement, Stack<Aggregator> statements,
+		public Collector consume(Collector statement, Stack<Collector> statements,
 				Stack<Character> charStack) {
 			statement.add(value);
 			return statement;

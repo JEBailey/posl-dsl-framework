@@ -1,6 +1,12 @@
 package posl.engine.api;
 
-public interface Aggregator {
+/**
+ * An 
+ * 
+ * @author je bailey
+ *
+ */
+public interface Collector {
 	
 	/**
 	 *
@@ -10,21 +16,21 @@ public interface Aggregator {
 	boolean add(Object token);
 
 	/**
-	 * There are times when the Token process believes the aggregator
+	 * There are times when the Token process believes the collector
 	 * has reached an end point (EOS,EOL)
 	 * 
 	 * This provides an indicator as to whether the token creates a new
-	 * aggregator or continues to use the existing one
+	 * collector or continues to use the existing one
 	 * 
 	 * @return if the aggregate can be replaced
 	 */
 	boolean finish();
 	
 	/**
-	 * This returns the object that the aggregator is aggretating to.
-	 * This could the aggregator itself or an object within it.
+	 * This returns the object that the collector is collecting to.
+	 * This could the collector itself or an object within it.
 	 * 
-	 * @return possible new object which has aggregated the supplied tokens
+	 * @return possible new object which encompasses the supplied tokens
 	 */
 	Object get();
 }

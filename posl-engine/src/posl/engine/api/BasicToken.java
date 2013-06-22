@@ -14,7 +14,7 @@ public abstract class BasicToken implements Token {
 	 * @see posl.engine.api.Token#consume(posl.engine.api.Aggregator, java.util.Stack, java.util.Stack)
 	 */
 	@Override
-	public abstract Aggregator consume(Aggregator statement, Stack<Aggregator> statements ,Stack<Character> charStack);
+	public abstract Collector consume(Collector statement, Stack<Collector> statements ,Stack<Character> charStack);
 	
 	/* (non-Javadoc)
 	 * @see posl.engine.api.Token#accept(posl.engine.api.TokenVisitor)

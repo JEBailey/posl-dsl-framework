@@ -3,9 +3,9 @@ package posl.engine.type;
 import java.util.LinkedList;
 import java.util.List;
 
-import posl.engine.api.Aggregator;
+import posl.engine.api.Collector;
 
-public class ListContainer implements Aggregator {
+public class ListContainer implements Collector {
 
 	private List<Object>content;
 
