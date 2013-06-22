@@ -11,6 +11,8 @@ import javax.swing.text.PlainView;
 import javax.swing.text.Segment;
 import javax.swing.text.Utilities;
 
+import posl.editorkit.util.DefaultGraphicsDecorator;
+import posl.editorkit.util.GraphicsDecorator;
 import posl.engine.api.Token;
 
 
@@ -20,11 +22,18 @@ import posl.engine.api.Token;
  */
 class PoslView extends PlainView {
 
+	private GraphicsDecorator gd;
+	
 	/**
 	 * Construct a simple colored view of text.
 	 */
 	PoslView(Element elem) {
 		super(elem);
+		this.gd = new DefaultGraphicsDecorator();
+	}
+	
+	public void setGraphicsDecorator(GraphicsDecorator gd){
+		this.gd = gd;
 	}
 
 	/**
@@ -57,7 +66,7 @@ class PoslView extends PlainView {
 		Segment text = new Segment();
 		for (Token token : doc.getTokensInRange(start, end)) {
 			int endPosition = Math.min(token.getEndOffset(), end);
-			((DocAttributes)token.getMeta()).consume(g2);
+			token.accept(gd.setGraphics(g2));
 			doc.getText(mark, endPosition - mark, text);
 			x = Utilities.drawTabbedText(text, x, y, g, this, mark);
 			mark = endPosition;

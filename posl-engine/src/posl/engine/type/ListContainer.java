@@ -5,6 +5,11 @@ import java.util.List;
 
 import posl.engine.api.Collector;
 
+/**
+ * Converts the set of tokens into a List object
+ * 
+ * @author je bailey
+ */
 public class ListContainer implements Collector {
 
 	private List<Object>content;

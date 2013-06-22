@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Stack;
 import java.util.logging.Logger;
 
-import posl.editorkit.DocAttributes.style;
 import posl.engine.api.Lexer;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
@@ -48,6 +47,7 @@ public class DocumentLexer {
 	private void parse(){
 		while(lexer.hasNext()){
 			Token next = lexer.next();
+			next.setMeta(new DocAttributes());
 			next.accept(visitor);
 			tokens.add(next);
 		}
@@ -61,25 +61,21 @@ public class DocumentLexer {
 
 		boolean command = true;
 		Token comparable = null;
-		DocAttributes attr = new DocAttributes();
+
 		private Stack<Token> charStack = new Stack<Token>();
 
 		@Override
 		public void visitComments(Token token) {
-			setDoc(token);
-			attr.setStyle(style.COMMENTS);
 		}
 
 		@Override
 		public void visitEol(Token token) {
-			setDoc(token);
 			command = true;
 		}
 		
 
 		@Override
 		public void visitGrammar(Token token) {
-			setDoc(token);
 			char ch = token.getString().charAt(0);
 			switch (ch) {
 			case '[':
@@ -98,7 +94,7 @@ public class DocumentLexer {
 				if (!charStack.empty()) {
 					comparable = charStack.pop();
 					if (comparable.getString().charAt(0) == '(') {
-						attr.setPairedToken(comparable);
+						((DocAttributes) token.getMeta()).setPairedToken(comparable);
 						((DocAttributes) comparable.getMeta()).setPairedToken(token);
 					}
 				}
@@ -108,7 +104,7 @@ public class DocumentLexer {
 				if (!charStack.empty()) {
 					comparable = charStack.pop();
 					if (comparable.getString().charAt(0) == '[') {
-						attr.setPairedToken(comparable);
+						((DocAttributes) token.getMeta()).setPairedToken(comparable);
 						((DocAttributes) comparable.getMeta()).setPairedToken(token);
 					}
 				}
@@ -118,44 +114,31 @@ public class DocumentLexer {
 				if (!charStack.empty()) {
 					comparable = charStack.pop();
 					if (comparable.getString().charAt(0) == '{') {
-						attr.setPairedToken(comparable);
+						((DocAttributes) token.getMeta()).setPairedToken(comparable);
 						((DocAttributes) comparable.getMeta()).setPairedToken(token);
 					}
 				}
 			}
-			attr.setStyle(style.GRAMMAR);
-		}
-
-		private void setDoc(Token token) {
-			attr = new DocAttributes();
-			token.setMeta(attr);
 		}
 
 		@Override
 		public void visitIdentifier(Token token) {
-			setDoc(token);
 			if (command) {
-				attr.setCommand(true);
+				((DocAttributes) token.getMeta()).setCommand(true);
 				command = false;
 			}
-			attr.setStyle(style.INDENTIFIER);
 		}
 
 		@Override
 		public void visitNumbers(Token token) {
-			setDoc(token);
-			attr.setStyle(style.NUMBER);
 		}
 
 		@Override
 		public void visitQuote(Token token) {
-			setDoc(token);
-			attr.setStyle(style.STRING);
 		}
 
 		@Override
 		public void visitWhitespace(Token token) {
-			setDoc(token);
 		}
 
 	}

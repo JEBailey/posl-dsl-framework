@@ -7,6 +7,13 @@ import posl.engine.api.Collector;
 import posl.engine.api.Statement;
 import posl.engine.api.StatementVisitor;
 
+/**
+ * consume a series of statements into a single object
+ * 
+ * 
+ * @author je bailey
+ *
+ */
 public class MultiLineStatement implements Statement, Collector {
 
 	private List<SingleStatement> statements = new LinkedList<SingleStatement>();
