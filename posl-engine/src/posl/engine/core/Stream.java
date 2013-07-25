@@ -1,46 +1,18 @@
 package posl.engine.core;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Arrays;
 
 public class Stream {
 
-	private int[] data;
+	private char[] data;
 	
 	private int index;
 	
 	private int mark;
 
-	public Stream(InputStream in) {
-		this(new InputStreamReader(in));
-	}
-
-	public Stream(Reader reader) {
-		StringBuilder out = new StringBuilder();
-	    char[] b = new char[4096];
-	    try {
-			for (int n; (n = reader.read(b)) != -1;) {
-			    out.append(b, 0, n);
-			}
-			reader.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		internationalize(out);
+	public Stream(String data) {
+		this.data = data.toCharArray();
 	}
 	
-	private void internationalize(CharSequence ch) {
-		int[] reply = new int[ch.length()];
-		int i = 0;
-		for (int offset = 0; offset < ch.length(); ) {
-			    reply[i] = Character.codePointAt(ch, offset);
-			    offset += Character.charCount(reply[i++]);
-		}
-		data =  Arrays.copyOfRange(reply, 0, i);
-	}
 
 	/**
 	 * looks ahead into the stream and returns the value

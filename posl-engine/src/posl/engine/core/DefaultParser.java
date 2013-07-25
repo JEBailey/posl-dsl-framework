@@ -6,8 +6,6 @@
 
 package posl.engine.core;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -45,19 +43,11 @@ public class DefaultParser implements Parser {
 	
 
 	@Override
-	public void process(InputStream is, List<Lexeme> lexemes) throws PoslException {
+	public void process(String is, List<Lexeme> lexemes) throws PoslException {
 		lexer.tokenize(is, lexemes);
 		while (lexer.hasNext()) {			
 			statement = lexer.next().consume(statement, statements, charStack);
 		}
-	}
-	
-	/* (non-Javadoc)
-	 * @see po.IParser#process(java.lang.String)
-	 */
-	@Override
-	public void process(String string,List<Lexeme> lexemes) throws PoslException {
-		process(new ByteArrayInputStream(string.getBytes()),lexemes);
 	}
 
 	/* (non-Javadoc)

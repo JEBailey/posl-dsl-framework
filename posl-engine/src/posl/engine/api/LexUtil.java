@@ -1,5 +1,10 @@
 package posl.engine.api;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+
 
 public class LexUtil {
 	
@@ -35,5 +40,20 @@ public class LexUtil {
 				|| ((value >= '*') && (value <= '/'))
 				|| ((value >= ':') && (value <= '@')) || value == '\\'
 				|| value == '^' || value == '!';
+	}
+	
+	public static String toString(InputStream is){
+		Reader reader = new InputStreamReader(is);
+		StringBuilder out = new StringBuilder();
+	    char[] b = new char[4096];
+	    try {
+			for (int n; (n = reader.read(b)) != -1;) {
+			    out.append(b, 0, n);
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	    return out.toString();
 	}
 }

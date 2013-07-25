@@ -1,7 +1,5 @@
 package posl.engine.core;
 
-import java.io.InputStream;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,21 +14,8 @@ public class DefaultLexer implements Lexer {
 	private Stream wrapper;
 	
 	private List<Lexeme> lexemes;
-	
-	
-	/**
-	 * 
-	 * 
-	 */
-	public void tokenize(InputStream is, List<Lexeme>lexemes) {
-		wrapper = new Stream(is);
-		tokens = new ArrayList<Token>();
-		this.lexemes = lexemes;
-		tokenize();
-		wrapper = null;
-	}
 
-	public void tokenize(Reader reader, List<Lexeme>lexemes) {
+	public void tokenize(String reader, List<Lexeme>lexemes) {
 		wrapper = new Stream(reader);
 		tokens = new ArrayList<Token>();
 		this.lexemes = lexemes;
@@ -56,7 +41,7 @@ public class DefaultLexer implements Lexer {
 			if (!consumed){
 				if (wrapper.hasMore()){
 					//TODO unhandled data - must log
-					String problem = wrapper.getSubString();
+					//String problem = wrapper.getSubString();
 					System.out.print((char)wrapper.pop());
 				}
 				return;

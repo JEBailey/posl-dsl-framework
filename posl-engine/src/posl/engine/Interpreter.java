@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import posl.engine.api.Executable;
+import posl.engine.api.LexUtil;
 import posl.engine.api.Parser;
 import posl.engine.core.Context;
 import posl.engine.core.Scope;
@@ -58,11 +59,11 @@ public class Interpreter {
 	 */
 	public static Object process(Context context, InputStream stream)
 			throws PoslException {
-		
 		Parser parser = context.getParser();
 		Scope scope = context.getScope();
-
-		parser.process(stream, context.lexemes);
+		String data = LexUtil.toString(stream);
+		
+		parser.process(data, context.lexemes);
 		Object result = null;
 		while (parser.hasNext()) {
 			SingleStatement statement = parser.next();
