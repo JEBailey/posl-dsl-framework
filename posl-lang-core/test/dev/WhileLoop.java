@@ -22,8 +22,8 @@ public class WhileLoop {
 
 	@Test
 	public void testWhileLoop() throws PoslException {
-		assertEquals(12000D,evalMulti( "var x 0", 
-										"while [< x 12000] {",
+		assertEquals(500000D,evalMulti( "var x 0", 
+										"while [< x 500000] {",
 										     " ++ x",
 										" }"));
 	}
