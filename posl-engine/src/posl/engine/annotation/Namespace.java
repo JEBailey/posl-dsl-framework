@@ -4,8 +4,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Namespace provides a subcontext of stateful data
- * that may be passed and used to perform executions
+ * Namespace is used at a class level to provide a named mapping
+ * for the internally identified Commands
  * 
  * 
  * @author je bailey
