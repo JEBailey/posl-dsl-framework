@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 /**
- * Informs the proxy that this method parameter is optional and can be null
+ * Informs the proxy that this method parameter is optional
  * 
  * 
  * @author je bailey
