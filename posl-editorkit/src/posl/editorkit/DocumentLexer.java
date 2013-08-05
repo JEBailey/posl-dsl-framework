@@ -37,7 +37,7 @@ public class DocumentLexer {
 	}
 	
 
-	public void tokenize(Reader reader) {
+	public void tokenize(String reader) {
 		lexer = new DefaultLexer();
 		tokens = new ArrayList<Token>();
 	    lexer.tokenize(reader,context.lexemes);
