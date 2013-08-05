@@ -39,7 +39,7 @@ public class Eol implements Lexeme {
 				Stack<Character> charStack) {
 			if (statement.finish()){
 				statements.add(statement);
-				statement = new SingleStatement();
+				statement = new SingleStatement(startPos);
 			}
 			return statement;
 		}

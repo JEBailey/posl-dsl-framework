@@ -20,11 +20,10 @@ public class MultiLineStatement implements Statement, Collector {
 
 	private SingleStatement statement;
 	
-	public int startLineNumber;
-	public int endLineNumber;
-
+	private int startPos;
+	
 	public MultiLineStatement() {
-		statement = new SingleStatement();
+		statement = new SingleStatement(0);
 	}
 
 	public boolean add(Object object) {
@@ -52,7 +51,7 @@ public class MultiLineStatement implements Statement, Collector {
 	public boolean finish() {
 		if (statement.notEmpty()) {
 			statements.add(statement);
-			this.statement = new SingleStatement();
+			this.statement = new SingleStatement(0);
 		}
 		return false;
 	}

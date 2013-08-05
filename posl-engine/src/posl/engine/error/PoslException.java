@@ -18,17 +18,6 @@ public class PoslException extends Throwable {
 
 	};
 
-	@Override
-	public String getLocalizedMessage() {
-		// TODO Auto-generated method stub
-		return super.getLocalizedMessage();
-	}
-
-	@Override
-	public String getMessage() {
-		// TODO Auto-generated method stub
-		return super.getMessage();
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -96,7 +85,7 @@ public class PoslException extends Throwable {
 		public String toString() {
 			StringBuilder sb = new StringBuilder();
 			if (lineNumber >= 0) {
-				sb.append("LINE NO:");
+				sb.append("FIELD NO:");
 				sb.append(this.lineNumber);
 				sb.append(" ");
 			}

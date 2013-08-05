@@ -10,9 +10,14 @@ import posl.engine.api.StatementVisitor;
 public class SingleStatement implements Statement, Collector {
 	
 	private LinkedList<Object> content = new LinkedList<Object>();
+	private int startPos;
+	private int endPos;
 	
-	public SingleStatement(){
+	public SingleStatement(int startPos){
+		this.startPos = startPos;
 	}
+	
+	
 	
 	public SingleStatement(Collection<? extends Object> list) {
 		content = new LinkedList<Object>(list);
@@ -63,13 +68,11 @@ public class SingleStatement implements Statement, Collector {
 	}
 
 	public int startPos() {
-		// TODO Auto-generated method stub
-		return 0;
+		return startPos;
 	}
 
 	public int endPos() {
-		// TODO Auto-generated method stub
-		return 0;
+		return endPos;
 	}
 
 	@Override
