@@ -49,7 +49,7 @@ public class Identifier implements Lexeme {
 	private class Inner extends BasicToken {
 		
 		public Inner(String value, int i) {
-			this.value = value;
+			this.value = new Atom(value);
 			this.startPos = i;
 			this.endPos = i + value.length();
 		}
@@ -57,7 +57,7 @@ public class Identifier implements Lexeme {
 		@Override
 		public Collector consume(Collector statement, Stack<Collector> statements,
 				Stack<Character> charStack) {
-			statement.add(new Atom(value));
+			statement.add(value);
 			return statement;
 		}
 		

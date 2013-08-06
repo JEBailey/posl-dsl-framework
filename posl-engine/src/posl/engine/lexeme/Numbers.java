@@ -14,7 +14,7 @@ import posl.engine.api.TokenVisitor;
 import posl.engine.core.Stream;
 
 public class Numbers implements Lexeme {
-	
+
 	private static NumberFormat nf = NumberFormat.getInstance();
 
 	@Override
@@ -23,14 +23,14 @@ public class Numbers implements Lexeme {
 		if (LexUtil.isDigit(ps.val())
 				|| (ps.val() == '-' && LexUtil.isDigit(ps.la(1)))) {
 			if (ps.val() == '0' && ps.la(1) == 'x') {
-				return processHexCode(tokens,ps);
+				return processHexCode(tokens, ps);
 			}
-			return processNumber(tokens,ps);
+			return processNumber(tokens, ps);
 		}
 		return false;
 	}
 
-	private  boolean processNumber(List<Token> tokens, Stream ps) {
+	private boolean processNumber(List<Token> tokens, Stream ps) {
 		ps.setMark();
 		ps.pop();
 		consumeDigits(ps);
@@ -43,22 +43,22 @@ public class Numbers implements Lexeme {
 				int priorMark = ps.getMark();
 				ps.setMark();
 				ps.pop();
-				if (LexUtil.isDigit(ps.val()) || (ps.val() == '-' || ps.val() == '+')) {
+				if (LexUtil.isDigit(ps.val())
+						|| (ps.val() == '-' || ps.val() == '+')) {
 					ps.pop();
 					consumeDigits(ps);
 				} else {
-					//TODO:handle this properly
-					//tokens.add(new Inner(ps.getSubString(), ps.getMark()));
-					//tokens.add(Token.NUMBER(ps.getSubString(),ps.getMark()));
+					// TODO:handle this properly
+					// tokens.add(new Inner(ps.getSubString(), ps.getMark()));
+					// tokens.add(Token.NUMBER(ps.getSubString(),ps.getMark()));
 					ps.reset(priorMark);
 				}
 			}
 		}
 		String numText = ps.getSubString();
-		tokens.add(new Inner(numText,ps.getMark(),numText.length()));
+		tokens.add(new Inner(numText, ps.getMark(), numText.length()));
 		return true;
 	}
-
 
 	private boolean processHexCode(List<Token> tokens, Stream ps) {
 		// skip the first 0x
@@ -69,13 +69,13 @@ public class Numbers implements Lexeme {
 			ps.pop();
 		}
 		String numText = ps.getSubString();
-		tokens.add(new Inner(String.valueOf(Integer.parseInt(numText, 16)), ps.getMark() - 2,numText.length()+2));
+		tokens.add(new Inner(String.valueOf(Integer.parseInt(numText, 16)), ps
+				.getMark() - 2, numText.length() + 2));
 		return true;
 	}
-	
+
 	/**
-	 * Moves the stream index forward until it
-	 * reaches a non-digit character
+	 * Moves the stream index forward until it reaches a non-digit character
 	 * 
 	 * @param ps
 	 */
@@ -84,33 +84,31 @@ public class Numbers implements Lexeme {
 			ps.pop();
 		}
 	}
-	
+
 	private class Inner extends BasicToken {
 
 		public Inner(String value, int startPos, int length) {
-			this.value = value;
+			try {
+				this.value = nf.parse(value);
+			} catch (ParseException e) {
+				this.value = new Error("bad number format");
+			}
 			this.startPos = startPos;
 			this.endPos = startPos + length;
 		}
-		
-		
+
 		@Override
-		public Collector consume(Collector statement, Stack<Collector> statements,
-				Stack<Character> charStack) {
-			try {
-				statement.add(nf.parse(value));
-			} catch (ParseException e) {
-				statement.add(new Error("bad number format"));
-			}
+		public Collector consume(Collector statement,
+				Stack<Collector> statements, Stack<Character> charStack) {
+			statement.add(value);
 			return statement;
 		}
-		
+
 		@Override
 		public void accept(TokenVisitor visitor) {
 			visitor.visitNumbers(this);
 		}
-		
-	}
 
+	}
 
 }

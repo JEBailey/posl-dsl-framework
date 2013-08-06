@@ -7,7 +7,7 @@ public abstract class BasicToken implements Token {
 	protected int startPos;
 	protected int endPos;
 	
-	protected String value;
+	protected Object value;
 	protected Object meta;
 	
 	/* (non-Javadoc)
@@ -59,11 +59,11 @@ public abstract class BasicToken implements Token {
 	 */
 	@Override
 	public String getString(){
-		return value;
+		return (String)value;
 	}
 	
 	@Override
 	public String toString(){
-		return value;
+		return value.toString();
 	}
 }
