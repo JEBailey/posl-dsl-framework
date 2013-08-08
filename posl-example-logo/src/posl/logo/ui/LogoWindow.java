@@ -72,6 +72,9 @@ public class LogoWindow {
 		panel.setMaximumSize(new Dimension(800, 600));
 		panel.setBackground(Color.WHITE);
 		frmPologo.getContentPane().add(panel, BorderLayout.CENTER);
+		frmPologo.pack();
+		frmPologo.setMinimumSize(frmPologo.getSize());
+		frmPologo.setMaximumSize(frmPologo.getSize());
 	}
 
 	public void runLogo(String text, final PropertyChangeListener errorListener) {

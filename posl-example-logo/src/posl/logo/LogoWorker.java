@@ -65,8 +65,7 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 		turtle.setX(height);
 
 		try {
-			Interpreter.process(context,
-					new ByteArrayInputStream(text.getBytes()));
+			Interpreter.process(context,text);
 		} catch (PoslException e) {
 			this.firePropertyChange("error", null, e);
 			System.out.println(e.toString());

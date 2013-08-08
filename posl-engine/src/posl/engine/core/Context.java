@@ -19,7 +19,7 @@ import posl.engine.lexeme.Numbers;
 import posl.engine.lexeme.QuotedString;
 import posl.engine.lexeme.WhiteSpace;
 
-public class Context {
+public class Context{
 
 	private Parser parser;
 	private Scope scope;
@@ -78,11 +78,20 @@ public class Context {
 	/**
 	 * facade to add a key value pair to the underlying scope
 	 * 
-	 * @param key
+	 * @param key A string representation
 	 * @param value
+	 * @return 
 	 */
-	public void put(String key, Object value) {
-		scope.put(key, value);
+	public Object put(String key, Object value) {
+		return scope.put(key, value);
+	}
+	
+	public Object get(String key){
+		return scope.get(key);
+	}
+	
+	public boolean containsKey(String key){
+		return scope.containsKey(key);
 	}
 
 	/**
