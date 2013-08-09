@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import posl.engine.Interpreter;
 import posl.engine.error.PoslException;
@@ -37,7 +38,7 @@ public class Scope {
 	// private static Logger log = Logger.getLogger(Scope.class.getName());
 
 	public Scope() {
-		content = new HashMap<String,Object>();
+		content = new ConcurrentHashMap<String,Object>();
 	}
 
 	private Scope(Scope scope) {

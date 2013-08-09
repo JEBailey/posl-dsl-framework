@@ -15,6 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 
+import posl.engine.Interpreter;
+import posl.engine.core.Context;
+import posl.engine.error.PoslException;
+import posl.engine.provider.PoslProvider;
 import posl.logo.ImageUtil;
 import posl.logo.LogoWorker;
 
@@ -37,6 +41,14 @@ public class LogoWindow {
 
 	protected static boolean initialized;
 
+	private enum STATE {
+		ready, background, processingDone
+	};
+
+	private STATE currentState = STATE.ready;
+
+	private Context context;
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -51,10 +63,13 @@ public class LogoWindow {
 			private static final long serialVersionUID = 1L;
 
 			{// static
-				new Timer(20, new ActionListener() {
+				new Timer(30, new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
+						if (currentState == STATE.processingDone){
+							loop();
+						}
 						repaint();
 
 					}
@@ -78,18 +93,20 @@ public class LogoWindow {
 	}
 
 	public void runLogo(String text, final PropertyChangeListener errorListener) {
-		if (logoWorker == null) {
-			logoWorker = new LogoWorker(text, bimage);
+		if (currentState != STATE.background) {
+			currentState = STATE.background;
+			context = PoslProvider.getContext("posl.logo");
+			logoWorker = new LogoWorker(context,text, bimage);
 			frmPologo.setTitle("Processing");
 			logoWorker.addPropertyChangeListener(new PropertyChangeListener() {
 
 				@Override
 				public void propertyChange(PropertyChangeEvent evt) {
 					if (evt.getNewValue().equals(SwingWorker.StateValue.DONE)) {
-						frmPologo.setTitle("Done");
+						frmPologo.setTitle("Running");
+						currentState = STATE.processingDone;
 						logoWorker.removePropertyChangeListener(this);
 						logoWorker.removePropertyChangeListener(errorListener);
-						logoWorker = null;
 					}
 				}
 
@@ -98,6 +115,17 @@ public class LogoWindow {
 			logoWorker.execute();
 		} else {
 			frmPologo.setTitle("Unable to Run while processing");
+		}
+	}
+	
+	private void loop(){
+		try {
+			if (context.containsKey("main")){
+				Interpreter.process(context, "main");
+			}
+		} catch (PoslException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

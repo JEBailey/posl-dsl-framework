@@ -28,6 +28,8 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 	private Random random = new Random(System.currentTimeMillis());
 
 	private String text;
+	
+	private Context context;
 
 	// image size
 	private int width = 800;
@@ -42,22 +44,16 @@ public class LogoWorker extends SwingWorker<BufferedImage, BufferedImage> {
 
 	private Graphics2D onscreenGraphics;
 
-	public LogoWorker(String text, BufferedImage outerImage) {
+	public LogoWorker(Context context,String text, BufferedImage outerImage) {
 		super();
+		this.context = context;
 		this.text = text;
 		this.onscreenGraphics = (Graphics2D) outerImage.getGraphics();
 	}
 
 	@Override
 	protected BufferedImage doInBackground() throws Exception {
-		Context context = null;
-		try {
-			context = PoslProvider.getContext("posl.logo");
-			context.load(this);
-		} catch (RuntimeException e) {
-			e.printStackTrace();
-		}
-
+		context.load(this);
 		// configure image to be used
 		offscreenImage = ImageUtil.getBufferedImage(width, height);
 
