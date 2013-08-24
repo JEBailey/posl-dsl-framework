@@ -31,14 +31,11 @@ import posl.engine.type.SingleStatement;
  */
 public class Interpreter {
 
-	/**
-	 * Generates an interpreter with a blank scope.
-	 */
 	private Interpreter() {
 	}
 
 	/**
-	 * 
+	 * Processes the content of the file within the provided context
 	 * 
 	 * @param file
 	 * @return

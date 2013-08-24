@@ -8,76 +8,90 @@ import posl.engine.annotation.Primitive;
 public class Colors {
 
 	@Command("color")
-	public static Color color(Number red, Number green, Number blue){
+	public static Color color(Number red, Number green, Number blue) {
 		int r1 = red.intValue() % 256;
 		int g1 = green.intValue();
 		int b1 = blue.intValue();
-		return new Color(r1,g1,b1);
+		return new Color(r1, g1, b1);
 	}
-	
+
 	@Primitive("red")
-	public static Color red(){
+	public static Color red() {
 		return Color.red;
 	}
-	
+
 	@Primitive("gray")
-	public static Color gray(){
+	public static Color gray() {
 		return Color.gray;
 	}
-	
+
 	@Primitive("green")
-	public static Color green(){
+	public static Color green() {
 		return Color.green;
 	}
-	
+
 	@Primitive("black")
-	public static Color black(){
+	public static Color black() {
 		return Color.black;
 	}
-	
+
 	@Primitive("blue")
-	public static Color blue(){
+	public static Color blue() {
 		return Color.blue;
 	}
-	
+
 	@Primitive("cyan")
-	public static Color cyan(){
+	public static Color cyan() {
 		return Color.cyan;
 	}
-	
+
 	@Primitive("darkGray")
-	public static Color darkGray(){
+	public static Color darkGray() {
 		return Color.darkGray;
 	}
-	
+
 	@Primitive("lightGray")
-	public static Color lightGray(){
+	public static Color lightGray() {
 		return Color.lightGray;
 	}
-	
+
 	@Primitive("magenta")
-	public static Color magenta(){
+	public static Color magenta() {
 		return Color.magenta;
 	}
-	
+
 	@Primitive("orange")
-	public static Color orange(){
+	public static Color orange() {
 		return Color.orange;
 	}
-	
+
 	@Primitive("pink")
-	public static Color pink(){
+	public static Color pink() {
 		return Color.pink;
 	}
-	
+
 	@Primitive("white")
-	public static Color white(){
+	public static Color white() {
 		return Color.white;
 	}
-	
+
 	@Primitive("yellow")
-	public static Color yellow(){
+	public static Color yellow() {
 		return Color.yellow;
 	}
-	
+
+	@Command("faded")
+	public static Color fade(Color color) {
+		float alpha = toFloat(color.getAlpha()) * 0.2f;
+		float red = toFloat(color.getRed());
+		float green = toFloat(color.getGreen());
+		float blue = toFloat(color.getBlue());
+		return new Color(red, green, blue, alpha);
+	}
+
+	private static float toFloat(int value) {
+		//value %= 256;
+		return value / 256f;
+	}
+
 }
