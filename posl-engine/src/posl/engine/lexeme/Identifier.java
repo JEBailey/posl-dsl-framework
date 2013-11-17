@@ -3,10 +3,10 @@ package posl.engine.lexeme;
 import java.util.List;
 import java.util.Stack;
 
+import posl.engine.api.BasicToken;
 import posl.engine.api.Collector;
 import posl.engine.api.LexUtil;
 import posl.engine.api.Lexeme;
-import posl.engine.api.BasicToken;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.Stream;
