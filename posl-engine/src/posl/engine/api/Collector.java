@@ -30,7 +30,7 @@ public interface Collector {
 	 * This returns the object that the collector is collecting to.
 	 * This could the collector itself or an object within it.
 	 * 
-	 * @return possible new object which encompasses the supplied tokens
+	 * @return object which encompasses the supplied tokens
 	 */
 	Object get();
 }

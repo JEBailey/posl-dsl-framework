@@ -1,0 +1,17 @@
+function triangle (length depth) {
+		if [> depth 0] {
+			repeat 3{
+				forward [/ length 3]
+				triangle [/ length 3] [- depth 1]
+				forward [/ length 3]
+				right 120	
+			}
+		} {
+			forward length
+		}
+}
+
+clear
+center
+
+triangle 200 4

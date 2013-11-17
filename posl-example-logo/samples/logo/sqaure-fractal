@@ -1,0 +1,14 @@
+
+function square-fractal (length depth){
+	if [> depth 0] {
+		repeat 4 {
+			forward length
+			right 90
+			square-fractal [*length 0.4] [- depth 1]
+		}
+	}
+}
+
+clear
+center
+square-fractal 200 5

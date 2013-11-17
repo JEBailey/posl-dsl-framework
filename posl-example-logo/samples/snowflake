@@ -1,0 +1,30 @@
+function snowflake-side(length depth) {
+	pause 1
+	if [> depth 0] {
+		snowflake-side [/ length 3] [- depth 1]
+		left 60
+		snowflake-side [/ length 3] [- depth 1]
+		right 120
+		snowflake-side [/ length 3] [- depth 1]
+		left 60
+		snowflake-side [/ length 3] [- depth 1]
+	}{
+		forward length
+	}
+}
+
+function snowflake(length depth) {
+		repeat 3 {
+			snowflake-side length depth
+			right 120
+		}
+}
+
+clear
+center
+ 
+snowflake 280 5
+//penColor red
+flood 3 3
+penColor gray
+flood -5 -5

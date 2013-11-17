@@ -6,6 +6,13 @@ import java.util.List;
 import posl.engine.error.PoslException;
 import posl.engine.type.SingleStatement;
 
+/**
+ * Converts a string into a series of SingleStatements as defined by the Lexemes
+ * that are passed in.
+ * 
+ * @author je bailey
+ *
+ */
 public interface Parser extends Iterator<SingleStatement> {
 	
 	public abstract void process(String string, List<Lexeme> lexemes) throws PoslException;

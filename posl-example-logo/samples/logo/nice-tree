@@ -1,0 +1,42 @@
+clear
+penColor black
+
+set count 0
+
+function tree (length angle step) {
+	penWidth 1
+    if [> length step] {
+		paint
+        set variance [- [rand 30] 10] //length
+        set var [rand 10] //angle
+        penWidth [/ length [* step 2]]
+        forward [+ length variance]
+        left angle
+        tree [- length step] angle step
+        right angle
+        if [< var 5] {
+            tree [- length [* step 2]] angle step
+        }
+        right angle
+        tree [- length step] angle step
+        left angle
+        back [+ length variance]
+    } { //create leaf at the end
+		let count [+ count 1]
+        penWidth 6
+        penColor green
+		if [< [rand 10] 2] {
+			penColor red
+		}
+        back 2
+        forward 2
+        penColor black
+        penWidth 1
+    }
+}
+
+home
+center
+tree 70 18 5
+
+println count

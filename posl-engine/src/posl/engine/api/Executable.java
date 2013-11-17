@@ -5,7 +5,7 @@ import posl.engine.error.PoslException;
 import posl.engine.type.SingleStatement;
 
 /**
- * Interface designating an object that performs work in the script environment.
+ * Designates an object that performs work in the script environment.
  * In processing a statement, the assumption is that an executable is the first
  * object to be encountered.
  * 

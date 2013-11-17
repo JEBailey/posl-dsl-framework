@@ -5,16 +5,25 @@ import java.util.Stack;
 public interface Token {
 
 	/**
-	 * represents an encapsulation of functionality,
+	 * Encapsulates the logic to determine how to apply the token data
+	 * to the incoming structures.
 	 * 
-	 * @param statement current Aggregator which is consuming tokens
-	 * @param statements stack of aggregators to indicate nesting
+	 * @param statement current Collector which is consuming tokens
+	 * @param statements stack of Collectors which represents nesting
 	 * @param charStack used for to look for current bounding representation
-	 * @return either the aggregator that was passed in or a potential new aggregator
+	 * @return either the Collector that was passed in or a potential new Collector
 	 */
 	public Collector consume(Collector statement,
 			Stack<Collector> statements, Stack<Character> charStack);
 
+	/**
+	 * Allows us to categorize the token information into one of the
+	 * broad categories defined within the TokenVisitor API
+	 * 
+	 * provides a way to define extra functionality.
+	 * 
+	 * @param visitor to visit
+	 */
 	public void accept(TokenVisitor visitor);
 
 	public int getStartOffset();

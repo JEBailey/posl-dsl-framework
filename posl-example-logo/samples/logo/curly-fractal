@@ -1,0 +1,49 @@
+
+function curly-fractal(size){
+	if [>= size 0.5] {
+		set repcount 1
+		pause 1
+  		repeat 360 {
+			if [= repcount 5] {
+				left 90
+				curly-fractal [/ size 2]
+				right 90
+			}
+
+			if [= repcount 10] {
+				left 90
+				curly-fractal [/ size 5]
+				right 90
+			}
+			if [= repcount 15] {
+				left 90
+				curly-fractal [/ size 5]
+				right 90
+			}
+			if [= repcount 20] {
+				left 90
+				curly-fractal [/ size 4]
+				right 90
+			}
+
+			if [= repcount 25] {
+				left 90
+				curly-fractal [/ size 5]
+				right 90
+			}
+
+			if [= repcount 30] {
+				left 90
+				curly-fractal [/ size 8]
+				right 90
+			}
+			forward size
+			right repcount
+			let repcount [+ repcount 1]
+		}
+  		right 180
+	}
+}
+clear
+center
+curly-fractal 20
