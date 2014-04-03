@@ -117,7 +117,7 @@ public class Interpreter {
 		if (token instanceof Executable) {
 			token = ((Executable) token).execute(scope, statement);
 		} else if (statement.size() > 1){
-			token = getExecutable(token).execute(scope, statement);
+			//token = getExecutable(token).execute(scope, statement);
 		}
 		return token;
 	}

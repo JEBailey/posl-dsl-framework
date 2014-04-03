@@ -1,0 +1,16 @@
+function <= (value1 value2) {
+	if [< value1 value2] { true } {
+		= value1 value2
+	}
+}
+
+function fibonacci(x) {
+	if [<= x 2] { 
+		1
+	 } {
+		+ [fibonacci [- x 1]] [fibonacci [- x 2]]
+	}
+}
+
+println "fiboncacci results of the number 12" [int [fibonacci 12]]
+
