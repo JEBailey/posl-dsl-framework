@@ -13,13 +13,23 @@ import posl.engine.type.ListCollector;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.SingleStatement;
 
+/**
+ * Represents the physical structure components of a basic Posl implementation.
+ * Those characters that define a structure in the application.
+ * 
+ * 
+ * 
+ * 
+ * @author jebailey
+ * 
+ */
 public class Grammar implements Lexeme {
 
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {
 		ps.setMark();
 		boolean grammar = false;
-		switch (ps.val()){
+		switch (ps.val()) {
 		case '{':
 		case '}':
 		case '(':
@@ -28,27 +38,26 @@ public class Grammar implements Lexeme {
 		case ']':
 			grammar = true;
 		}
-		if (grammar){
-			tokens.add(new Inner((char)ps.pop(), ps.getMark()));
+		if (grammar) {
+			tokens.add(new Inner((char) ps.pop(), ps.getMark()));
 		}
 		return grammar;
 	}
-	
-	
+
 	private class Inner extends BasicToken {
-		
+
 		private char charValue;
-		
+
 		public Inner(char value, int i) {
 			this.charValue = value;
 			this.value = Character.toString(value);
 			this.startPos = i;
 			this.endPos = i + 1;
 		}
-		
+
 		@Override
-		public Collector consume(Collector statement, Stack<Collector> statements,
-				Stack<Character> charStack) {
+		public Collector consume(Collector statement,
+				Stack<Collector> statements, Stack<Character> charStack) {
 			switch (charValue) {
 			case '[':
 				charStack.push(']');
@@ -66,42 +75,45 @@ public class Grammar implements Lexeme {
 				statement = new MultiLineStatement();
 				break;
 			case ')':
-				if (!charStack.empty() && charStack.pop() == charValue){
+				if (!charStack.empty() && charStack.pop() == charValue) {
 					Collector temp = statement;
 					statement = statements.pop();
-					statement.add((List<?>)temp.get());
+					statement.add((List<?>) temp.get());
 				} else {
-					//throw new PoslException(lineNumber,"could not match parenthesis");
+					// throw new
+					// PoslException(lineNumber,"could not match parenthesis");
 				}
 				break;
 			case ']':
-				if (!charStack.empty() && charStack.pop() == charValue){
+				if (!charStack.empty() && charStack.pop() == charValue) {
 					Object temp = statement;
 					statement = statements.pop();
 					statement.add(temp);
 				} else {
-					//throw new PoslException(lineNumber,"could not match square bracket");
+					// throw new
+					// PoslException(lineNumber,"could not match square bracket");
 				}
 				break;
 			case '}':
-				if (!charStack.empty() && charStack.pop() == charValue){
+				if (!charStack.empty() && charStack.pop() == charValue) {
 					statement.finish();
 					Object temp = statement;
 					statement = statements.pop();
 					statement.add(temp);
 				} else {
-					//throw new PoslException(lineNumber,"could not match brace");
+					// throw new
+					// PoslException(lineNumber,"could not match brace");
 				}
 				break;
 			}
 			return statement;
 		}
-		
+
 		@Override
 		public void accept(TokenVisitor visitor) {
 			visitor.visitGrammar(this);
 		}
-		
+
 	}
 
 }

@@ -35,7 +35,7 @@ public class Numbers implements Lexeme {
 		ps.pop();
 		consumeDigits(ps);
 		// at this point we have defined all positive whole numbers
-		// check for float
+		// now check for float
 		if (ps.val() == '.') {
 			ps.pop();
 			consumeDigits(ps);
