@@ -32,15 +32,16 @@ public class Stream {
 	 * current value 
 	 * @return
 	 */
-	public char val(){
-		return data.charAt(index);
+	public int val(){
+		return index < length ? data.charAt(index) : -1;
 	}
 	
 	
 	/**
 	 * moves the index and returns the current val
+	 * returns -1 if at the end of the stream
 	 * 
-	 * @return current <code>char</code>
+	 * @return
 	 */
 	public char pop(){
 		return data.charAt(index++);
@@ -51,16 +52,18 @@ public class Stream {
 	 * moves the index the specified amount
 	 * 
 	 * 
-	 * @param offset how far to move the index
+	 * @param offset
+	 * @return
 	 */
-	public void chomp(int offset){
+	public int pop(int offset){
 		index += offset;
+		return index < length ? data.charAt(index) : -1;
 	}
 	
 	/**
 	 * declares availability of content
 	 * 
-	 * @return 
+	 * @return
 	 */
 	public boolean hasMore(){
 		return index < length;
@@ -123,7 +126,7 @@ public class Stream {
 	 * @return
 	 */
 	public String getSubString(){
-		return data.subSequence(mark,index - mark).toString();
+		return data.subSequence(mark,index).toString();
 	}
 	
 }
