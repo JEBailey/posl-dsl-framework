@@ -8,8 +8,8 @@ import posl.engine.api.StatementVisitor;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 /**
- * Reference class provides an encapsulated view of an identifier(atom) and it's unevaluated
- * value. This provides a method of lazy evaluation. 
+ * Represents the relationship between an Object and it's un-evaluated value.
+ * This provides a method of lazy evaluation. 
  * 
  * 
  * @author jbailey

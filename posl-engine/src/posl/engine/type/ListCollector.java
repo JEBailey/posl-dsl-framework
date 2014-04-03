@@ -6,15 +6,15 @@ import java.util.List;
 import posl.engine.api.Collector;
 
 /**
- * Converts the set of tokens into a List object
+ * Collects objects into a <code>LinkedList</code>
  * 
  * @author je bailey
  */
-public class ListContainer implements Collector {
+public class ListCollector implements Collector {
 
 	private List<Object>content;
 
-	public ListContainer() {
+	public ListCollector() {
 		content = new LinkedList<Object>();
 	}
 
