@@ -1,7 +1,7 @@
 package posl.engine.api;
 
 /**
- * An 
+ * Class that gathers a series of tokens into a collection of tokens.
  * 
  * @author je bailey
  *
@@ -22,12 +22,12 @@ public interface Collector {
 	 * This provides an indicator as to whether the token creates a new
 	 * collector or continues to use the existing one
 	 * 
-	 * @return if the aggregate can be replaced
+	 * @return true if the Collector is done Collecting
 	 */
 	boolean finish();
 	
 	/**
-	 * This returns the object that the collector is collecting to.
+	 * This returns the object that the collector is collecting into.
 	 * This could the collector itself or an object within it.
 	 * 
 	 * @return object which encompasses the supplied tokens

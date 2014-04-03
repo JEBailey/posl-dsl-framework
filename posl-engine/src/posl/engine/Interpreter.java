@@ -116,8 +116,14 @@ public class Interpreter {
 		Object token  = scope.getValue(statement.get(0));
 		if (token instanceof Executable) {
 			token = ((Executable) token).execute(scope, statement);
+		} else if (statement.size() > 1){
+			token = getExecutable(token).execute(scope, statement);
 		}
 		return token;
+	}
+
+	private static Executable getExecutable(Object token) {
+		return null;//new JavaCachedExecutable(token);
 	}
 
 }

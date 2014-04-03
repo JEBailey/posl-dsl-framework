@@ -9,11 +9,10 @@ import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 /**
  * Reference class provides an encapsulated view of an identifier(atom) and it's unevaluated
- * value. The purpose of this is to provide a method of lazy evaluation. 
+ * value. This provides a method of lazy evaluation. 
  * 
  * 
  * @author jbailey
- *
  */
 public class Reference implements StatementVisitor {
 	

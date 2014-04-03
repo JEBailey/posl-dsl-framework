@@ -43,7 +43,7 @@ public class DefaultParser implements Parser {
 	
 
 	@Override
-	public void process(String is, List<Lexeme> lexemes) throws PoslException {
+	public void process(CharSequence is, List<Lexeme> lexemes) throws PoslException {
 		lexer.tokenize(is, lexemes);
 		while (lexer.hasNext()) {			
 			statement = lexer.next().consume(statement, statements, charStack);

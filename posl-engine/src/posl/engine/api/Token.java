@@ -11,7 +11,7 @@ public interface Token {
 	 * @param statement current Collector which is consuming tokens
 	 * @param statements stack of Collectors which represents nesting
 	 * @param charStack used for to look for current bounding representation
-	 * @return either the Collector that was passed in or a potential new Collector
+	 * @return the collector to be used for the next Token
 	 */
 	public Collector consume(Collector statement,
 			Stack<Collector> statements, Stack<Character> charStack);

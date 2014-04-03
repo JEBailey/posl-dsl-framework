@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface Lexer extends Iterator<Token> {
 	
-	public abstract void tokenize(String data, List<Lexeme>lexemes);
+	public abstract void tokenize(CharSequence data, List<Lexeme>lexemes);
 
 }

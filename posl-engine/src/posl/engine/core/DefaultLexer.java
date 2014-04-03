@@ -15,7 +15,7 @@ public class DefaultLexer implements Lexer {
 	
 	private List<Lexeme> lexemes;
 
-	public void tokenize(String reader, List<Lexeme>lexemes) {
+	public void tokenize(CharSequence reader, List<Lexeme>lexemes) {
 		wrapper = new Stream(reader);
 		tokens = new ArrayList<Token>();
 		this.lexemes = lexemes;

@@ -15,7 +15,7 @@ import posl.engine.type.SingleStatement;
  */
 public interface Parser extends Iterator<SingleStatement> {
 	
-	public abstract void process(String string, List<Lexeme> lexemes) throws PoslException;
+	public abstract void process(CharSequence string, List<Lexeme> lexemes) throws PoslException;
 
 	public abstract boolean complete();
 

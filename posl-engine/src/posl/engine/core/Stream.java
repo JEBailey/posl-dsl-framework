@@ -3,14 +3,17 @@ package posl.engine.core;
 
 public class Stream {
 
-	private char[] data;
+	private CharSequence data;
 	
 	private int index;
 	
 	private int mark;
+	
+	private int length;
 
-	public Stream(String data) {
-		this.data = data.toCharArray();
+	public Stream(CharSequence data) {
+		this.data = data;
+		this.length = data.length();
 	}
 	
 
@@ -22,7 +25,7 @@ public class Stream {
 	 * @return value at stream location or -1 for end of stream
 	 */
 	public int la(int offset){
-		return (index + offset) >= data.length ? -1 : data[index + offset];
+		return (index + offset) >= length ? -1 : data.charAt(index + offset);
 	}
 	
 	/**
@@ -30,7 +33,7 @@ public class Stream {
 	 * @return
 	 */
 	public int val(){
-		return index < data.length ? data[index] : -1;
+		return index < length ? data.charAt(index) : -1;
 	}
 	
 	
@@ -41,7 +44,7 @@ public class Stream {
 	 * @return
 	 */
 	public int pop(){
-		return index < data.length ? data[index++] : -1;
+		return index < length ? data.charAt(index++) : -1;
 	}
 	
 	
@@ -54,7 +57,7 @@ public class Stream {
 	 */
 	public int pop(int offset){
 		index += offset;
-		return index < data.length ? data[index] : -1;
+		return index < length ? data.charAt(index) : -1;
 	}
 	
 	/**
@@ -63,7 +66,7 @@ public class Stream {
 	 * @return
 	 */
 	public boolean hasMore(){
-		return index < data.length;
+		return index < length;
 	}
 	
 	/**
@@ -123,7 +126,7 @@ public class Stream {
 	 * @return
 	 */
 	public String getSubString(){
-		return new String(data,mark,index - mark);
+		return data.subSequence(mark,index - mark).toString();
 	}
 	
 }

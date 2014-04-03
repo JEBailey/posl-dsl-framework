@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Simple dependency graph, pass in a number of dependency releationships
+ * Simple dependency graph, pass in a number of dependency relationships
  * and the graph will spit out which dependency to load first.
  * 
  * 
