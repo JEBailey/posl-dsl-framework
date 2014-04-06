@@ -2,7 +2,7 @@ package posl.engine.api;
 
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 
 /**
  * Designates an object that performs work in the script environment.
@@ -14,6 +14,6 @@ import posl.engine.type.SingleStatement;
  */
 public interface Executable {
 
-	Object execute(Scope scope, SingleStatement statement) throws PoslException;
+	Object execute(Scope scope, Statement statement) throws PoslException;
 
 }

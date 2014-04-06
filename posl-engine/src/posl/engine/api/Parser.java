@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import posl.engine.error.PoslException;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 
 /**
  * Converts a string into a series of SingleStatements as defined by the Lexemes
@@ -13,7 +13,7 @@ import posl.engine.type.SingleStatement;
  * @author je bailey
  *
  */
-public interface Parser extends Iterator<SingleStatement> {
+public interface Parser extends Iterator<Statement> {
 	
 	public abstract void process(CharSequence string, List<Lexeme> lexemes) throws PoslException;
 

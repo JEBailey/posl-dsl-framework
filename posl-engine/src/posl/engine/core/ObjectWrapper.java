@@ -4,7 +4,7 @@ import java.util.Map;
 
 import posl.engine.api.Executable;
 import posl.engine.error.PoslException;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 
 public class ObjectWrapper implements Executable {
 	
@@ -18,7 +18,7 @@ public class ObjectWrapper implements Executable {
 	}
 
 	@Override
-	public Object execute(Scope scope, SingleStatement statement)
+	public Object execute(Scope scope, Statement statement)
 			throws PoslException {
 		// TODO Auto-generated method stub
 		return null;

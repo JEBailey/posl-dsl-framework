@@ -1,10 +1,7 @@
 package posl.engine.type;
 
-import java.util.List;
-
 import posl.engine.Interpreter;
-import posl.engine.api.Statement;
-import posl.engine.api.StatementVisitor;
+import posl.engine.api.StatementProvider;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 /**
@@ -14,7 +11,7 @@ import posl.engine.error.PoslException;
  * 
  * @author jbailey
  */
-public class Reference implements StatementVisitor {
+public class Reference {
 	
 	private Object key;
 	
@@ -54,33 +51,12 @@ public class Reference implements StatementVisitor {
 		this.scope = this.scope.createChildScope();
 	}
 	
-	public Object evaluate() throws PoslException{
+	public Object evaluate() throws PoslException {
 		Object result = scope.getValue(key);
-		if (result instanceof Statement){
-			return ((Statement)result).accept(this);
+		if (result instanceof StatementProvider){
+			return Interpreter.process(scope, (StatementProvider)result);
 		}
 		return result;
 	}
-
-	@Override
-	public Object visit(SingleStatement statement) {
-		try {
-			return Interpreter.process(scope, statement);
-		} catch (PoslException e){
-			return e;
-		}
-		
-	}
-
-	@Override
-	public Object visit(List<SingleStatement> statements) {
-		try {
-			return Interpreter.process(scope, statements);
-		} catch (PoslException e){
-			return e;
-		}
-		
-	}
-
 
 }

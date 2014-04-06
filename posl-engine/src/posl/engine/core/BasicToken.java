@@ -1,6 +1,10 @@
-package posl.engine.api;
+package posl.engine.core;
 
 import java.util.Stack;
+
+import posl.engine.api.Collector;
+import posl.engine.api.Token;
+import posl.engine.api.TokenVisitor;
 
 public abstract class BasicToken implements Token {
 	

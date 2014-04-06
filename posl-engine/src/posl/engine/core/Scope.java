@@ -13,10 +13,11 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import posl.engine.Interpreter;
+import posl.engine.api.StatementProvider;
 import posl.engine.error.PoslException;
 import posl.engine.type.Atom;
 import posl.engine.type.Reference;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 
 /**
  * 
@@ -98,8 +99,8 @@ public class Scope {
 				throw new PoslException(-1,"Null reference for "+object.toString());
 			}
 		}
-	    if (response instanceof SingleStatement){
-			response = Interpreter.process(this,(SingleStatement)object);
+	    if (response instanceof Statement){
+			response = Interpreter.process(this,(StatementProvider)response);
 		}
 		return response;
 	}
@@ -132,18 +133,17 @@ public class Scope {
 			return new Reference(object,this);
 		}
 		
-		final Class<? extends Object> klass = object.getClass();
-		
-		if (klass == SingleStatement.class){
-			return get(requestedType,Interpreter.process(this,(SingleStatement)object));
+		if (object instanceof Statement){
+			return get(requestedType,Interpreter.process(this,(Statement)object));
 		}
 		
-		if (klass == Atom.class) {
+		if (object instanceof Atom) {
 			if (requestedType != Atom.class){
 				return get(requestedType,this.getValue(object));
 			}
 		}
 		
+		final Class<? extends Object> klass = object.getClass();
 		if (((Class<?>)requestedType).isAssignableFrom(klass)){
 			return object;
 		}

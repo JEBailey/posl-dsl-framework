@@ -3,9 +3,10 @@ package posl.engine.type;
 import java.util.LinkedList;
 import java.util.List;
 
+import posl.engine.api.StatementProvider;
 import posl.engine.api.Collector;
-import posl.engine.api.Statement;
-import posl.engine.api.StatementVisitor;
+import posl.engine.api.StatementProviderVisitor;
+import posl.engine.error.PoslException;
 
 /**
  * consume a series of statements into a single object
@@ -14,16 +15,16 @@ import posl.engine.api.StatementVisitor;
  * @author je bailey
  *
  */
-public class MultiLineStatement implements Statement, Collector {
+public class MultiLineStatement implements StatementProvider, Collector {
 
-	private List<SingleStatement> statements = new LinkedList<SingleStatement>();
+	private List<Statement> statements = new LinkedList<Statement>();
 
-	private SingleStatement statement;
+	private Statement statement;
 	
 	private int startPos;
 	
 	public MultiLineStatement() {
-		statement = new SingleStatement(0);
+		statement = new Statement(0);
 	}
 
 	public boolean add(Object object) {
@@ -34,7 +35,7 @@ public class MultiLineStatement implements Statement, Collector {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{\n");
-		for (SingleStatement statement : statements) {
+		for (Statement statement : statements) {
 			sb.append(statement.toString());
 			sb.append('\n');
 		}
@@ -42,7 +43,7 @@ public class MultiLineStatement implements Statement, Collector {
 		return sb.toString();
 	}
 
-	public List<SingleStatement> get(){
+	public List<Statement> get(){
 		return statements;
 	}
 	
@@ -51,14 +52,14 @@ public class MultiLineStatement implements Statement, Collector {
 	public boolean finish() {
 		if (statement.notEmpty()) {
 			statements.add(statement);
-			this.statement = new SingleStatement(0);
+			this.statement = new Statement(0);
 		}
 		return false;
 	}
 
 	@Override
-	public Object accept(StatementVisitor visitor) {
-		return visitor.visit((List<SingleStatement>)statements);
+	public Object accept(StatementProviderVisitor visitor) throws PoslException {
+		return visitor.evaluate((List<Statement>)statements);
 	}
 
 }

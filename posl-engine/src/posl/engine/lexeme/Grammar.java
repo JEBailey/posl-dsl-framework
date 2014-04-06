@@ -3,15 +3,15 @@ package posl.engine.lexeme;
 import java.util.List;
 import java.util.Stack;
 
-import posl.engine.api.BasicToken;
 import posl.engine.api.Collector;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
+import posl.engine.core.BasicToken;
 import posl.engine.core.Stream;
 import posl.engine.type.ListCollector;
 import posl.engine.type.MultiLineStatement;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 
 /**
  * Represents the physical structure components of a basic Posl implementation.
@@ -56,29 +56,29 @@ public class Grammar implements Lexeme {
 		}
 
 		@Override
-		public Collector consume(Collector statement,
-				Stack<Collector> statements, Stack<Character> charStack) {
+		public Collector consume(Collector collector,
+				Stack<Collector> collectors, Stack<Character> charStack) {
 			switch (charValue) {
 			case '[':
 				charStack.push(']');
-				statements.push(statement);
-				statement = new SingleStatement(startPos);
+				collectors.push(collector);
+				collector = new Statement(startPos);
 				break;
 			case '(':
 				charStack.push(')');
-				statements.push(statement);
-				statement = new ListCollector();
+				collectors.push(collector);
+				collector = new ListCollector();
 				break;
 			case '{':
 				charStack.push('}');
-				statements.push(statement);
-				statement = new MultiLineStatement();
+				collectors.push(collector);
+				collector = new MultiLineStatement();
 				break;
 			case ')':
 				if (!charStack.empty() && charStack.pop() == charValue) {
-					Collector temp = statement;
-					statement = statements.pop();
-					statement.add((List<?>) temp.get());
+					Collector temp = collector;
+					collector = collectors.pop();
+					collector.add((List<?>) temp.get());
 				} else {
 					// throw new
 					// PoslException(lineNumber,"could not match parenthesis");
@@ -86,9 +86,9 @@ public class Grammar implements Lexeme {
 				break;
 			case ']':
 				if (!charStack.empty() && charStack.pop() == charValue) {
-					Object temp = statement;
-					statement = statements.pop();
-					statement.add(temp);
+					Object temp = collector;
+					collector = collectors.pop();
+					collector.add(temp);
 				} else {
 					// throw new
 					// PoslException(lineNumber,"could not match square bracket");
@@ -96,17 +96,17 @@ public class Grammar implements Lexeme {
 				break;
 			case '}':
 				if (!charStack.empty() && charStack.pop() == charValue) {
-					statement.finish();
-					Object temp = statement;
-					statement = statements.pop();
-					statement.add(temp);
+					collector.finish();
+					Object temp = collector;
+					collector = collectors.pop();
+					collector.add(temp);
 				} else {
 					// throw new
 					// PoslException(lineNumber,"could not match brace");
 				}
 				break;
 			}
-			return statement;
+			return collector;
 		}
 
 		@Override

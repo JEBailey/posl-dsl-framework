@@ -15,7 +15,7 @@ import posl.engine.api.Lexeme;
 import posl.engine.api.Lexer;
 import posl.engine.api.Parser;
 import posl.engine.error.PoslException;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 
 /**
  * 
@@ -38,7 +38,7 @@ public class DefaultParser implements Parser {
 
 	public DefaultParser() {
 		lexer = new DefaultLexer();
-		statement = new SingleStatement(0);
+		statement = new Statement(0);
 	}
 	
 
@@ -54,8 +54,8 @@ public class DefaultParser implements Parser {
 	 * @see po.IParser#getStatement()
 	 */
 	@Override
-	public SingleStatement next() {
-		return (SingleStatement)statements.remove(0);
+	public Statement next() {
+		return (Statement)statements.remove(0);
 	}
 
 	/* (non-Javadoc)

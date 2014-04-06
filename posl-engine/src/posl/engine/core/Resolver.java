@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 import posl.engine.error.PoslException;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 /**
  * Provides a mechanism to resolve the parameters that
  * will be passed into a wrapped java method.
@@ -41,7 +41,7 @@ protected Type[] params;
 	 * @return
 	 * @throws PoslException
 	 */
-	public Object[] render(Scope scope, SingleStatement statement) throws PoslException {
+	public Object[] render(Scope scope, Statement statement) throws PoslException {
 		// This is the argument array that will be passed in the method call
 		Object[] arguments = new Object[info.length];
 		// we're going to loop through the parameter information

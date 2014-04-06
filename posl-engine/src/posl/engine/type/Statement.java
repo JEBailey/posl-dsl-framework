@@ -3,23 +3,24 @@ package posl.engine.type;
 import java.util.Collection;
 import java.util.LinkedList;
 
+import posl.engine.api.StatementProvider;
 import posl.engine.api.Collector;
-import posl.engine.api.Statement;
-import posl.engine.api.StatementVisitor;
+import posl.engine.api.StatementProviderVisitor;
+import posl.engine.error.PoslException;
 
-public class SingleStatement implements Statement, Collector {
+public class Statement implements Collector, StatementProvider {
 	
 	private LinkedList<Object> content = new LinkedList<Object>();
 	private int startPos;
 	private int endPos;
 	
-	public SingleStatement(int startPos){
+	public Statement(int startPos){
 		this.startPos = startPos;
 	}
 	
 	
 	
-	public SingleStatement(Collection<? extends Object> list) {
+	public Statement(Collection<? extends Object> list) {
 		content = new LinkedList<Object>(list);
 	}
 	
@@ -27,8 +28,8 @@ public class SingleStatement implements Statement, Collector {
 		return !content.isEmpty();
 	}
 
-	public SingleStatement subList(int arg0, int arg1){
-		return new SingleStatement(content.subList(arg0, arg1));
+	public Statement subList(int arg0, int arg1){
+		return new Statement(content.subList(arg0, arg1));
 	}
 	
 	public String errorString() {
@@ -80,9 +81,11 @@ public class SingleStatement implements Statement, Collector {
 		return this;
 	}
 
+
+
 	@Override
-	public Object accept(StatementVisitor visitor) {
-		return visitor.visit(this);
+	public Object accept(StatementProviderVisitor visitor) throws PoslException {
+		return visitor.evaluate(this);
 	}
 	
 

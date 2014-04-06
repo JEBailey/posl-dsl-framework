@@ -3,11 +3,11 @@ package posl.engine.lexeme;
 import java.util.List;
 import java.util.Stack;
 
-import posl.engine.api.BasicToken;
 import posl.engine.api.Collector;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
+import posl.engine.core.BasicToken;
 import posl.engine.core.Stream;
 
 public class QuotedString implements Lexeme {
@@ -79,10 +79,10 @@ public class QuotedString implements Lexeme {
 		}
 
 		@Override
-		public Collector consume(Collector statement, Stack<Collector> statements,
+		public Collector consume(Collector collector, Stack<Collector> collectors,
 				Stack<Character> charStack) {
-			statement.add(value);
-			return statement;
+			collector.add(value);
+			return collector;
 		}
 		
 		@Override

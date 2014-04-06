@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 
 import posl.engine.api.Executable;
 import posl.engine.error.PoslException;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 
 /**
  * MethodProxy is used to wrap an invocation of an executable that
@@ -30,14 +30,14 @@ public class MethodProxy implements Executable {
 	}
 
 	@Override
-	public Object execute(Scope argumentScope, SingleStatement tokens) throws PoslException {
+	public Object execute(Scope argumentScope, Statement statement) throws PoslException {
 		try {
-			return method.invoke(object, resolver.render(argumentScope, tokens));
+			return method.invoke(object, resolver.render(argumentScope, statement));
 		} catch (InvocationTargetException ite) {
-			PoslException exception = new PoslException(tokens.startPos(),ite.getCause().toString());
+			PoslException exception = new PoslException(statement.startPos(),ite.getCause().toString());
 			throw exception;
 		} catch (IllegalAccessException e) {
-			throw new PoslException(tokens.startPos(),e.toString());
+			throw new PoslException(statement.startPos(),e.toString());
 		} 
 	}
 	
