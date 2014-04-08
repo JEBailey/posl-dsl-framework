@@ -90,39 +90,7 @@ public class Interpreter {
 		return result;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param scope
-	 * @param statements
-	 * @return
-	 * @throws PoslException
-	 */
-	public static Object process(Scope scope, List<Statement> statements) throws PoslException {
-		Object result = null;
-		for (Statement statement : statements) {
-			result = process(scope, statement);
-		}
-		return result;
-	}
 
-	/**
-	 * 
-	 * 
-	 * @param scope provides the variables which the statement will be executed within
-	 * @param statement
-	 * @return
-	 * @throws PoslException
-	 */
-	public static Object process(Scope scope, Statement statement) throws PoslException {
-		Object token  = scope.getValue(statement.get(0));
-		if (token instanceof Executable) {
-			token = ((Executable) token).execute(scope, statement);
-		} else if (statement.size() > 1){
-			//token = getExecutable(token).execute(scope, statement);
-		}
-		return token;
-	}
 	
 	/**
 	 * 

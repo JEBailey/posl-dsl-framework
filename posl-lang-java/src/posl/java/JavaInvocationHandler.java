@@ -8,7 +8,7 @@ import posl.engine.api.Executable;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Atom;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 
 public class JavaInvocationHandler implements InvocationHandler {
 
@@ -32,9 +32,9 @@ public class JavaInvocationHandler implements InvocationHandler {
 			throws Throwable {
 		String name = method.getName();
 		if (name.equals("execute")){
-			return execute((Scope)args[0],(SingleStatement)args[1]);
+			return execute((Scope)args[0],(Statement)args[1]);
 		}
-		SingleStatement statement = new SingleStatement(Arrays.asList(args));
+		Statement statement = new Statement(Arrays.asList(args));
 		statement.push(new Atom(name));
 		return execute(scope,statement);
 	}
@@ -51,7 +51,7 @@ public class JavaInvocationHandler implements InvocationHandler {
 	 * @return
 	 * @throws PoslException
 	 */
-	private Object execute(Scope scope, SingleStatement tokens) throws PoslException {
+	private Object execute(Scope scope, Statement tokens) throws PoslException {
 		Object token = null;
 		try {
 			token = tokens.get(0);

@@ -5,7 +5,7 @@ import posl.engine.api.Executable;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.MultiLineStatement;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 
 public class NamespaceExec implements Executable {
 
@@ -18,14 +18,14 @@ public class NamespaceExec implements Executable {
 
 	public NamespaceExec(Scope scope,MultiLineStatement statements) throws PoslException {
 		runtimeScope = scope.createChildScope();
-		Interpreter.process(runtimeScope,statements.get());
+		Interpreter.process(runtimeScope,statements);
 	}
 	
 	public Object processStatements(MultiLineStatement statements) throws PoslException{
-		return Interpreter.process(runtimeScope,statements.get());
+		return Interpreter.process(runtimeScope,statements);
 	}
 	
-	public Object processStatement(SingleStatement statement) throws PoslException{
+	public Object processStatement(Statement statement) throws PoslException{
 		return Interpreter.process(runtimeScope,statement);
 	}
 	
@@ -34,9 +34,9 @@ public class NamespaceExec implements Executable {
 	}
 
 	@Override
-	public Object execute(Scope callingScope, SingleStatement tokens) throws PoslException {
+	public Object execute(Scope callingScope, Statement tokens) throws PoslException {
 		try {
-			SingleStatement subList = tokens.subList(1,tokens.size());
+			Statement subList = tokens.subList(1,tokens.size());
 			return Interpreter.process(runtimeScope, subList);
 		} catch (PoslException e) {
 			throw e.push(tokens.startPos(), "in namespace "+tokens.get(0).toString());

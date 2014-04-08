@@ -9,7 +9,7 @@ import posl.engine.api.Executable;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Atom;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 
 public class Java implements Executable {
 
@@ -26,7 +26,7 @@ public class Java implements Executable {
 	 * @throws ClassNotFoundException 
 	 * @throws Exception
 	 */
-	public Java(Scope scope, SingleStatement args) throws PoslException, ClassNotFoundException {
+	public Java(Scope scope, Statement args) throws PoslException, ClassNotFoundException {
 		klass = Class.forName(scope.get(Atom.class,args.get(1)).toString());
 		//Constructor<?>[] constructors = klass.getConstructors();
 		try {
@@ -71,10 +71,10 @@ public class Java implements Executable {
 	
 
 	@Override
-	public Object execute(Scope scope, SingleStatement tokens) throws PoslException {
+	public Object execute(Scope scope, Statement tokens) throws PoslException {
 		if(tokens.size() == 1) return this;
 		String methodName = scope.get(Atom.class,tokens.get(1)).toString();
-		SingleStatement args = new SingleStatement(tokens.startPos());
+		Statement args = new Statement(tokens.startPos());
 		for(int i = 2; i < tokens.size(); i++){
 			args.add(tokens.get(i));
 		}

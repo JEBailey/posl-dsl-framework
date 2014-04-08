@@ -7,7 +7,7 @@ import posl.engine.api.Executable;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.MultiLineStatement;
-import posl.engine.type.SingleStatement;
+import posl.engine.type.Statement;
 
 public class Function implements Executable {
 
@@ -43,7 +43,7 @@ public class Function implements Executable {
 	 * @throws PoslException
 	 * @throws Exception
 	 */
-	public Object execute(Scope argumentScope, SingleStatement callingArgs) throws PoslException {
+	public Object execute(Scope argumentScope, Statement callingArgs) throws PoslException {
 		Scope runtimeScope = scope.createChildScope();
 		if (callingArgs != null) {
 			if ((callingArgs.size() - 1) != this.arguments.size()) {
@@ -55,7 +55,7 @@ public class Function implements Executable {
 				runtimeScope.put(key, value);
 			}
 		}
-		return Interpreter.process(runtimeScope, statements.get());
+		return Interpreter.process(runtimeScope, statements);
 	}
 
 	@Override
