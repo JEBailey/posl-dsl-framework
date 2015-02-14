@@ -1,5 +1,5 @@
 function snowflake-side(length depth) {
-	pause 1
+	pause 2
 	if [> depth 0] {
 		snowflake-side [/ length 3] [- depth 1]
 		left 60
@@ -22,6 +22,7 @@ function snowflake(length depth) {
 
 clear
 center
+bottom
  
 snowflake 280 5
 //penColor red

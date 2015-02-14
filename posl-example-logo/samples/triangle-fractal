@@ -13,5 +13,6 @@ function triangle (length depth) {
 
 clear
 center
+bottom
 
 triangle 200 4
