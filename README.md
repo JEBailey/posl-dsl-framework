@@ -9,9 +9,9 @@ To use POSL, a Context is created which contains the desired functionality and t
 
 ```java
   Context context = new Context();
-	context.load(CoreLangFeatures.class);
-	context.load(CoreList.class);
-
+  context.load(CoreLangFeatures.class);
+  context.load(CoreList.class);
+  
   Object result = Interpreter.process(context, script);
 ```
 
