@@ -1,37 +1,19 @@
 POSL
 ===========
+Posl is an expression based scripting framework which is tied to java method invokation. It provides a minimalistic structure from which to define a grammar for a Domain Specific Language. 
 
-Posl is a java based framework to implement custom domain specific languages (DSLs).  
 
+First Steps
+-----------------
+To use POSL, a Context is created which contains the desired functionality and then passed into the Interpreter with the script that needs to be evaluated.
 
-How does it Work?
------------
-The parser for posl works in a single pass, procedural manner, converting input into tokens until it reaches an end of line token, and then attempts to execute that line.
+```java
+  Context context = new Context();
+	context.load(CoreLangFeatures.class);
+	context.load(CoreList.class);
 
-sample:
+  Object result = Interpreter.process(context, script);
 ```
-print [+ [+ 4 5] [/ 9 3]]
-```
-The above statement will capture 11 tokens, with the brackets representing a single token that encompasses an unprocessed statement.
 
-When the print command is executed it will be passed a single token of type statement which it will attempt to resolve to a value, this results in the parsing of the internal statement of
-```
-+ [+ 4 5] [/ 9 3]
-```
-Which results in '+' receiving two tokens both of which are then immediately evaluated.
-
-This process of encapsulation of tokens can also be used to modify the behaviour of the capture to ignore EOLs if necessary, in the case of multi line comments
-```
-/**
-* The tokenizer here ignores EOLs
-*
-*/
-```
-Or for Multiline statement blocks
-```
-while [> [-- x] 1 ] {
-  print x
-}
-```
-For the parser, the above is a single line of code, the fact that there are multiple end of lines embedded within the braces is hidden from the parser until it has to evaluate the content of that block.
+Results from the processing can be accessed in two ways. The first is in the response of the Interpreter which will return the result of the last evaluation. The second is from the context itelf, which has access to any values that were set up in the top level scope.
 
