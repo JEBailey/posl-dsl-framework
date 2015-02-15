@@ -15,5 +15,11 @@ To use POSL, a Context is created which contains the desired functionality and t
   Object result = Interpreter.process(context, script);
 ```
 
-Results from the processing can be accessed in two ways. The first is in the response of the Interpreter which will return the result of the last evaluation. The second is from the context itelf, which has access to any values that were set up in the top level scope.
+Results from the processing can be accessed in two ways. The first is in the response of the Interpreter which will return the result of the last evaluation. The second is from the context itelf, which has access to any values that were set in the top level scope.
+
+In addition to the direct loading of Library objects, plugin functionality is supported through an implementation of the ```PoslImpl``` interface. This will allow you to load a specific set of features into the context via the `PoslProvider`
+
+```java
+  Context context = PoslProvider.getContext("posl.lang.core");
+```
 
