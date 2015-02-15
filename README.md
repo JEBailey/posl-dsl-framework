@@ -22,3 +22,11 @@ In addition to the direct loading of Library objects, plugin functionality is su
   Context context = PoslProvider.getContext("posl.lang.core");
 ```
 
+### Extending a DSL
+Extending or enhancing a specific implementation of POSL can be done by implementing a Library class or Object. A Library is a Pojo or class that has annotations added to it that helps the context determine how a specific function will be called. Details on implementing a library object are found here.
+
+Once a Library is defined it can be added to the context via the ```load`` function.
+
+
+### Implementing a DSL
+//TODO:
