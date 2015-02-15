@@ -25,7 +25,7 @@ public class ListCollector implements Collector {
 
 
 	@Override
-	public boolean finish() {
+	public boolean isFinished() {
 		return false;
 	}
 

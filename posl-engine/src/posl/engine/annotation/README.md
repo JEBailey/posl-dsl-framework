@@ -29,14 +29,63 @@ script usage would be
     sum 2 3 4 5
 ```
 
+@Collection should only be put on the last argument in the method.
 
-## @Optional
-Used to indicate that the 
+## @Namespace
+Used on a class to provide a namespace for the methods that are identified in that class
 
 ```java
-    @Command("sum")
-    public static Object sum(@Collection List<Number> numbers) {
-        return numbers.stream().mapToInt(x -> x.intValue()).sum();
-    }
+	// flow control
+	@Command("if")
+	public static Object ifCommand(Boolean predicate,
+			Reference commands,
+			@Optional Reference elseCommands) throws PoslException {
+		Object result = Boolean.FALSE;
+		if (predicate) {
+			result = commands.evaluate();
+		} else {
+			if (elseCommands != null) {//since it's optional
+				result = elseCommands.evaluate();
+			}
+		}
+		return result;
+	}
 ```
 
+script usage
+```posl
+    roger.wilco
+```
+
+
+
+
+## @Optional
+Used to indicate that the argument is optional, if optional and not passed by the script, the incoming value is null
+
+```java
+	// flow control
+	@Command("if")
+	public static Object ifCommand(Boolean predicate,
+			Reference commands,
+			@Optional Reference elseCommands) throws PoslException {
+		Object result = Boolean.FALSE;
+		if (predicate) {
+			result = commands.evaluate();
+		} else {
+			if (elseCommands != null) {//since it's optional
+				result = elseCommands.evaluate();
+			}
+		}
+		return result;
+	}
+```
+
+script usage
+```posl
+    if [<  x 3] {
+       print "43"
+    } {
+       print "hello"
+    }
+```

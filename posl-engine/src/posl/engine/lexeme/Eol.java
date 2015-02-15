@@ -37,7 +37,7 @@ public class Eol implements Lexeme {
 		
 		public Collector consume(Collector statement, Stack<Collector> statements,
 				Stack<Character> charStack) {
-			if (statement.finish()){
+			if (statement.isFinished()){
 				statements.add(statement);
 				statement = new Statement(startPos);
 			}

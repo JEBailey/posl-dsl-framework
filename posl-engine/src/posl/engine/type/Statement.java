@@ -64,7 +64,7 @@ public class Statement implements Collector, StatementProvider {
 	}
 
 	@Override
-	public boolean finish() {
+	public boolean isFinished() {
 		return !content.isEmpty();
 	}
 

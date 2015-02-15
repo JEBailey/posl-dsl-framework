@@ -65,8 +65,7 @@ public class Interpreter {
 		parser.process(data, context.lexemes);
 		Object result = null;
 		while (parser.hasNext()) {
-			Statement statement = parser.next();
-			result = process(scope, statement);
+			result = process(scope, parser.next());
 		}
 		return result;
 	}
