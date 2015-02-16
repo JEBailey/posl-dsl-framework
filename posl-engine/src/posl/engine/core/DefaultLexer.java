@@ -7,6 +7,13 @@ import posl.engine.api.Lexeme;
 import posl.engine.api.Lexer;
 import posl.engine.api.Token;
 
+/**
+ * Tokenizes the incoming CharSequence based on the List of Lexemes
+ * 
+ * 
+ * @author jebailey
+ *
+ */
 public class DefaultLexer implements Lexer {
 
 	private List<Token> tokens;
@@ -27,7 +34,7 @@ public class DefaultLexer implements Lexer {
 	 * 
 	 * 
 	 */
-	public void tokenize() {
+	private void tokenize() {
 		boolean consumed = false;
 		while (wrapper.hasMore()) {
 			// for each iteration through the available lexes
@@ -50,8 +57,6 @@ public class DefaultLexer implements Lexer {
 			consumed = false;
 		}
 	}
-
-
 
 	@Override
 	public Token next() {

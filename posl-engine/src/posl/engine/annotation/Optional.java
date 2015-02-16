@@ -4,8 +4,10 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
 /**
- * Informs the proxy that this method parameter is optional
+ * Identifies an optional paramter that can be missing from when the script
+ * calls this method
  * 
  * 
  * @author je bailey

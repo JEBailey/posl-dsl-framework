@@ -24,7 +24,7 @@ public interface Collector {
 	 * 
 	 * @return true if the Collector is done Collecting
 	 */
-	boolean finish();
+	boolean isFinished();
 	
 	/**
 	 * This returns the object that the collector is collecting into.

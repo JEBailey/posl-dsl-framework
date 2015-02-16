@@ -49,7 +49,7 @@ public class MultiLineStatement implements StatementProvider, Collector {
 	
 
 	@Override
-	public boolean finish() {
+	public boolean isFinished() {
 		if (statement.notEmpty()) {
 			statements.add(statement);
 			this.statement = new Statement(0);

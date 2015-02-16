@@ -18,13 +18,11 @@ public class Resolver  {
 	
 protected Type[] params;
 	
-	protected Annotation[][] annotations;
-	
 	protected ParameterInfo[] info;
 	
 	public Resolver(Method method){
 		this.params = method.getGenericParameterTypes();
-		this.annotations = method.getParameterAnnotations();
+		Annotation[][] annotations = method.getParameterAnnotations();
 		info = new ParameterInfo[params.length];
 		for (int i = 0;i < params.length ; i++){
 			info[i] = new ParameterInfo(params[i], annotations[i]);

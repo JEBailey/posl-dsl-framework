@@ -1,6 +1,12 @@
 package posl.engine.core;
 
-
+/**
+ * This is a utility class to wrap a charsequence for processing
+ * 
+ * 
+ * @author je bailey
+ *
+ */
 public class Stream {
 
 	private CharSequence data;

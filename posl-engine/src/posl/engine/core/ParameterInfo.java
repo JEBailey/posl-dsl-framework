@@ -11,6 +11,12 @@ import posl.engine.annotation.Property;
 import posl.engine.error.PoslException;
 import posl.engine.type.Statement;
 
+/**
+ * Represents the 
+ * 
+ * @author jebailey
+ *
+ */
 public class ParameterInfo {
 
 	public enum State {

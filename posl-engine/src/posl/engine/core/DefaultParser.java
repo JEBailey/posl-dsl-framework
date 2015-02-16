@@ -50,10 +50,6 @@ public class DefaultParser implements Parser {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see po.IParser#getStatement()
-	 */
-	@Override
 	public Statement next() {
 		return (Statement)statements.remove(0);
 	}

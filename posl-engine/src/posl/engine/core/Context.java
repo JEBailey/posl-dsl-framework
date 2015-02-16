@@ -144,6 +144,11 @@ public class Context{
 		}
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return state of the parser
+	 */
 	public boolean isComplete() {
 		return parser.complete();
 	}
