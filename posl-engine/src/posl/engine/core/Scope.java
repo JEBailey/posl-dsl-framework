@@ -89,7 +89,7 @@ public class Scope {
 	 * Returns the associated object or, if the object is a statement, evaluates
 	 * the statement and returns the response
 	 * 
-	 * @param object 
+	 * @param object
 	 * @return
 	 * @throws PoslException
 	 */
@@ -108,9 +108,8 @@ public class Scope {
 		return response;
 	}
 
-	/*
-	 * Take a object and if it's in the system map, converts it, or returns the
-	 * string value
+	/**
+	 * Resolves an object and provides it's String representation
 	 */
 	public String getString(Object object) throws PoslException {
 		return getValue(object).toString();
@@ -130,10 +129,6 @@ public class Scope {
 	public Object get(Type requestedType, Object object) throws PoslException {
 		if (requestedType instanceof ParameterizedType) {
 			return get(((ParameterizedType) requestedType).getRawType(), object);
-		}
-
-		if (requestedType == Reference.class) {
-			return new Reference(object, this);
 		}
 
 		if (object instanceof Statement) {
@@ -157,6 +152,13 @@ public class Scope {
 		return null;
 	}
 
+	/**
+	 * Attempts to locate the key object in the hierarchy of Scopes. This is a
+	 * very expensive operation
+	 * 
+	 * @param value
+	 * @return true if key is located
+	 */
 	public boolean containsKey(Object key) {
 		boolean result = content.containsKey(key);
 		if (!result) {
@@ -167,6 +169,13 @@ public class Scope {
 		return result;
 	}
 
+	/**
+	 * Attempts to locate the value object in the hierarchy of Scopes. This is a
+	 * very expensive operation
+	 * 
+	 * @param value
+	 * @return true if value is located
+	 */
 	public boolean containsValue(Object value) {
 		boolean result = content.containsValue(value);
 		if (!result) {
@@ -177,6 +186,15 @@ public class Scope {
 		return result;
 	}
 
+	/**
+	 * Attempts to locate the key at the current Scope level, if the Key is not
+	 * at this level, an attempt to locate the key in the parent scope will me
+	 * made
+	 * 
+	 * @param key
+	 *            value located in the internal Map
+	 * @return associated value object or `null`
+	 */
 	public Object get(String key) {
 		Object object = content.get(key);
 		if (object == null) {

@@ -9,6 +9,7 @@ import java.util.Collection;
 import posl.engine.annotation.Optional;
 import posl.engine.annotation.Property;
 import posl.engine.error.PoslException;
+import posl.engine.type.Reference;
 import posl.engine.type.Statement;
 
 /**
@@ -20,7 +21,7 @@ import posl.engine.type.Statement;
 public class ParameterInfo {
 
 	public enum State {
-		NORMAL, OPTIONAL, CONTEXT_PROPERTY, SCOPE, COLLECTION
+		NORMAL, OPTIONAL, CONTEXT_PROPERTY, SCOPE, COLLECTION, REFERENCE
 	};
 
 	private Type type;
@@ -46,6 +47,9 @@ public class ParameterInfo {
 		if (param == Scope.class) {
 			state = State.SCOPE;
 			increment = 0;
+		}
+		if (param == Reference.class) {
+			state = State.REFERENCE;
 		}
 	}
 
@@ -85,7 +89,8 @@ public class ParameterInfo {
 				throw new PoslException(statement.startPos(),
 						"failed to get COLLECTION");
 			}
-
+		case REFERENCE:
+			return new Reference(statement.get(tokenIndex), scope);
 		}
 		return null;
 	}
