@@ -12,6 +12,13 @@ import posl.engine.core.BasicToken;
 import posl.engine.core.Stream;
 import posl.engine.type.Atom;
 
+/**
+ * 
+ * 
+ * 
+ * @author jebailey
+ *
+ */
 public class Identifier implements Lexeme {
 
 	@Override

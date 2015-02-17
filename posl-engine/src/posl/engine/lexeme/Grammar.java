@@ -15,12 +15,13 @@ import posl.engine.type.Statement;
 
 /**
  * Represents the physical structure components of a basic Posl implementation.
- * Those characters that define a structure in the application.
- * 
- * 
- * 
- * 
- * @author jebailey
+ * The following represent built in types of structures
+ * <p>
+ * `{` and `}` surround a block of tokens which can be on multiple lines
+ * `[` and `]` surround a single expression 
+ * `(` and `)` represent a list of tokens
+ * </p>
+ * @author je bailey
  * 
  */
 public class Grammar implements Lexeme {

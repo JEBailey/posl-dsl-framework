@@ -11,6 +11,13 @@ import posl.engine.core.BasicToken;
 import posl.engine.core.Stream;
 import posl.engine.type.Statement;
 
+/**
+ * Consumes multiple end of line indicators
+ * 
+ * 
+ * @author jebailey
+ *
+ */
 public class Eol implements Lexeme {
 
 	@Override
