@@ -2,6 +2,7 @@
 When a method is registered in the framework, it's wrapped in a MethodProxy. The MethodProxy parses the parameters and sets the requirements for what get's passed into the method at the time the call from the script is invoked. This is done by the MethodProxy creating a new ParameterInfo object for each parameter on the method. When the Resolver is used to match script provided values to the wrapped Method, these ParameterInfo objects provide context on the mapping resolution.
 
 ![example screen](images/methodinvoke.png?raw=true)
+
 1. The add value is mapped in the Scope to an Executable which wraps the Method
 2. An unevaluated expression, if the Method being invoked had requested a Statement object this would have been passed in directly, since the requested type is Number, the Statement is evaluated and then the result is mapped
 3. Scope looks for the value associated with `x` in the Scope and attempts to map that Object to a Number.
