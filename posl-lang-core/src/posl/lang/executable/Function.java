@@ -9,6 +9,15 @@ import posl.engine.error.PoslException;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.Statement;
 
+/**
+ * Implements a script based function declaration
+ * 
+ * 
+ * 
+ * 
+ * @author jebailey
+ *
+ */
 public class Function implements Executable {
 
 	/**
@@ -17,7 +26,7 @@ public class Function implements Executable {
 	private MultiLineStatement statements;
 
 	/**
-	 * This is the list of word tokens that will be used as identifiers within
+	 * ord tokens that will be used as identifiers within
 	 * the code block for the data that is being passed in.
 	 */
 	private List<?> arguments;

@@ -73,6 +73,21 @@ public class Namespace {
     }
     
     @Test
+    public void testCreationWithFieldsAndFunctions2() throws PoslException {
+        evalMulti(
+                "var Foo {",
+                    "var x 3",
+                    "function mutate(y){",
+                        "= x [* y x]",
+                    "}",
+                "}",
+                "var z 25");
+        eval("var bar [new Foo]");
+        eval("bar mutate z");                                  
+        assertEquals(75D, eval("bar x"));
+    }
+    
+    @Test
     //used a random collection of unicode characters. If I somehow used an obscene
     //word by accident please let me know
     public void testCreationWithFieldsAndFunctionsUnicode() throws PoslException {

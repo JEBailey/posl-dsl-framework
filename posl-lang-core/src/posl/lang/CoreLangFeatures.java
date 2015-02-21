@@ -35,7 +35,6 @@ public class CoreLangFeatures {
 		return statement.evaluate();
 	}
 	
-
 	// flow control
 	@Command("if")
 	public static Object ifCommand(Boolean predicate,

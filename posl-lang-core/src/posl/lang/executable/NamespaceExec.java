@@ -7,11 +7,17 @@ import posl.engine.error.PoslException;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.Statement;
 
+/**
+ * This defines the creation of a Name
+ * 
+ * 
+ * @author jebailey
+ *
+ */
 public class NamespaceExec implements Executable {
 
 	/**
-	 * Parent scope. When the actual method block runs, it will run within a
-	 * child of this scope.
+	 * Parent scope.
 	 */
 	private Scope runtimeScope;
 	
