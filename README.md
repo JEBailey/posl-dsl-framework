@@ -1,5 +1,5 @@
 #POSL
-Posl is an expression based scripting framework which is tied to java method invokation. It provides a minimalistic structure from which to define a grammar for a Domain Specific Language. 
+Posl is an expression based scripting framework which is tied to java method invocation. It provides a minimalistic structure from which to define a grammar for a Domain Specific Language. 
 
 
 ##First Steps
