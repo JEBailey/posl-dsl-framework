@@ -19,7 +19,6 @@ public class Statement implements Collector, StatementProvider {
 	}
 	
 	
-	
 	public Statement(Collection<? extends Object> list) {
 		content = new LinkedList<Object>(list);
 	}
@@ -80,8 +79,6 @@ public class Statement implements Collector, StatementProvider {
 	public Object get() {
 		return this;
 	}
-
-
 
 	@Override
 	public Object accept(StatementProviderVisitor visitor) throws PoslException {
