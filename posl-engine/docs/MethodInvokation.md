@@ -13,3 +13,7 @@ An attempt will be made to map the object associated variable to the Type in the
 
 ###Collection
 `@Collection` Takes the remaining variables and puts it into a Collection object
+
+
+<more>
+

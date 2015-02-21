@@ -31,6 +31,7 @@ public class Comments implements Lexeme {
 					ps.pop();
 					break;
 				}
+				
 				ps.pop();
 			}
 			tokens.add(new Inner(ps));
