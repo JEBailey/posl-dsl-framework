@@ -20,6 +20,11 @@ Obtain the value for the parameter from the Context object directly. This is not
 ####`@Collection` 
 Takes the remaining variables and puts it into a Collection object
 
+###Types
+####Scope
+When a method has an object of the `Scope` Type, it provides the current Scope to the Method
 
-<more>
+####Reference
+`Reference` types are a special Object which encapsulates the unevaluated value.
+
 
