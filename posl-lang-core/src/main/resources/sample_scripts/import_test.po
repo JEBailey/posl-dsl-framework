@@ -1,0 +1,16 @@
+import "/po/library/standard"
+
+//this is a test
+
+function ^ (x y) {
+  if [< y 2] {
+    x
+  }{
+    * x [^ x [-- y]]
+  }
+}
+
+println [^ 5 2]
+
+
+

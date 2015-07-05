@@ -1,8 +1,0 @@
-set map [java java.util.HashMap]
-
-[map put "key" "this is a message in a bottle" ]
-
-println "map has " [map get "key"]
-println "doing something else now"
-set time [java java.util.Date]
-println "the current time is " [time toString]
