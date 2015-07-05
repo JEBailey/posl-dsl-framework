@@ -54,6 +54,7 @@ class PoslView extends PlainView {
 	 * @exception BadLocationException
 	 *                if the range is invalid
 	 */
+	@Override
 	protected int drawUnselectedText(Graphics g, int x, int y, int start,
 			int end) throws BadLocationException {
 		DocumentImpl doc = (DocumentImpl) getDocument();
@@ -81,6 +82,7 @@ class PoslView extends PlainView {
 		return x;
 	}
 
+	@Override
 	protected int drawSelectedText(Graphics g, int x, int y, int p0, int p1)
 			throws BadLocationException {
 		Graphics2D g2 = (Graphics2D) g;

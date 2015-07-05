@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 public class Turtle {
 
 	public Turtle(BufferedImage image) {
-		graphics = (Graphics2D)image.createGraphics();
+		graphics = image.createGraphics();
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF); 
 		graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		graphics.setColor(Color.black);

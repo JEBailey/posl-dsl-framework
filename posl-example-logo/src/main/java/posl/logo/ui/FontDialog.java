@@ -15,6 +15,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
@@ -29,7 +30,7 @@ public class FontDialog extends JDialog {
 	public static void main(String[] args) {
 		try {
 			FontDialog dialog = new FontDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,9 +62,11 @@ public class FontDialog extends JDialog {
 				String[] values = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				        .getAvailableFontFamilyNames();
 				
+				@Override
 				public int getSize() {
 					return values.length;
 				}
+				@Override
 				public String getElementAt(int index) {
 					return values[index];
 				}

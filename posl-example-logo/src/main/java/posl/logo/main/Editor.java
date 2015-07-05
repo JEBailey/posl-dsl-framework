@@ -64,6 +64,7 @@ public class Editor {
 		}
 
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Editor window = new Editor();
@@ -196,8 +197,8 @@ public class Editor {
 		});
 
 		// undo and redo events are handled by document created actions
-		mntmUndo.setAction(((DocumentImpl) doc).undoAction);
-		mntmRedo.setAction(((DocumentImpl) doc).redoAction);
+		mntmUndo.setAction(doc.undoAction);
+		mntmRedo.setAction(doc.redoAction);
 
 		mntmNew.addActionListener(new ActionListener() {
 
@@ -212,6 +213,7 @@ public class Editor {
 
 		// Run the program
 		mntmProgram.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String text = editorPane.getText();
 				window.setVisible(true);
@@ -232,6 +234,7 @@ public class Editor {
 
 		// Open dialog
 		mntmOpen.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent event) {
 				int retVal = fileChooser.showOpenDialog(frmPologoEditor);
 				if (retVal == JFileChooser.APPROVE_OPTION) {
@@ -253,6 +256,7 @@ public class Editor {
 		});
 
 		mntmSave.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int retVal = JFileChooser.APPROVE_OPTION;
 				if (selectedFile == null) {
@@ -274,6 +278,7 @@ public class Editor {
 		});
 
 		mntmSaveAs.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				int retVal = fileChooser.showSaveDialog(frmPologoEditor);
 				if (retVal == JFileChooser.APPROVE_OPTION) {

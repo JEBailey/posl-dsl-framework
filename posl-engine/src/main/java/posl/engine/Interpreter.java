@@ -125,8 +125,4 @@ public class Interpreter {
 		});
 	}
 
-	private static Executable getExecutable(Object token) {
-		return null;//new JavaCachedExecutable(token);
-	}
-
 }

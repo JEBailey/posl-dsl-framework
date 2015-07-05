@@ -1,9 +1,5 @@
 package posl.editorkit;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-
 import posl.engine.api.Token;
 
 /**

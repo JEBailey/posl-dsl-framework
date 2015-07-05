@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
+import javax.swing.WindowConstants;
 
 import posl.engine.Interpreter;
 import posl.engine.core.Context;
@@ -56,7 +57,7 @@ public class LogoWindow {
 		frmPologo = new JFrame();
 		frmPologo.setTitle("PoLogo");
 		frmPologo.setBounds(100, 100, 785, 417);
-		frmPologo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmPologo.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		panel = new JPanel() {
 
@@ -76,6 +77,7 @@ public class LogoWindow {
 				}).start();
 			}
 
+			@Override
 			public void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				g.drawImage(bimage, 0, 0, null);

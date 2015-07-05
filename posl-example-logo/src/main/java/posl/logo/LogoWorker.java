@@ -8,7 +8,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.io.ByteArrayInputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -19,7 +18,6 @@ import posl.engine.Interpreter;
 import posl.engine.annotation.Command;
 import posl.engine.core.Context;
 import posl.engine.error.PoslException;
-import posl.engine.provider.PoslProvider;
 import posl.engine.type.Reference;
 import posl.logo.lib.Turtle;
 
