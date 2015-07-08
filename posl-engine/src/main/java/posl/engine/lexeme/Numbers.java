@@ -4,6 +4,8 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import posl.engine.api.Collector;
 import posl.engine.api.LexUtil;
@@ -15,6 +17,8 @@ import posl.engine.core.Stream;
 
 public class Numbers implements Lexeme {
 
+	Pattern pattern = Pattern.compile("-?\\d+([.]\\d+)?([e|E)[+|-]?\\d+)?");
+	
 	private static NumberFormat nf = NumberFormat.getInstance();
 
 	@Override
@@ -86,6 +90,7 @@ public class Numbers implements Lexeme {
 	}
 
 	private class Inner extends BasicToken {
+		
 
 		public Inner(String value, int startPos, int length) {
 			try {
@@ -109,6 +114,18 @@ public class Numbers implements Lexeme {
 			visitor.visitNumbers(this);
 		}
 
+	}
+
+	@Override
+	public int consume(List<Token> tokens, CharSequence ps, int offset) {
+		int totalCaptured = 0;
+		Matcher matcher = pattern.matcher(ps);
+		while (matcher.find(offset)) {
+			String s = matcher.group();
+			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
+			totalCaptured += s.length();
+		}
+		return totalCaptured;
 	}
 
 }

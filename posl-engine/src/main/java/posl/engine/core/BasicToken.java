@@ -14,6 +14,15 @@ public abstract class BasicToken implements Token {
 	protected Object value;
 	protected Object meta;
 	
+	public BasicToken(){
+	}
+	
+	public BasicToken(String value, int start, int end) {
+		this.value = value.charAt(0);
+		this.startPos = start;
+		this.endPos = end;
+	}
+	
 	/* (non-Javadoc)
 	 * @see posl.engine.api.Token#consume(posl.engine.api.Collector, java.util.Stack, java.util.Stack)
 	 */

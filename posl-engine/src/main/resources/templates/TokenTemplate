@@ -1,0 +1,26 @@
+
+private class Inner extends BasicToken {
+		
+		public Inner(String value, int i) {
+			this.value = new Atom(value);
+			this.startPos = i;
+			this.endPos = i + value.length();
+		}
+		
+		public Inner(String value, int start, int end) {
+			super(value,start,end);
+		}
+		
+		@Override
+		public Collector consume(Collector statement, Stack<Collector> statements,
+				Stack<Character> charStack) {
+			statement.add(value);
+			return statement;
+		}
+		
+		@Override
+		public void accept(TokenVisitor visitor) {
+			visitor.visitIdentifier(this);
+		}
+
+	}

@@ -19,5 +19,8 @@ public interface Lexeme {
 	 * @return true if text from the stream was consumed
 	 */
 	boolean consume(List<Token> tokens, Stream ps);
+	
+	
+	int consume(List<Token> tokens, CharSequence ps, int offset);
 
 }

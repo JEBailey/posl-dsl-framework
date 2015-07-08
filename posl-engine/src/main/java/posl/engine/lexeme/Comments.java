@@ -2,6 +2,8 @@ package posl.engine.lexeme;
 
 import java.util.List;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import posl.engine.api.Collector;
 import posl.engine.api.Lexeme;
@@ -40,6 +42,22 @@ public class Comments implements Lexeme {
 		return false;
 	}
 	
+	Pattern pattern;
+
+	public Comments() {
+		pattern = Pattern.compile("((?m)//.*$)|((?s)/\\*.*?\\*/)");
+	}
+
+	@Override
+	public int consume(List<Token> tokens, CharSequence ps, int offset) {
+		Matcher matcher = pattern.matcher(ps);
+		if (matcher.find(offset)){
+			String s = matcher.group();
+			tokens.add(new Inner(s,offset,matcher.end()));
+			return s.length();
+		}
+		return 0;
+	}
 
 	
 	private class Inner extends BasicToken {
@@ -48,6 +66,12 @@ public class Comments implements Lexeme {
 			this.value = ps.getSubString();
 			this.startPos = ps.getMark();
 			this.endPos = ps.getPos();
+		}
+		
+		public Inner(String value, int start, int end) {
+			this.value = value;
+			this.startPos = start;
+			this.endPos = end;
 		}
 
 		@Override
@@ -62,5 +86,7 @@ public class Comments implements Lexeme {
 		}
 
 	}
+
+
 	
 }

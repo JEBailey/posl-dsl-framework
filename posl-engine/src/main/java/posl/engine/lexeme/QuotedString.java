@@ -2,6 +2,8 @@ package posl.engine.lexeme;
 
 import java.util.List;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import posl.engine.api.Collector;
 import posl.engine.api.Lexeme;
@@ -12,6 +14,8 @@ import posl.engine.core.Stream;
 
 public class QuotedString implements Lexeme {
 
+	Pattern pattern = Pattern.compile("\"([^\"\\\\]*(?:\\\\.[^\"\\\\]*)*)\"");
+	
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {
 		// string
@@ -77,6 +81,12 @@ public class QuotedString implements Lexeme {
 			this.startPos = i;
 			this.endPos = i+value.length() + 2;
 		}
+		
+		public Inner(String value, int start, int end) {
+			this.value = value;
+			this.startPos = start;
+			this.endPos = end;
+		}
 
 		@Override
 		public Collector consume(Collector collector, Stack<Collector> collectors,
@@ -91,6 +101,18 @@ public class QuotedString implements Lexeme {
 		}
 
 
+	}
+
+	@Override
+	public int consume(List<Token> tokens, CharSequence ps, int offset) {
+		int totalCaptured = 0;
+		Matcher matcher = pattern.matcher(ps);
+		while (matcher.find(offset)) {
+			String s = matcher.group();
+			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
+			totalCaptured += s.length();
+		}
+		return totalCaptured;
 	}
 
 }

@@ -2,6 +2,8 @@ package posl.engine.lexeme;
 
 import java.util.List;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import posl.engine.api.Collector;
 import posl.engine.api.LexUtil;
@@ -20,6 +22,8 @@ import posl.engine.type.Atom;
  *
  */
 public class Identifier implements Lexeme {
+	
+	Pattern pattern = Pattern.compile("\\p{Alpha}\\p{Alnum}*?");
 
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {
@@ -61,6 +65,10 @@ public class Identifier implements Lexeme {
 			this.endPos = i + value.length();
 		}
 		
+		public Inner(String value, int start, int end) {
+			super(value,start,end);
+		}
+		
 		@Override
 		public Collector consume(Collector statement, Stack<Collector> statements,
 				Stack<Character> charStack) {
@@ -73,6 +81,18 @@ public class Identifier implements Lexeme {
 			visitor.visitIdentifier(this);
 		}
 
+	}
+
+	@Override
+	public int consume(List<Token> tokens, CharSequence ps, int offset) {
+		int totalCaptured = 0;
+		Matcher matcher = pattern.matcher(ps);
+		while (matcher.find(offset)) {
+			String s = matcher.group();
+			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
+			totalCaptured += s.length();
+		}
+		return totalCaptured;
 	}
 
 
