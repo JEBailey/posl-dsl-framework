@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +17,8 @@ import posl.engine.provider.PoslProvider;
 public class Newton {
 
 	private Context context;
-	private String filename = "./sample_scripts/newton.po";
-	
-	
+	private String filename = "/sample_scripts/newton.po";
+
 	@Before
 	public void setUp() throws Exception {
 		context = PoslProvider.getContext("posl.lang.core");
@@ -27,8 +27,12 @@ public class Newton {
 	@Test
 	public void test() throws PoslException {
 		try {
-			assertEquals(4, Interpreter.process(context, new File(filename)));
-		} catch (FileNotFoundException e) {
+			assertEquals(
+					4,
+					Interpreter.process(context,
+							getClass().getResource(filename)));
+
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

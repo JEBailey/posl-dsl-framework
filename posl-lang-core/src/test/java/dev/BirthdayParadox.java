@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +17,7 @@ import posl.engine.provider.PoslProvider;
 public class BirthdayParadox {
 
 	private Context context;
-	private String filename = "./sample_scripts/birthday_paradox.po";
+	private String filename = "/sample_scripts/birthday_paradox.po";
 	
 	
 	@Before
@@ -27,8 +28,8 @@ public class BirthdayParadox {
 	@Test
 	public void test() throws PoslException {
 		try {
-			assertEquals(23D, Interpreter.process(context, new File(filename)));
-		} catch (FileNotFoundException e) {
+			assertEquals(23D, Interpreter.process(context, getClass().getResource(filename)));
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
