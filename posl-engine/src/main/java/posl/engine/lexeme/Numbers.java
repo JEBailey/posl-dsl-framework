@@ -17,7 +17,7 @@ import posl.engine.core.Stream;
 
 public class Numbers implements Lexeme {
 
-	Pattern pattern = Pattern.compile("-?\\d+([.]\\d+)?([e|E)[+|-]?\\d+)?");
+	Pattern pattern = Pattern.compile("-?\\d+([.]\\d+)?(([eE])[+-]?\\d+)?");
 	
 	private static NumberFormat nf = NumberFormat.getInstance();
 
