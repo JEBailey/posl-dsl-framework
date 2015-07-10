@@ -9,7 +9,9 @@ package posl.engine;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 import posl.engine.api.StatementProvider;
@@ -22,11 +24,9 @@ import posl.engine.core.Scope;
 import posl.engine.error.PoslException;
 import posl.engine.type.Statement;
 
-
 /**
- * Initiates the process of turning a
- * string of text into an executable structure based
- * on information supplied in the Context
+ * Initiates the process of turning a string of text into an executable
+ * structure based on information supplied in the Context
  * 
  * 
  * @author jason bailey
@@ -49,6 +49,13 @@ public class Interpreter {
 		return process(context, new FileInputStream(file));
 	}
 
+	
+	public static Object process(Context context, URL resource) throws PoslException, IOException {
+		try (InputStream is = resource.openStream()) {
+			return process(context, is);
+		}
+	}
+
 	/**
 	 * 
 	 * 
@@ -61,7 +68,7 @@ public class Interpreter {
 		Parser parser = context.getParser();
 		Scope scope = context.getScope();
 		String data = LexUtil.toString(stream);
-		
+
 		parser.process(data, context.lexemes);
 		Object result = null;
 		while (parser.hasNext()) {
@@ -90,35 +97,37 @@ public class Interpreter {
 		return result;
 	}
 
-
-	
 	/**
 	 * 
 	 * 
-	 * @param scope provides the variables which the statement will be executed within
+	 * @param scope
+	 *            provides the variables which the statement will be executed
+	 *            within
 	 * @param statement
 	 * @return
 	 * @throws PoslException
 	 */
-	public static Object process(final Scope scope, StatementProvider statement) throws PoslException {
+	public static Object process(final Scope scope, StatementProvider statement)
+			throws PoslException {
 		return statement.accept(new StatementProviderVisitor() {
-			
+
 			@Override
-			public Object evaluate(List<Statement> statements) throws PoslException {
+			public Object evaluate(List<Statement> statements)
+					throws PoslException {
 				Object result = null;
 				for (Statement statement : statements) {
 					result = process(scope, statement);
 				}
 				return result;
 			}
-			
+
 			@Override
 			public Object evaluate(Statement statement) throws PoslException {
-				Object token  = scope.getValue(statement.get(0));
+				Object token = scope.getValue(statement.get(0));
 				if (token instanceof Executable) {
 					token = ((Executable) token).execute(scope, statement);
-				} else if (statement.size() > 1){
-					//token = getExecutable(token).execute(scope, statement);
+				} else if (statement.size() > 1) {
+					// token = getExecutable(token).execute(scope, statement);
 				}
 				return token;
 			}
