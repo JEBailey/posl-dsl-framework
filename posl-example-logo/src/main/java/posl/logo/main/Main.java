@@ -39,7 +39,7 @@ import posl.editorkit.PoslEditorKit;
 import posl.engine.error.PoslException;
 import posl.logo.ui.LogoWindow;
 
-public class Editor {
+public class Main {
 
 	private JFrame frmPologoEditor;
 	private LogoWindow window = new LogoWindow();// display window
@@ -67,7 +67,7 @@ public class Editor {
 			@Override
 			public void run() {
 				try {
-					Editor window = new Editor();
+					Main window = new Main();
 					window.frmPologoEditor.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -79,7 +79,7 @@ public class Editor {
 	/**
 	 * Create the application.
 	 */
-	public Editor() {
+	public Main() {
 		initialize();
 	}
 
