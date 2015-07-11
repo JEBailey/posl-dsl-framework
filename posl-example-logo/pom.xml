@@ -26,5 +26,10 @@
   		<artifactId>posl.editorkit</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>org.24601</groupId>
+  		<artifactId>posl.lang.core</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>
