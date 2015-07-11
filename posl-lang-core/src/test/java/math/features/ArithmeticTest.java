@@ -12,7 +12,7 @@ import posl.engine.error.PoslException;
 import posl.engine.provider.PoslProvider;
 
 
-public class Arithmetic {
+public class ArithmeticTest {
     private Context context;
 
     @Before

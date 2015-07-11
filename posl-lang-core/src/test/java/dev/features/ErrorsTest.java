@@ -10,7 +10,7 @@ import posl.engine.core.Context;
 import posl.engine.error.PoslException;
 import posl.engine.provider.PoslProvider;
 
-public class Errors {
+public class ErrorsTest {
 
 	private Context context;
 

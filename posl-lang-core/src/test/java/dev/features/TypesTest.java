@@ -11,7 +11,7 @@ import posl.engine.error.PoslException;
 import posl.engine.provider.PoslProvider;
 import posl.engine.type.MultiLineStatement;
 
-public class Types {
+public class TypesTest {
 	
 	private Context context;
 

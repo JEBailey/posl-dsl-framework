@@ -11,7 +11,7 @@ import posl.engine.error.PoslException;
 import posl.engine.provider.PoslProvider;
 import posl.lang.executable.NamespaceExec;
 
-public class Namespace {
+public class NamespaceTest {
     private Context context;
 
     @Before

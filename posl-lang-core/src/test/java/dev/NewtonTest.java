@@ -14,7 +14,7 @@ import posl.engine.core.Context;
 import posl.engine.error.PoslException;
 import posl.engine.provider.PoslProvider;
 
-public class Newton {
+public class NewtonTest {
 
 	private Context context;
 	private String filename = "/sample_scripts/newton.po";
