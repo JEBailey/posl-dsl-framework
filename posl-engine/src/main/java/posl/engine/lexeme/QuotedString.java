@@ -14,7 +14,7 @@ import posl.engine.core.Stream;
 
 public class QuotedString implements Lexeme {
 
-	Pattern pattern = Pattern.compile("\"([^\"\\\\]*(?:\\\\.[^\"\\\\]*)*)\"");
+	Pattern pattern = Pattern.compile("^\"([^\"\\\\]*(?:\\\\.[^\"\\\\]*)*)\"");
 	
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {
@@ -107,8 +107,8 @@ public class QuotedString implements Lexeme {
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
 		int totalCaptured = 0;
 		Matcher matcher = pattern.matcher(ps);
-		while (matcher.find(offset)) {
-			String s = matcher.group();
+		while (matcher.find(offset+totalCaptured)) {
+			String s = matcher.group(1);
 			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
 			totalCaptured += s.length();
 		}

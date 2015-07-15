@@ -6,7 +6,7 @@ import posl.engine.type.Statement;
 
 /**
  * Designates an object that performs work in the script environment.
- * In processing a statement, the assumption is that an executable is the first
+ * In processing a default statement, the assumption is that an executable is the first
  * object to be encountered.
  * 
  * @author je bailey

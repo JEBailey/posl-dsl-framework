@@ -17,6 +17,7 @@ import posl.engine.lexeme.Grammar;
 import posl.engine.lexeme.Identifier;
 import posl.engine.lexeme.Numbers;
 import posl.engine.lexeme.QuotedString;
+import posl.engine.lexeme.Special;
 import posl.engine.lexeme.WhiteSpace;
 
 public class Context{
@@ -63,6 +64,7 @@ public class Context{
 			add(new Identifier());
 			add(new QuotedString());
 			add(new Grammar());
+			add(new Special());
 			add(new Eol());
 		}};
 	}

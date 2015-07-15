@@ -51,9 +51,7 @@ public class Interpreter {
 
 	
 	public static Object process(Context context, URL resource) throws PoslException, IOException {
-		try (InputStream is = resource.openStream()) {
-			return process(context, is);
-		}
+			return process(context, resource.openStream());
 	}
 
 	/**

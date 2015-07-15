@@ -45,7 +45,7 @@ public class Comments implements Lexeme {
 	Pattern pattern;
 
 	public Comments() {
-		pattern = Pattern.compile("((?m)//.*$)|((?s)/\\*.*?\\*/)");
+		pattern = Pattern.compile("^((?m)//.*$)|((?s)/\\*.*?\\*/)");
 	}
 
 	@Override

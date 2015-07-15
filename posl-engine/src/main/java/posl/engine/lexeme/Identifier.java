@@ -23,7 +23,7 @@ import posl.engine.type.Atom;
  */
 public class Identifier implements Lexeme {
 	
-	Pattern pattern = Pattern.compile("\\p{Alpha}\\p{Alnum}*?");
+	Pattern pattern = Pattern.compile("^\\p{Alpha}\\p{Alnum}*?");
 
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {
@@ -87,7 +87,7 @@ public class Identifier implements Lexeme {
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
 		int totalCaptured = 0;
 		Matcher matcher = pattern.matcher(ps);
-		while (matcher.find(offset)) {
+		while (matcher.find(offset+totalCaptured)) {
 			String s = matcher.group();
 			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
 			totalCaptured += s.length();

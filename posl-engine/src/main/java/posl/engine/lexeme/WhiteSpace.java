@@ -10,7 +10,7 @@ import posl.engine.core.Stream;
 
 public class WhiteSpace implements Lexeme {
 
-	Pattern pattern = Pattern.compile("\\p{Space}");
+	Pattern pattern = Pattern.compile("^\\p{Space}");
 	
 	@Override
 	public boolean consume(List<Token> tokens, Stream wrapper) {
@@ -25,7 +25,7 @@ public class WhiteSpace implements Lexeme {
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
 		int totalCaptured = 0;
 		Matcher matcher = pattern.matcher(ps);
-		while (matcher.find(offset)) {
+		while (matcher.find(offset+totalCaptured)) {
 			String s = matcher.group();
 			totalCaptured += s.length();
 		}

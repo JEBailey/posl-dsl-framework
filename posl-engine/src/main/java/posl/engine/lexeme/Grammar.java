@@ -28,7 +28,7 @@ import posl.engine.type.Statement;
  */
 public class Grammar implements Lexeme {
 	
-	Pattern pattern = Pattern.compile("[{}()\\[\\]]");
+	Pattern pattern = Pattern.compile("^[\\{}()\\[\\]]");
 
 	@Override
 	public boolean consume(List<Token> tokens, Stream ps) {
@@ -54,7 +54,8 @@ public class Grammar implements Lexeme {
 		private char charValue;
 		
 		public Inner(String value, int start, int end) {
-			this.value = value.charAt(0);
+			this.charValue = value.charAt(0);
+			this.value = value;
 			this.startPos = start;
 			this.endPos = end;
 		}
@@ -131,7 +132,7 @@ public class Grammar implements Lexeme {
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
 		int totalCaptured = 0;
 		Matcher matcher = pattern.matcher(ps);
-		while (matcher.find(offset)) {
+		while (matcher.find(offset+totalCaptured)) {
 			String s = matcher.group();
 			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
 			totalCaptured += s.length();

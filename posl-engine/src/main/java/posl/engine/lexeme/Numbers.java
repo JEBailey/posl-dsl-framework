@@ -17,7 +17,7 @@ import posl.engine.core.Stream;
 
 public class Numbers implements Lexeme {
 
-	Pattern pattern = Pattern.compile("-?\\d+([.]\\d+)?(([eE])[+-]?\\d+)?");
+	Pattern pattern = Pattern.compile("^-?\\d+([.]\\d+)?(([eE])[+-]?\\d+)?");
 	
 	private static NumberFormat nf = NumberFormat.getInstance();
 
@@ -120,7 +120,7 @@ public class Numbers implements Lexeme {
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
 		int totalCaptured = 0;
 		Matcher matcher = pattern.matcher(ps);
-		while (matcher.find(offset)) {
+		while (matcher.find(offset+totalCaptured)) {
 			String s = matcher.group();
 			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
 			totalCaptured += s.length();
