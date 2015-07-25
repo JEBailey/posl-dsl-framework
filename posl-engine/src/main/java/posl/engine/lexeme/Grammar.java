@@ -10,7 +10,6 @@ import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.BasicToken;
-import posl.engine.core.Stream;
 import posl.engine.type.ListCollector;
 import posl.engine.type.MultiLineStatement;
 import posl.engine.type.Statement;

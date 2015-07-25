@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import posl.engine.api.Collector;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.BasicToken;
-import posl.engine.core.Stream;
 import posl.engine.type.Statement;
 
 /**
@@ -39,12 +39,6 @@ public class Eol implements Lexeme {
 	
 
 	private class Inner extends BasicToken {
-
-		public Inner(Stream ps) {
-			this.value = "\n";
-			this.startPos = ps.getMark();
-			this.endPos = ps.getMark();
-		}
 
 		public Inner(String value, int start, int end) {
 			this.value = value;

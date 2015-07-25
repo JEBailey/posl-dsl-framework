@@ -18,8 +18,6 @@ import posl.engine.tokens.EOS;
 public class DefaultLexer implements Lexer {
 
 	private List<Token> tokens;
-
-	private Stream wrapper;
 	
 	private List<Lexeme> lexemes;
 	
@@ -28,11 +26,9 @@ public class DefaultLexer implements Lexer {
 	@Override
 	public void tokenize(CharSequence reader, List<Lexeme>lexemes) {
 		data = reader;
-		wrapper = new Stream(reader);
 		tokens = new ArrayList<Token>();
 		this.lexemes = lexemes;
 		tokenize();
-		wrapper = null;
 	}
 
 	/**

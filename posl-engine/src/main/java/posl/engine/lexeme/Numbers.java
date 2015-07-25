@@ -8,12 +8,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import posl.engine.api.Collector;
-import posl.engine.api.LexUtil;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Token;
 import posl.engine.api.TokenVisitor;
 import posl.engine.core.BasicToken;
-import posl.engine.core.Stream;
 
 public class Numbers implements Lexeme {
 
