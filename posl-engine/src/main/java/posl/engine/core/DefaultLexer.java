@@ -78,11 +78,5 @@ public class DefaultLexer implements Lexer {
 		return !tokens.isEmpty();
 	}
 
-	@Override
-	public void remove() {
-		// TODO Auto-generated method stub
-		// not implemented
-	}
-
 
 }
