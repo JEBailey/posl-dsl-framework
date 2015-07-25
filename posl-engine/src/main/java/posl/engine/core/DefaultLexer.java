@@ -59,7 +59,7 @@ public class DefaultLexer implements Lexer {
 				if (data.length() > consumed){
 					//TODO unhandled data - must log
 					//String problem = wrapper.getSubString();
-					System.out.print(wrapper.pop());
+					System.out.print("unprocessed: " + data.subSequence(consumed, data.length()));
 				}
 				return;
 			}

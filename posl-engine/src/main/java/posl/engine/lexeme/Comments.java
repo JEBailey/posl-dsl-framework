@@ -51,7 +51,8 @@ public class Comments implements Lexeme {
 	@Override
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
 		Matcher matcher = pattern.matcher(ps);
-		if (matcher.find(offset)){
+		matcher.region(offset, ps.length());
+		if (matcher.lookingAt()){
 			String s = matcher.group();
 			tokens.add(new Inner(s,offset,matcher.end()));
 			return s.length();

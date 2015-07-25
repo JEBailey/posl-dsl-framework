@@ -107,7 +107,8 @@ public class QuotedString implements Lexeme {
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
 		int totalCaptured = 0;
 		Matcher matcher = pattern.matcher(ps);
-		while (matcher.find(offset+totalCaptured)) {
+		matcher.region(offset, ps.length());
+		if (matcher.lookingAt()) {
 			String s = matcher.group(1);
 			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
 			totalCaptured += s.length();

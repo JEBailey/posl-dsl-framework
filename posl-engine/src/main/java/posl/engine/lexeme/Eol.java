@@ -22,7 +22,7 @@ import posl.engine.type.Statement;
  */
 public class Eol implements Lexeme {
 
-	Pattern pattern = Pattern.compile("^(\r?\n)?($)?");
+	Pattern pattern = Pattern.compile("(\r?\n)");
 	
 
 	@Override
@@ -74,7 +74,8 @@ public class Eol implements Lexeme {
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
 		int totalCaptured = 0;
 		Matcher matcher = pattern.matcher(ps);
-		while (matcher.find(offset+totalCaptured)) {
+		matcher.region(offset, ps.length());
+		if (matcher.lookingAt()) {
 			String s = matcher.group();
 			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
 			totalCaptured += s.length();

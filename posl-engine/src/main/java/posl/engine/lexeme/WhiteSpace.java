@@ -10,7 +10,8 @@ import posl.engine.core.Stream;
 
 public class WhiteSpace implements Lexeme {
 
-	Pattern pattern = Pattern.compile("([\\s])+");
+	// custom white space identifier as we don't want to capture EOL's
+	Pattern pattern = Pattern.compile("[ \\t\\x0B\\f]+");
 	
 	@Override
 	public boolean consume(List<Token> tokens, Stream wrapper) {
@@ -25,11 +26,12 @@ public class WhiteSpace implements Lexeme {
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
 		int totalCaptured = 0;
 		Matcher matcher = pattern.matcher(ps);
-		if (matcher.find(offset+totalCaptured)) {
-			String s = matcher.group(0);
+		matcher.region(offset, ps.length());
+		if (matcher.lookingAt()) {
+			String s = matcher.group();
 			totalCaptured += s.length();
 		}
-		return offset+totalCaptured;
+		return totalCaptured;
 	}
 
 }
