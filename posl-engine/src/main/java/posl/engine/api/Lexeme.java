@@ -5,6 +5,7 @@ import java.util.List;
 import posl.engine.core.Stream;
 
 public interface Lexeme {
+
 	/**
 	 * The lexeme implementation defines a word. The lexeme scans the incoming
 	 * Stream and if the stream starts with the defined lexeme, that series of
@@ -13,14 +14,13 @@ public interface Lexeme {
 	 * 
 	 * 
 	 * @param tokens
-	 *            that are being generated
+	 *            That are being collected from the incoming data
 	 * @param ps
-	 *            stream of data that is being consumed.
-	 * @return true if text from the stream was consumed
+	 *            Incoming data
+	 * @param offset
+	 *            the total already consumed from the existing data
+	 * @return the amount consumed by this function
 	 */
-	boolean consume(List<Token> tokens, Stream ps);
-	
-	
 	int consume(List<Token> tokens, CharSequence ps, int offset);
 
 }

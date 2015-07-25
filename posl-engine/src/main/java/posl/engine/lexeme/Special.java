@@ -37,12 +37,6 @@ public class Special implements Lexeme {
 		return totalCaptured;
 	}
 
-
-	@Override
-	public boolean consume(List<Token> tokens, Stream ps) {
-		return false;
-	}
-
 	
 	private class Inner extends BasicToken {
 		

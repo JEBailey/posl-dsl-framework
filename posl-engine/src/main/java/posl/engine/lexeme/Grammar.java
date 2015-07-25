@@ -29,24 +29,18 @@ import posl.engine.type.Statement;
 public class Grammar implements Lexeme {
 	
 	Pattern pattern = Pattern.compile("[{}()\\[\\]]");
-
+	
 	@Override
-	public boolean consume(List<Token> tokens, Stream ps) {
-		ps.setMark();
-		boolean grammar = false;
-		switch (ps.val()) {
-		case '{':
-		case '}':
-		case '(':
-		case ')':
-		case '[':
-		case ']':
-			grammar = true;
+	public int consume(List<Token> tokens, CharSequence ps, int offset) {
+		int totalCaptured = 0;
+		Matcher matcher = pattern.matcher(ps);
+		matcher.region(offset, ps.length());
+		if (matcher.lookingAt()) {
+			String s = matcher.group();
+			tokens.add(new Inner(s, offset, matcher.end()));
+			totalCaptured += s.length();
 		}
-		if (grammar) {
-			tokens.add(new Inner(ps.pop(), ps.getMark()));
-		}
-		return grammar;
+		return totalCaptured;
 	}
 
 	private class Inner extends BasicToken {
@@ -128,17 +122,6 @@ public class Grammar implements Lexeme {
 
 	}
 
-	@Override
-	public int consume(List<Token> tokens, CharSequence ps, int offset) {
-		int totalCaptured = 0;
-		Matcher matcher = pattern.matcher(ps);
-		matcher.region(offset, ps.length());
-		if (matcher.lookingAt()) {
-			String s = matcher.group();
-			tokens.add(new Inner(s, offset, matcher.end()));
-			totalCaptured += s.length();
-		}
-		return totalCaptured;
-	}
+
 
 }

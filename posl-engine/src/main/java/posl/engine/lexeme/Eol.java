@@ -24,20 +24,19 @@ public class Eol implements Lexeme {
 
 	Pattern pattern = Pattern.compile("(\r?\n)");
 	
-
 	@Override
-	public boolean consume(List<Token> tokens, Stream ps) {
-		ps.setMark();
-		if (ps.val() == -1) {
-			tokens.add(new Inner(ps));
-			return false;
+	public int consume(List<Token> tokens, CharSequence ps, int offset) {
+		int totalCaptured = 0;
+		Matcher matcher = pattern.matcher(ps);
+		matcher.region(offset, ps.length());
+		if (matcher.lookingAt()) {
+			String s = matcher.group();
+			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
+			totalCaptured += s.length();
 		}
-		while (ps.val() == '\n') {
-			ps.pop();
-			return tokens.add(new Inner(ps));
-		}
-		return false;
+		return totalCaptured;
 	}
+	
 
 	private class Inner extends BasicToken {
 
@@ -70,17 +69,6 @@ public class Eol implements Lexeme {
 
 	}
 
-	@Override
-	public int consume(List<Token> tokens, CharSequence ps, int offset) {
-		int totalCaptured = 0;
-		Matcher matcher = pattern.matcher(ps);
-		matcher.region(offset, ps.length());
-		if (matcher.lookingAt()) {
-			String s = matcher.group();
-			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
-			totalCaptured += s.length();
-		}
-		return totalCaptured;
-	}
+
 
 }

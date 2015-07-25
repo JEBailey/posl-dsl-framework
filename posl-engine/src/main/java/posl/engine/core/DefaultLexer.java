@@ -6,7 +6,6 @@ import java.util.List;
 import posl.engine.api.Lexeme;
 import posl.engine.api.Lexer;
 import posl.engine.api.Token;
-import posl.engine.lexeme.Eol;
 import posl.engine.tokens.EOS;
 
 /**
@@ -69,34 +68,6 @@ public class DefaultLexer implements Lexer {
 		tokens.add(new EOS("", offset, offset));
 	}
 	
-	/**
-	 * alternate implementation that supports the regex version
-	 * 
-	 */
-	private void tokenize2() {
-		boolean consumed = false;
-		while (wrapper.hasMore()) {
-			// for each iteration through the available lexes
-			// we want to be assured that something was consumed
-			for (Lexeme lexeme:lexemes){
-				consumed = lexeme.consume(tokens, wrapper) | consumed;
-			}
-			// if we've iterated through and nothing has been consumed
-			// return.(EOF could trigger this)
-			// NOTE: If this IS EOF an EOL would have been caught
-			if (!consumed){
-				if (wrapper.hasMore()){
-					//TODO unhandled data - must log
-					//String problem = wrapper.getSubString();
-					System.out.print(wrapper.pop());
-				}
-				return;
-			}
-			//reset to false for next iteration
-			consumed = false;
-		}
-	}
-
 	@Override
 	public Token next() {
 		if (!tokens.isEmpty()) {

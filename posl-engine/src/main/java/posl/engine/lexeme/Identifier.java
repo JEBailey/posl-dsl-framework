@@ -23,6 +23,19 @@ import posl.engine.type.Atom;
 public class Identifier implements Lexeme {
 	
 	Pattern pattern = Pattern.compile("\\p{Alpha}\\p{Alnum}*");
+	
+	@Override
+	public int consume(List<Token> tokens, CharSequence ps, int offset) {
+		int totalCaptured = 0;
+		Matcher matcher = pattern.matcher(ps);
+		matcher.region(offset, ps.length());
+		if (matcher.lookingAt()) {
+			String s = matcher.group();
+			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
+			totalCaptured += s.length();
+		}
+		return totalCaptured;
+	}
 
 	
 	private class Inner extends BasicToken {
@@ -48,24 +61,7 @@ public class Identifier implements Lexeme {
 
 	}
 
-	@Override
-	public int consume(List<Token> tokens, CharSequence ps, int offset) {
-		int totalCaptured = 0;
-		Matcher matcher = pattern.matcher(ps);
-		matcher.region(offset, ps.length());
-		if (matcher.lookingAt()) {
-			String s = matcher.group();
-			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
-			totalCaptured += s.length();
-		}
-		return totalCaptured;
-	}
 
-	@Override
-	public boolean consume(List<Token> tokens, Stream ps) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 
 

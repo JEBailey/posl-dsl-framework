@@ -13,34 +13,6 @@ import posl.engine.core.BasicToken;
 import posl.engine.core.Stream;
 
 public class Comments implements Lexeme {
-
-	@Override
-	public boolean consume(List<Token> tokens, Stream ps) {
-		// end of line comments
-		if (ps.val() == '/' && ps.la(1) == '/') {
-			ps.setMark();
-			while (ps.hasMore() && ps.val() != '\n') {
-				ps.pop();
-			}
-			tokens.add(new Inner(ps));//, ps.getMark()));
-			return true;
-		} else 
-		if (ps.val() == '/' && ps.la(1)== '*') {
-			ps.setMark();
-			while (ps.hasMore()) {
-				if (ps.val() == '*' && ps.la(1)== '/') {
-					ps.pop();
-					ps.pop();
-					break;
-				}
-				
-				ps.pop();
-			}
-			tokens.add(new Inner(ps));
-			return true;
-		} 
-		return false;
-	}
 	
 	Pattern pattern;
 
