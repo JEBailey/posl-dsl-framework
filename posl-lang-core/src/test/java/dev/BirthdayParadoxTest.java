@@ -28,7 +28,6 @@ public class BirthdayParadoxTest {
 		try {
 			assertEquals(23D, Interpreter.process(context, getClass().getResource(filename)));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
