@@ -35,14 +35,13 @@ public class Eol implements Lexeme {
 			cachedSequence = ps;
 			matcher = pattern.matcher(ps);
 		}
-		int totalCaptured = 0;
 		matcher.region(offset, ps.length());
 		if (matcher.lookingAt()) {
 			String s = matcher.group();
-			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
-			totalCaptured += s.length();
+			tokens.add(new Inner(s, offset, matcher.end()));
+			return s.length();
 		}
-		return totalCaptured;
+		return 0;
 	}
 	
 

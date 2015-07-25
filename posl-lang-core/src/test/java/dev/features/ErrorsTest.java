@@ -41,13 +41,5 @@ public class ErrorsTest {
         return Interpreter.process(context, expression);
     }
 
-    private Object evalMulti(String... expressions) throws PoslException {
-        StringBuilder stmt = new StringBuilder();
-        for (String e : expressions) {
-            stmt.append(e);
-            stmt.append("\n");
-        }
-        return eval(stmt.toString());
-    }
 
 }

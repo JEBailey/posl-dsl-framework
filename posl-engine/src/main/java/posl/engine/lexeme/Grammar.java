@@ -60,13 +60,6 @@ public class Grammar implements Lexeme {
 			this.endPos = end;
 		}
 
-		public Inner(char value, int i) {
-			this.charValue = value;
-			this.value = Character.toString(value);
-			this.startPos = i;
-			this.endPos = i + 1;
-		}
-
 		@Override
 		public Collector consume(Collector collector,
 				Stack<Collector> collectors, Stack<Character> charStack) {

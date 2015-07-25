@@ -15,26 +15,31 @@ import posl.engine.core.BasicToken;
 
 public class Numbers implements Lexeme {
 
-	Pattern pattern = Pattern.compile("^-?\\d+([.]\\d+)?(([eE])[+-]?\\d+)?");
-	
+	private static final Pattern pattern = Pattern
+			.compile("^-?\\d+([.]\\d+)?(([eE])[+-]?\\d+)?");
+
+	private Matcher matcher;
+
+	private CharSequence cachedSequence;
+
 	private static NumberFormat nf = NumberFormat.getInstance();
 
 	@Override
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
-		int totalCaptured = 0;
-		Matcher matcher = pattern.matcher(ps);
+		if (ps != cachedSequence){
+			cachedSequence = ps;
+			matcher = pattern.matcher(ps);
+		}
 		matcher.region(offset, ps.length());
 		if (matcher.lookingAt()) {
 			String s = matcher.group();
-			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
-			totalCaptured += s.length();
+			tokens.add(new Inner(s, offset, matcher.end()));
+			return s.length();
 		}
-		return totalCaptured;
+		return 0;
 	}
 
-
 	private class Inner extends BasicToken {
-		
 
 		public Inner(String value, int startPos, int length) {
 			try {
@@ -59,7 +64,5 @@ public class Numbers implements Lexeme {
 		}
 
 	}
-
-
 
 }

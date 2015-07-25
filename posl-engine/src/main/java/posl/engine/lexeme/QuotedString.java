@@ -13,19 +13,18 @@ import posl.engine.core.BasicToken;
 
 public class QuotedString implements Lexeme {
 
-	Pattern pattern = Pattern.compile("^\"([^\"\\\\]*(?:\\\\.[^\"\\\\]*)*)\"");
+	private static final Pattern pattern = Pattern.compile("^\"([^\"\\\\]*(?:\\\\.[^\"\\\\]*)*)\"");
 	
 	@Override
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
-		int totalCaptured = 0;
 		Matcher matcher = pattern.matcher(ps);
 		matcher.region(offset, ps.length());
 		if (matcher.lookingAt()) {
 			String s = matcher.group(1);
-			tokens.add(new Inner(s, offset + totalCaptured, matcher.end()));
-			totalCaptured += s.length();
+			tokens.add(new Inner(s, offset, matcher.end()));
+			return s.length();
 		}
-		return totalCaptured;
+		return 0;
 	}
 	
 	private class Inner extends BasicToken {
