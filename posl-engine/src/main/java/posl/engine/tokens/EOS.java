@@ -16,13 +16,13 @@ public class EOS extends BasicToken {
 	}
 
 	@Override
-	public Collector consume(Collector statement,
-			Stack<Collector> statements, Stack<Character> charStack) {
-		if (statement.isFinished()) {
-			statements.add(statement);
-			statement = new Statement(startPos);
+	public Collector consume(Collector collector,
+			Stack<Collector> collectors, Stack<Character> charStack) {
+		if (collector.isFinished()) {
+			collectors.add(collector);
+			collector = new Statement(startPos,collector.getLineNumber());
 		}
-		return statement;
+		return collector;
 	}
 
 	@Override

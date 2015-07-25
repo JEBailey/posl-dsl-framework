@@ -53,10 +53,10 @@ public class Identifier implements Lexeme {
 		
 		
 		@Override
-		public Collector consume(Collector statement, Stack<Collector> statements,
+		public Collector consume(Collector collector, Stack<Collector> collectors,
 				Stack<Character> charStack) {
-			statement.add(value);
-			return statement;
+			collector.add(value);
+			return collector;
 		}
 		
 		@Override

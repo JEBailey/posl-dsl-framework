@@ -38,7 +38,7 @@ public class DefaultParser implements Parser {
 
 	public DefaultParser() {
 		lexer = new DefaultLexer();
-		statement = new Statement(0);
+		statement = new Statement(0,1);
 	}
 	
 

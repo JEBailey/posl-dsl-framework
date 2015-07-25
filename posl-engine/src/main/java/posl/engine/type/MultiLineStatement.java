@@ -24,7 +24,7 @@ public class MultiLineStatement implements StatementProvider, Collector {
 	private int startPos;
 	
 	public MultiLineStatement() {
-		statement = new Statement(0);
+		statement = new Statement(0,0);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class MultiLineStatement implements StatementProvider, Collector {
 	public boolean isFinished() {
 		if (statement.notEmpty()) {
 			statements.add(statement);
-			this.statement = new Statement(0);
+			this.statement = new Statement(0,0);
 		}
 		return false;
 	}
@@ -62,6 +62,18 @@ public class MultiLineStatement implements StatementProvider, Collector {
 	@Override
 	public Object accept(StatementProviderVisitor visitor) throws PoslException {
 		return visitor.evaluate(statements);
+	}
+
+	@Override
+	public void addEOL() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getLineNumber() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

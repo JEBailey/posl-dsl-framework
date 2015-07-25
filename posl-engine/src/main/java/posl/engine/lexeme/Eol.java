@@ -57,7 +57,7 @@ public class Eol implements Lexeme {
 				Stack<Collector> statements, Stack<Character> charStack) {
 			if (statement.isFinished()) {
 				statements.add(statement);
-				statement = new Statement(startPos);
+				statement = new Statement(startPos,statement.getLineNumber());
 			}
 			return statement;
 		}

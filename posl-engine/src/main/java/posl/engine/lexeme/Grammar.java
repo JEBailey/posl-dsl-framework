@@ -67,7 +67,7 @@ public class Grammar implements Lexeme {
 			case '[':
 				charStack.push(']');
 				collectors.push(collector);
-				collector = new Statement(startPos);
+				collector = new Statement(startPos,collector.getLineNumber());
 				break;
 			case '(':
 				charStack.push(')');

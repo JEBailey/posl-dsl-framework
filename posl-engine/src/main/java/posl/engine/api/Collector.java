@@ -16,6 +16,16 @@ public interface Collector {
 	 * @return add was successful
 	 */
 	boolean add(Object token);
+	
+	/**
+	 * increment the internal Line Number count
+	 */
+	void addEOL();
+	
+	/**
+	 * return the last line number this collector references
+	 */
+	int getLineNumber();
 
 	/**
 	 * There are times when the Token process believes the collector has reached

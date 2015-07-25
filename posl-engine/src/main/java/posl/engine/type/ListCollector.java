@@ -35,4 +35,18 @@ public class ListCollector implements Collector {
 		return content;
 	}
 
+
+	@Override
+	public void addEOL() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public int getLineNumber() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

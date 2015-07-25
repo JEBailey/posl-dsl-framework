@@ -8,13 +8,13 @@ public interface Token {
 	 * Encapsulates the logic to determine how to apply the token data
 	 * to the incoming structures.
 	 * 
-	 * @param statement current Collector which is consuming tokens
-	 * @param statements stack of Collectors which represents nesting
+	 * @param collector current Collector which is consuming tokens
+	 * @param collectorss stack of Collectors which represents nesting
 	 * @param charStack used for to look for current bounding representation
 	 * @return the collector to be used for the next Token
 	 */
-	public Collector consume(Collector statement,
-			Stack<Collector> statements, Stack<Character> charStack);
+	public Collector consume(Collector collector,
+			Stack<Collector> collectorss, Stack<Character> charStack);
 
 	/**
 	 * Allows us to categorize the token information into one of the

@@ -11,11 +11,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.util.List;
 
 import posl.engine.api.Executable;
-import posl.engine.api.LexUtil;
 import posl.engine.api.Parser;
 import posl.engine.api.StatementProvider;
 import posl.engine.api.StatementProviderVisitor;
@@ -49,9 +50,9 @@ public class Interpreter {
 		return process(context, new FileInputStream(file));
 	}
 
-	
-	public static Object process(Context context, URL resource) throws PoslException, IOException {
-			return process(context, resource.openStream());
+	public static Object process(Context context, URL resource)
+			throws PoslException, IOException {
+		return process(context, resource.openStream());
 	}
 
 	/**
@@ -65,7 +66,7 @@ public class Interpreter {
 			throws PoslException {
 		Parser parser = context.getParser();
 		Scope scope = context.getScope();
-		String data = LexUtil.toString(stream);
+		String data = toString(stream);
 
 		parser.process(data, context.lexemes);
 		Object result = null;
@@ -130,6 +131,21 @@ public class Interpreter {
 				return token;
 			}
 		});
+	}
+
+	public static String toString(InputStream is) {
+		Reader reader = new InputStreamReader(is);
+		StringBuilder out = new StringBuilder();
+		char[] b = new char[4096];
+		try {
+			for (int n; (n = reader.read(b)) != -1;) {
+				out.append(b, 0, n);
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return out.toString();
 	}
 
 }

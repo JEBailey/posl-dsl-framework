@@ -19,8 +19,10 @@ public class Statement implements Collector, StatementProvider {
 	private LinkedList<Object> content = new LinkedList<Object>();
 	private int startPos;
 	private int endPos;
+	private int lineNumberStart;
+	private int lineNumberEnd;
 	
-	public Statement(int startPos){
+	public Statement(int startPos, int lineNumber){
 		this.startPos = startPos;
 	}
 	
@@ -90,6 +92,20 @@ public class Statement implements Collector, StatementProvider {
 	@Override
 	public Object accept(StatementProviderVisitor visitor) throws PoslException {
 		return visitor.evaluate(this);
+	}
+
+
+	@Override
+	public void addEOL() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public int getLineNumber() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 
