@@ -74,7 +74,7 @@ public class Java implements Executable {
 	public Object execute(Scope scope, Statement tokens) throws PoslException {
 		if(tokens.size() == 1) return this;
 		String methodName = scope.get(Atom.class,tokens.get(1)).toString();
-		Statement args = new Statement(tokens.startPos());
+		Statement args = new Statement(tokens.startPos(),0);
 		for(int i = 2; i < tokens.size(); i++){
 			args.add(tokens.get(i));
 		}
