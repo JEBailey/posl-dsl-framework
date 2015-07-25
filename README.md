@@ -1,6 +1,9 @@
 #POSL
 Posl is an expression based scripting framework which is tied to java method invocation. It provides a minimalistic structure from which to define a grammar for a Domain Specific Language. 
 
+##Definitions
+##Domanin Specific Language
+When we say Domain Specific Language we are using the definition of a set of commands that are restricted or distinct from the language runtime that it is written in. In the case of a Jave DSL this is a scripting language that does not implement the java language. 
 
 ##First Steps
 ### Using an existing implementation
