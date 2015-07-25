@@ -27,12 +27,19 @@ import posl.engine.type.Statement;
  */
 public class Grammar implements Lexeme {
 	
-	Pattern pattern = Pattern.compile("[{}()\\[\\]]");
+	private static final Pattern pattern = Pattern.compile("[{}()\\[\\]]");
+	
+	private Matcher matcher;
+	
+	private CharSequence cachedSequence;
 	
 	@Override
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
+		if (ps != cachedSequence){
+			cachedSequence = ps;
+			matcher = pattern.matcher(ps);
+		}
 		int totalCaptured = 0;
-		Matcher matcher = pattern.matcher(ps);
 		matcher.region(offset, ps.length());
 		if (matcher.lookingAt()) {
 			String s = matcher.group();
