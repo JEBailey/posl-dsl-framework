@@ -3,8 +3,8 @@ package posl.engine.type;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import posl.engine.api.StatementProvider;
 import posl.engine.api.Collector;
+import posl.engine.api.StatementProvider;
 import posl.engine.api.StatementProviderVisitor;
 import posl.engine.error.PoslException;
 

@@ -14,11 +14,11 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
-import posl.engine.api.StatementProvider;
-import posl.engine.api.StatementProviderVisitor;
 import posl.engine.api.Executable;
 import posl.engine.api.LexUtil;
 import posl.engine.api.Parser;
+import posl.engine.api.StatementProvider;
+import posl.engine.api.StatementProviderVisitor;
 import posl.engine.core.Context;
 import posl.engine.core.Scope;
 import posl.engine.error.PoslException;

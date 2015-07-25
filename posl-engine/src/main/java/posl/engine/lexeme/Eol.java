@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import posl.engine.api.Collector;
 import posl.engine.api.Lexeme;

@@ -96,7 +96,7 @@ public class Scope {
 		Object response = object;
 		if (response instanceof Atom) {
 			response = get(object.toString());
-			if (response == null) {// TODO
+			if (response == null) {
 				throw new PoslException(-1, "Null reference for "
 						+ object.toString());
 			}
@@ -205,7 +205,6 @@ public class Scope {
 	}
 
 	public Object remove(Object key) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
