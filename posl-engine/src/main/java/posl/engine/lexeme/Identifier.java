@@ -21,7 +21,7 @@ import posl.engine.type.Atom;
  */
 public class Identifier implements Lexeme {
 	
-	private static final Pattern pattern = Pattern.compile("\\p{Alpha}[\\p{Alnum}_]*");
+	private static final Pattern pattern = Pattern.compile("\\p{IsAlphabetic}[\\p{IsAlphabetic}_\\p{IsDigit}]*");
 	
 	private Matcher matcher;
 	

@@ -13,15 +13,18 @@ import posl.engine.core.BasicToken;
 
 public class Comments implements Lexeme {
 	
-	Pattern pattern;
-
-	public Comments() {
-		pattern = Pattern.compile("^((?m)//.*$)|((?s)/\\*.*?\\*/)");
-	}
+	private static final Pattern pattern = Pattern.compile("^((?m)//.*$)|((?s)/\\*.*?\\*/)");
+	
+	private Matcher matcher;
+	
+	private CharSequence cachedSequence;
 
 	@Override
 	public int consume(List<Token> tokens, CharSequence ps, int offset) {
-		Matcher matcher = pattern.matcher(ps);
+		if (ps != cachedSequence){
+			cachedSequence = ps;
+			matcher = pattern.matcher(ps);
+		}
 		matcher.region(offset, ps.length());
 		if (matcher.lookingAt()){
 			String s = matcher.group();
